@@ -66,7 +66,7 @@
   - 一般 General：`linear-gradient(120deg,#efe6dd,#e4d6c5)` · 深啡字 `#3B261D` · accent `#A64B2A` · 進度 fill `#c98f6e→#A64B2A`
   - 銀級 Silver：`linear-gradient(120deg,#3B261D,#5a3d2c 60%,#7a4f33)` · 淺字 `#FDFBF9` · accent `#e8b896` · fill `#d8a98c→#e8b896`
   - 金級 Gold：`linear-gradient(120deg,#241611,#4a3320 48%,#9a733e)` + 右上柔光 `radial-gradient(120% 80% at 85% -10%,rgba(232,200,138,.28),transparent 60%)` · 淺字 · accent `#e8c88a` · fill `#d4a95e→#e8c88a`；最高級顯示「已達最高等級」代替升級進度。
-- **三福利實作（全部 in-theme、無 plugin、無 payment 風險 — 折扣一律推返 native coupon）**：
+- **三福利實作（全部 in-theme、無 plugin、無 payment 風險 — 折扣一律推返 native coupon）**（2026-07-03 追加：Gold 另有 免運＋生日雙倍 — 見 §21.4）：
   1. **全店折扣**：登入會員按等級 → 結帳**自動套原生 WC coupon**（`WC()->cart->apply_coupon()`）；稅/總額/退款全部 WC native engine 計。
   2. **生日禮遇**：收集生日（ACF user field，註冊/戶口填）+ **每日 WP-Cron** 當日自動發原生 coupon email。
   3. **優先預購**：產品標 ACF flag「會員搶先」+ 按等級開放購買 / 顯示 badge（純存取控制）。
@@ -256,4 +256,19 @@ WooCommerce 慣例:member 定價 / 積分 / tier 折扣**只喺登入會員先 r
 
 ---
 
-*文件隨設計決定更新；以本文件（repo 內最新 commit）為單一真相源。已拍板決策：PDP=Flexible Content（§15）、guest checkout 允許（§17）、Landing 16px 豁免＋771px store-scoped（§1/§10）、coupon＝Cart 輸入＋Checkout 收埋式（§13/§17）。*
+## 21. 決策記錄（2026-07-03 客戶拍板 — 與其他章節有出入時以本節為準）
+1. **URL 結構（SEO 建議獲採納）**：landing = `/hibi-lab/`；PLP = `/hibi-lab/shop/`；product permalink base = `/hibi-lab/shop/%product%`；分類 archive = `/hibi-lab/shop/{cat}/`（render 同一 PLP template + 對應 dept pill 預選；`?cat=` deep-link canonical 指向對應 archive）。cart / checkout / my-account 沿用 WC 預設 slug（journey 頁 noindex、無 SEO 價值，§18 照舊；WPE cache exclusions 亦以預設 Woo 路徑最穩）。品牌內容 URL 全部歸一喺 `/hibi-lab/` cluster 下 — 對 SEO 最好，亦保留日後 spin-off 嘅 301 可遷移性。
+2. **Filter 引擎 = 全 custom in-theme**（無 plugin、無年費）：沿用 theme 現有 journal AJAX partial + load-more + `scentmRevealScan` pattern；facet live counts 用「先攞符合現有 filter 嘅 product ID set → `wp_get_object_terms` 計數」（boutique 目錄規模零壓力）；價格 slider min/max 由 `wc_product_meta_lookup` 攞。如日後 SKU 過千先再評估 FacetWP。
+3. **Checkout 優惠訊息 opt-in**：保留，**預設不剔**（PDPA 正路）；剔咗 → 寫入現有 `scentm_subscriber` 訂閱系統（同 Scent.M 聯絡表共用「Subscribers 訂閱」後台名單 + CSV export）+ order meta 留痕。
+4. **等級福利 = 做真**：§5 三福利之上，Gold 追加 **免運**（tier coupon 開 native `free_shipping` flag）+ **生日雙倍禮遇**（生日 coupon 對 Gold 發雙倍面值）— 全部 native coupon 機制，無新系統；門檻/福利文案照舊 ACF options 客戶可改。
+5. **Footer「Shipping & Returns」連結 = 全站**（包括 Scent.M 頁 — 屬客戶批准嘅共用 chrome 變更）；footer「HIBI LAB →」指去 `/hibi-lab/`。
+6. **送貨地區 = 4 個**（香港島／九龍／新界／離島，`woocommerce_states` 補 離島）：Phase 1 四區同一運費（$50、滿 $500 免運）；ShipAny（Phase 2）接入後 離島 可獨立費率。Account demo 嘅 3 區下拉以 4 區為準。
+7. **真實回饋 = 客戶後台自己入**（ACF repeater：名＋內容；星星為固定視覺樣式）；未有內容前 Landing 該區 hide-if-empty。
+8. **產品目錄由空白入起**（唔 seed demo 產品）；三個入口 link 維持 coming-soon，直至客戶入好首批產品＋gateway 驗證通過。
+9. **唔加 cookie consent banner**（香港-only；PDPO 無此要求，/privacy/ 已披露；日後加 GA／廣告 pixel 先再評估）。
+10. **Woo 交易 email = WP dev 設計**，跟 Scent.M 現有收據範本 pattern：品牌 wrapper + **後台可編輯範本**（option 儲存、placeholder、live preview、測試寄送）；訂單編號用 `HL-` 顯示格式。（此決定取代「frontend dev 交 email 設計」嘅要求。）
+11. **Stripe webhook 隔離 = 上線硬閘**：共用一個 Stripe 帳戶不變（統一對數）；theme 嘅 workshop webhook handler 加 guard — 事件 metadata 冇 `workshop_id` → 直接 200 略過（網店事件唔會誤入 workshop 線）；Woo gateway 用**獨立 webhook endpoint + 獨立 signing secret**。
+
+---
+
+*文件隨設計決定更新；以本文件（repo 內最新 commit）為單一真相源。已拍板決策総覽：PDP=Flexible Content（§15）、guest checkout 允許（§17）、Landing 16px 豁免＋771px store-scoped（§1/§10）、coupon＝Cart 輸入＋Checkout 收埋式（§13/§17）、唔做補貨通知（§19/§20.8）、§21 全部十一項。*
