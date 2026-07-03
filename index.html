@@ -1061,14 +1061,7 @@
             });
         });
 
-        const heroBgWrapper = document.querySelector('.parallax-wrapper');
-        if (heroBgWrapper && !isMobile) {
-            gsap.to(heroBgWrapper, {
-                yPercent: 15,
-                ease: 'none',
-                scrollTrigger: { trigger: "header", start: 'top top', end: 'bottom top', scrub: true }
-            });
-        }
+        // hero parallax removed (dead binding) — desktop hero uses mask reveal
 
         // (Workshops now uses native scroll-snap, see bindScrollProgress below)
 

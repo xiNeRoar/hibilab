@@ -185,4 +185,77 @@ PDP 下半部**一定要做成 ACF Flexible Content field**(建議 `pdp_blocks`)
 
 ---
 
+## 17. 登入狀態 → Cart / Checkout 條件顯示（guest vs member · 已決定 = guest 預設）
+WooCommerce 慣例:member 定價 / 積分 / tier 折扣**只喺登入會員先 render**;guest（陌生人）零登入可買（`Accounts & Privacy → Allow guest checkout`）。設計稿 Cart / Checkout **預設 guest**:
+- **Guest（預設顯示）:** 小計 + 運費（≥$500 免運,order-total 門檻,非會員專屬）+ 總計;coupon 欄可用（WC coupon 非會員限定）;**唔顯示** tier 折扣 / 積分;顯示「登入即享銀級 9 折 ＋ 積分回贈」提示（連 Account Login）。Checkout 聯絡資料加「已有帳戶？登入」（WC returning-customer）。
+- **Member（登入後,WP 條件 render）:** Cart JS `IS_MEMBER` flag（現 `false`）轉 `true`,並填 `MEMBER_TIER`（`general`/`silver`/`gold`）→ 折扣率由 `TIERS` table derive（一般 0% / 銀級 9折=10% / 金級 85折=15%,**唔可 hardcode**）,tier 折扣行 label 同 `−$` 自動出 + 積分行,收起 guest 提示。Checkout 同理加返折扣行 + 積分行。折扣**只顯示一行**（唔好 chip + 行重複）。
+- **Guest 提示 copy 鐵則:** 唔可 promise 特定 tier 折扣（新客/一般會員 = 0 折扣,銀級要 $2,000）→ 用中性「登入 / 註冊 · 賺積分、生日禮遇,消費升級享專屬折扣」,連 Login（含登入＋註冊）。
+- **Cart summary = 可編輯估算**（coupon + qty）;**Checkout summary = 唯讀 review**（line items 縮圖 + 最終數,無 coupon 欄、無 qty 編輯,改數返 Cart）。cart / checkout 總計必須一致（共用 `WC()->cart`）。
+
+---
+
+## 18. 帳戶 auth = 單一 `/my-account/` route（session 切換 · WooCommerce 標準）
+- 設計稿有兩個 state 檔:`HIBI LAB Account Login.html`（logged-out:登入 / 註冊 / 忘記密碼 / 重設連結已寄）+ `HIBI LAB Account.html`（logged-in dashboard）。
+- **Production 唔係兩條獨立 public route** —— WooCommerce = 一個 `/my-account/` core page 按 session 自動切換:未登入 → login/register;已登入 → dashboard;`/my-account/lost-password/`;email 重設連結 → reset form。
+- Theme override:`woocommerce/myaccount/form-login.php` / `form-lost-password.php` / `form-reset-password.php` / `dashboard.php`,**唔好將 static HTML 原封搬入 production**。
+- Demo flow loop（已通,非 orphan）:會員 icon → Account（假設已登入）→ 登出 → Account Login → 登入 submit → Account。兩份稿 = 同一 route 兩個 state;auth 邏輯 + email 全 WooCommerce 原生,theme 只 on-brand skin。
+
+## 19. 售罄 / 預購 product state（pattern spec）
+- **資料來源:** WooCommerce 原生庫存（售罄 = out of stock / on backorder）+ ACF flag `會員搶先`（優先預購,見 §5）。
+- **售罄:** 產品卡 + PDP 圖上 `售罄` badge（深啡底淺字,右上角）· 圖 `opacity:.55` · 加入購物車掣 disabled 灰態「已售罄」· 可加「補貨通知」訂閱。
+- **預購 / 會員搶先:** `會員搶先預購` badge（terracotta）· 掣文案「立即預購」/ 非會員顯示「登入解鎖搶先預購」（按等級 access,§5）。
+- badge class 建議 `.stk`（`.stk-out` 深啡 / `.stk-pre` terracotta）,`position:absolute;top:12px;left:12px;font-size:16px;padding:5px 12px;border-radius:30px`。WP 由庫存 / ACF 條件 render,設計稿提供視覺 pattern。
+
+---
+
+## 20. 前端狀態、a11y、data-source 補充（交接必讀）
+
+### 20.1 結帳付款狀態（前端已呈現）
+- **表單驗證** → 原生 `required` / `checkValidity` / `reportValidity`（卡號、到期、CVC、地址、條款 checkbox）。
+- **處理中** → 全屏 `#pay-overlay`（role=dialog aria-live）+ spinner，防重複提交。
+- **失敗 / 重試** → `#pay-error`（role=alert）紅色 banner；demo 用測試卡 `4000 0000 0000 0002` 觸發拒絕，客可改卡重試。
+- **成功** → 跳 Order Received。
+- **交俾 WP / Stripe（前端唔自造）:** 3DS/SCA 驗證 = Stripe hosted，唔喺本站設計;`pending`（銀行未 confirm）、`on-hold`、`failed` = WooCommerce order status,由 WC + Stripe gateway 處理,前端只顯示對應訂單狀態文字。**唔好自己寫 payment math。**
+
+### 20.2 送貨方式呈現（conditional，勿硬做單行）
+- 規則 = **適用送貨方法只有 1 個 → 陳述行（唔俾揀）;多過 1 個 → 可揀列表**。
+- 今 demo 訂單 ≥$500 → 只有「標準送貨・免費」一個結果 → 陳述行。
+- ShipAny（Phase 2）feed 多 carrier 即時運費 → WooCommerce shipping methods 自然變返可揀列表（真有速度/價分別）。WP theme loop `WC()->shipping` methods 即可,唔使寫死。
+
+### 20.3 售罄 / 預購狀態
+- 見 §19。PLP demo 已示範 2 種 badge（售罄深啡 / 會員搶先預購 terracotta）。WP 由 WC 庫存 + ACF `會員搶先` flag 條件 render。
+
+### 20.4 無障礙（a11y，已實作）
+- Search overlay + slide cart + 手機篩選抽屜 = `role="dialog"` `aria-modal="true"` `aria-label` + focus-trap（Tab 循環）+ ESC 關閉 + 關閉後 return focus 返觸發掣;觸發掣有 `aria-haspopup`/`aria-expanded`/`aria-controls`。
+- 付款 overlay = `role="dialog" aria-live`;錯誤 banner = `role="alert"`。
+- WP 遷移保留呢啲屬性;新增互動元件沿用同一 pattern。
+
+### 20.5 產品資料單一來源（重要）
+- Demo 有兩份 product JSON:PLP 內嵌 `#plp-data` + `store-chrome.js` 內 `PRODUCTS_JSON`（俾非 PLP 頁嘅搜尋用;runtime 有 `if(!#plp-data)` guard 防重複注入,故無 runtime 重複,只係 static demo 源碼各一份）。
+- **Production:** 兩者都由 **WooCommerce 產品資料** 取代（PLP query + 搜尋 `?s=&post_type=product` 或 FacetWP index）→ 單一來源,唔會有兩份 JSON。
+
+### 20.6 帳戶地址模型
+- Account 地址 = **帳單 + 送貨兩組**（對應 WooCommerce core billing/shipping,已移除誤導性「新增地址」無限地址簿 UI）。若客要多地址簿 = 需額外 plugin / custom,現階段唔做。
+
+---
+
+### 20.7 「使用示範」影片 block 行為（B5）
+- PDP / ACF `使用示範` block = 靜態封面圖 + 播放鈕 + 時長標。**行為規格:** 桌面 = 點擊開 **lightbox**（居中 modal + dim 背景 + ESC / 點背景關,沿用 store-chrome dialog a11y pattern:role=dialog/aria-modal/focus-trap）;手機 = 全寬 inline 展開播放。
+- **來源:** 建議 self-host（MP4/WebM,`<video>` + poster）或 YouTube/Vimeo `<iframe>` privacy-enhanced;由 ACF 影片欄位（file 或 oEmbed URL）驅動,無片則整個 block 唔 render。時長標由影片 metadata 出,勿 hardcode（現稿「0:45」為 placeholder）。
+
+---
+
+### 20.8 售罄 PDP + VIP 搶先鎖定 CTA（B3 · 條件狀態，WP 按 WC 庫存 / ACF render）
+- **變體缺貨（已示範）:** PDP 香味/容量 `<input disabled>` + `.box{opacity:.45;line-through}` + 「· 缺貨」標 + 「部分配方暫時缺貨」註;WC variation 無庫存時自動 disabled。
+- **整件售罄:** gallery 左上 `售罄` badge（深啡 `#3B261D` 底淺字,同 PLP `.stk-out`）+ 主圖 `opacity:.6`;加入購物車掣 → disabled 灰態 `background:#cbb8a6;cursor:not-allowed`,文案「已售罄」;下加「補貨通知」訂閱 input。WC `!is_in_stock()` 觸發。
+- **VIP 會員搶先鎖定（非會員 / 等級不足睇到）:** 加入購物車掣換成鎖定態 `background:transparent;border:1px solid #A64B2A;color:#A64B2A`,文案「🔒 會員搶先・登入解鎖」→ 連 Account Login;上方 `會員搶先預購` terracotta badge。達標會員 → 正常購買掣。由 ACF `會員搶先` flag + 會員等級 gate（§5）。
+
+---
+
+### 20.9 圖片最佳化（C6 · deploy build-step）
+- 已刪 23 個未被任何頁引用嘅舊 asset（fp-img / promise-ic / promise-icon / hb-bag / hero-scene / promise-scene 等,root + export）。
+- **未做壓縮（刻意）:** 14 張攝影 PNG（cat-*、prod-*、hero-product、promise-candle、by-scentm）每張 1.3–2.4MB。**唔喺 HTML 交付階段手轉**,因為部分有透明背景,canvas 硬轉 JPEG 會整爛透明底。**正確做法 = deploy build-step:** 用 Squoosh / imagemin / `cwebp` 轉 **WebP（有透明保留 alpha）每張 ≤300KB**,`<img>` 可加 `<picture>` WebP + PNG fallback;WordPress 版由媒體庫 + WebP plugin（如 Imagify / EWWW）自動處理。原圖已係高清母檔,壓縮喺上線 pipeline 做。
+
+---
+
 *文件隨設計決定更新；如與 `CLAUDE.md` 有出入，以最新討論為準。*

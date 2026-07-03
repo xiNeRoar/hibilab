@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIBI LAB · 會員等級色階</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#FDFBF9;color:#3B261D;font-family:Montserrat,"Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased;padding:56px 24px 96px}
+  .wrap{max-width:820px;margin:0 auto}
+  .eyb{font-family:Montserrat,"Noto Sans TC",sans-serif;font-size:16px;letter-spacing:.28em;text-transform:uppercase;color:#A64B2A}
+  h1{font-family:Baskervville,serif;font-size:42px;font-weight:400;letter-spacing:.02em;margin:12px 0 0}
+  .lead{font-size:17px;line-height:1.8;color:#6a5a4e;margin:16px 0 0}
+  .tier-note{display:flex;align-items:center;gap:12px;margin:44px 0 14px}
+  .tier-note .n{font-family:Montserrat;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:#8a7464}
+  .tier-note .l{flex:1;height:1px;background:#e2d5c8}
+  .swatch{display:inline-block;width:15px;height:15px;border-radius:50%;flex:none}
+  /* ---- membership card ---- */
+  .card{border-radius:16px;padding:28px 36px;position:relative;overflow:hidden}
+  .card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .card .mlabel{font-family:Montserrat;font-size:16px;letter-spacing:.2em;text-transform:uppercase;}
+  .card .tname{font-family:Baskervville,serif;font-size:34px;line-height:1.1;margin-top:8px}
+  .card .tname .en{font-style:italic;font-size:22px;margin-left:6px}
+  .card .num{font-family:Baskervville,serif;font-size:36px;line-height:1;font-variant-numeric:tabular-nums;text-align:right}
+  .card .numlab{font-family:Montserrat;font-size:16px;letter-spacing:.12em;text-transform:uppercase;text-align:right;margin-top:6px}
+  .card .prog{margin-top:22px}
+  .card .progrow{display:flex;justify-content:space-between;font-size:16px;margin-bottom:10px}
+  .card .track{height:8px;border-radius:9999px;overflow:hidden}
+  .card .fill{height:100%;border-radius:9999px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="eyb">Membership · Tier Colours</span>
+  <h1>會員等級色階</h1>
+  <p class="lead">三個等級用「<strong style="color:#3B261D">由淺到深、越高越 luxe</strong>」嘅色階區分,一眼睇到高低。全部沿用 Scent.M 品牌色(米 / 啡 / terracotta)加一層鎏金 accent。等級卡背景由會員系統按目前等級自動切換 —— 呢頁只係展示三種色。</p>
+
+  <!-- 一般 -->
+  <div class="tier-note"><span class="swatch" style="background:#e4d6c5"></span><span class="n">一般會員 · General</span><span class="l"></span><span style="font-size:16px;color:#9a8678">淺米 · 入門</span></div>
+  <div class="card" style="background:linear-gradient(120deg,#efe6dd 0%,#e4d6c5 100%);color:#3B261D;box-shadow:inset 0 0 0 1px rgba(59,38,29,0.08);">
+    <div class="top">
+      <div>
+        <div class="mlabel" style="color:rgba(59,38,29,0.5)">HIBI LAB Membership</div>
+        <div class="tname" style="color:#3B261D">一般會員 <span class="en" style="color:#A64B2A">General</span></div>
+      </div>
+      <div>
+        <div class="num" style="color:#A64B2A">$680</div>
+        <div class="numlab" style="color:rgba(59,38,29,0.5)">近 12 個月消費</div>
+      </div>
+    </div>
+    <div class="prog">
+      <div class="progrow" style="color:rgba(59,38,29,0.65)"><span>距離 銀級會員 還差 $1,320</span><span>$680 / $2,000</span></div>
+      <div class="track" style="background:rgba(59,38,29,0.12)"><div class="fill" style="width:34%;background:linear-gradient(90deg,#c98f6e,#A64B2A)"></div></div>
+    </div>
+  </div>
+
+  <!-- 銀級 -->
+  <div class="tier-note"><span class="swatch" style="background:#7a4f33"></span><span class="n">銀級會員 · Silver</span><span class="l"></span><span style="font-size:16px;color:#9a8678">暖啡 · 現狀</span></div>
+  <div class="card" style="background:linear-gradient(120deg,#3B261D 0%,#5a3d2c 60%,#7a4f33 100%);color:#FDFBF9;">
+    <div class="top">
+      <div>
+        <div class="mlabel" style="color:rgba(253,251,249,0.55)">HIBI LAB Membership</div>
+        <div class="tname" style="color:#FDFBF9">銀級會員 <span class="en" style="color:#e8b896">Silver</span></div>
+      </div>
+      <div>
+        <div class="num" style="color:#e8b896">$3,820</div>
+        <div class="numlab" style="color:rgba(253,251,249,0.55)">近 12 個月消費</div>
+      </div>
+    </div>
+    <div class="prog">
+      <div class="progrow" style="color:rgba(253,251,249,0.7)"><span>距離 金級會員 還差 $1,180</span><span>$3,820 / $5,000</span></div>
+      <div class="track" style="background:rgba(243,234,225,0.18)"><div class="fill" style="width:76%;background:linear-gradient(90deg,#d8a98c,#e8b896)"></div></div>
+    </div>
+  </div>
+
+  <!-- 金級 -->
+  <div class="tier-note"><span class="swatch" style="background:#9a733e"></span><span class="n">金級會員 · Gold</span><span class="l"></span><span style="font-size:16px;color:#9a8678">深啡鎏金 · 最高</span></div>
+  <div class="card" style="background:linear-gradient(120deg,#241611 0%,#4a3320 48%,#9a733e 100%);color:#FDFBF9;">
+    <div style="position:absolute;inset:0;background:radial-gradient(120% 80% at 85% -10%,rgba(232,200,138,0.28),transparent 60%);pointer-events:none"></div>
+    <div class="top" style="position:relative">
+      <div>
+        <div class="mlabel" style="color:rgba(253,251,249,0.6)">HIBI LAB Membership</div>
+        <div class="tname" style="color:#FDFBF9">金級會員 <span class="en" style="color:#e8c88a">Gold</span></div>
+      </div>
+      <div>
+        <div class="num" style="color:#e8c88a">$6,240</div>
+        <div class="numlab" style="color:rgba(253,251,249,0.6)">近 12 個月消費</div>
+      </div>
+    </div>
+    <div class="prog" style="position:relative">
+      <div class="progrow" style="color:rgba(253,251,249,0.75)"><span><i class="fa-solid fa-crown" style="color:#e8c88a;margin-right:8px"></i>尊尚會籍 · 已達最高等級</span><span>維持中</span></div>
+      <div class="track" style="background:rgba(243,234,225,0.2)"><div class="fill" style="width:100%;background:linear-gradient(90deg,#d4a95e,#e8c88a)"></div></div>
+    </div>
+  </div>
+
+  <p class="lead" style="margin-top:40px;font-size:16px;color:#8a7464">＊ 金級為最高等級,故顯示「已達最高等級」而非升級進度。三張卡結構、字級、佈局一致,只換背景色階與 accent。確定色階後,我就將等級卡背景做成按會員目前等級自動切換。</p>
+</div>
+</body>
+</html>
