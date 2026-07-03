@@ -17,19 +17,27 @@
 - 沿用現有 **workshops CPT / template + ACF pattern**（archive ↔ single、Load-More `/page/N/`、image fallback、bilingual label）。
 - Workshops 現有 Stripe 直駁線照舊；Products 用 **WooCommerce Stripe gateway**（on-site checkout、multi-item cart）。兩條 commerce 線並存，互不干擾。
 - **Design tokens**：色 `#FDFBF9`(light) / `#F3EAE1`(beige) / `#A64B2A`(terracotta) / `#3B261D`(brown) / `#3B4A3D`(moss，寵物) / `#e8b896`(gold accent)。字 Baskervville + Cactus Classical Serif（serif）、Montserrat + Noto Sans TC（sans）。
+- **狀態／輔助 tokens**：成功 `#1f7a4d` · 錯誤 `#b4452a`（付款錯誤 banner 另用 `#fbeae4`/`#e3a58c`/`#8a3618` 三色組）· hairline 分隔 `#ece0d5` · input 邊框 `#d8c8ba` · 售罄灰掣 `#cbb8a6` · 圖片 fallback 底 `#efe6dd`。
+- **Breakpoint（客戶拍板 2026-07-03）**：store 頁沿用 **771px**（刻意 store-scoped）— 同 Scent.M theme 嘅 768px 並存，**唔好「修正」統一**。
 
 ---
 
-## 2. 頁面清單（HTML 稿 → 對應 WC template）
+## 2. 頁面清單（HTML 稿 → 對應 WC template · 完整 12 檔 inventory）
 | 設計稿 | 對應 template | 類型 |
 |---|---|---|
 | `HIBI LAB Landing.html` | 自訂 page template | 品牌 landing |
 | `HIBI LAB Shop.html` | `archive-product.php` + `content-product.php` 卡 + filter | PLP（★ filter 重點） |
 | `HIBI LAB Product.html` | `single-product.php` | PDP |
 | `HIBI LAB Cart.html` | `cart/cart.php` override | 購物車 |
-| `HIBI LAB Account.html` | `myaccount/*` override | 會員中心 |
+| `HIBI LAB Checkout.html` | `checkout/form-checkout.php` override | 結帳（詳見 §13/§17） |
+| `HIBI LAB Order Received.html` | `checkout/thankyou.php` override | 訂單完成（跟 Scent.M `page-thanks.php` 版式） |
+| `HIBI LAB Account.html` | `myaccount/*` override（logged-in） | 會員中心（詳見 §9/§18） |
+| `HIBI LAB Account Login.html` | `myaccount/form-login.php` + `form-lost-password.php` + `form-reset-password.php`（logged-out） | 登入／註冊／忘記／重設（詳見 §18） |
 | `HIBI LAB Shipping.html` | 靜態 page | 送貨 & 退換政策 |
-| `HIBI LAB Tier Cards.html` | —（設計參考） | VIP 等級色階 spec |
+| `HIBI LAB 404.html` | `404.php`（⚠ WP 全站得一個 404 template — 同 Scent.M 現有 404 二揀一或按 URL 分流，client decision） | 404 |
+| `HIBI LAB Tier Cards.html` | —（設計參考） | VIP 等級色階 spec（三卡完整 render） |
+| `index.html` | —（= `HIBI LAB Landing.html` 嘅 byte-identical alias，方便 repo 直開） | alias |
+| `scentm-home.html` | —（Scent.M 首頁 chrome 整合示範：Explore Hibi Lab 連結點樣駁去店；非 HIBI 頁面） | 整合參考 |
 
 ---
 
@@ -37,6 +45,7 @@
 - **分類** = `product_cat`（護膚品 / 寵物護理 / 助眠系列 / 家居香氛），hierarchical，客自己加減。
 - **Filter 軸 = global product attributes**（一次過設定 term，之後每件剔）：`pa_功效` / `pa_適用對象`(人/貓/狗/居家) / `pa_香味`(swatch) / `pa_容量` / `pa_形態`(噴霧/按摩油/洗髮水/消炎水/精華/潔面/擴香)。→ filter facet + count **自動由 attribute 生成**，加新 term 客即場加。
 - **容量 = variation attribute** → variable product → PLP 顯示「$X 起」、PDP size 揀掣、容量 filter。
+- **Variation 模型（明確版）**：demo PDP 實際係**雙軸 variable product** — `pa_容量`（帶價）×`pa_香味`（配方）；production 用 two-attribute variable product，每個組合獨立庫存（缺貨組合 → 揀掣 disabled，見 §20.8）。
 - **ACF field group（逐件產品，跟 workshops ACF pattern）**：產品介紹、整體功效（成分→功效逐項）、成分、用法、適用對象、規格（貨號等）。
 - ⚠️ **紀律**：data 入落**結構化欄位**（剔 attribute term），唔好淨係打落產品名／描述 → filter 讀 attribute，唔 parse 個名。
 
@@ -91,7 +100,7 @@
 ## 8. 登入 / 註冊 / 忘記密碼（原生 — 只 skin）
 - 登入 / 註冊 / **忘記密碼（lost-password → email → reset）** / 重設密碼 / 登出 = **WooCommerce + WP 原生**（endpoint + email 全包）。**唔使寫 auth 邏輯。**
 - 唯一工作 = **template override + CSS 套返品牌樣式**：`myaccount/form-login.php`、`form-lost-password.php`、`form-reset-password.php`。
-- （呢幾個 on-brand 畫面設計稿未做；要嘅話可補，但功能上原生已 work。）
+- （✅ 四個 view — 登入／註冊／忘記密碼／重設密碼 — 已全數喺 `HIBI LAB Account Login.html`；demo 切換流程見 §18。）
 
 ---
 
@@ -107,7 +116,7 @@
 ---
 
 ## 10. 全站設計鐵則（轉 theme 時要守）
-- **HIBI LAB 內容區文字最小 16px**（label / eyebrow / 註腳 / 按鈕 一律 ≥16px）。**例外**：共通 Scent.M chrome（nav/footer/menu）維持原樣；icon glyph 不受管。
+- **HIBI LAB 內容區文字最小 16px**（label / eyebrow / 註腳 / 按鈕 一律 ≥16px）。**例外**：共通 Scent.M chrome（nav/footer/menu）維持原樣；icon glyph 不受管；**及 `Landing.html` 現有 sub-16px 元素獲客戶豁免（拍板 2026-07-03）— 維持原樣，其餘 9 頁照守**。
 - 同排 card **等高**（flex-col + 圖固定 4:5 aspect + 價/CTA `mt-auto` 釘底）。
 - **產品圖 borderless**：`object-cover` 填滿 4:5 框、統一暖色 fallback `#efe6dd`（因商家自上載相、背景唔一致）。**唔好逐張 sample 相片色做 card bg**。
 - 無假數據（唔放假評價數 / 假頭像）。
@@ -124,8 +133,8 @@
 ## 12. 共用店面組件 `store-chrome.js`（搜尋 + 側滑購物車 — 單一真相源）
 - **係咩**：全站共用嘅 search overlay（command-palette 式）+ slide cart（側滑抽屜）。**一份 source**，每個店頁 `<script src="store-chrome.js"></script>` 載入,自動注入 markup + wire 返 nav 嘅搜尋掣同購物車 icon。**唔好逐頁 copy**。
 - **觸發**：nav `#nav-search-btn` → 搜尋;`a[aria-label="購物車"]` → 側滑車(intercept click,`href` 作 fallback)。
-- **Scroll-lock**：抽屜 / overlay 開啟時鎖背景 —— 依賴每頁 chrome 將 Lenis 實例 expose 做 `window.hbLenis`(`const lenis = window.hbLenis = new Lenis(...)`);`store-chrome.js` 用 `hbLenis.stop()/start()` + `overflow:hidden`。**新頁必須照樣 expose,否則背景會 scroll-through。**
-- **搜尋資料**：`store-chrome.js` 內含 `PRODUCTS_JSON`(= PLP `#plp-data` 同一份);Shop 有 `#plp-data` 就用返,其餘頁自動注入。**Production：改由 WooCommerce 產品資料 / 原生 `?s=` 搜尋 endpoint 供;呢個 static dataset 只係 demo。**
+- **Scroll-lock**：抽屜 / overlay 開啟時鎖背景 —— 依賴每頁 chrome 將 Lenis 實例 expose 做 `window.hbLenis`(`const lenis = window.hbLenis = new Lenis(...)`);`store-chrome.js` 用 `hbLenis.stop()/start()`（`overflow:hidden` 實際由 Lenis 嘅 `.lenis-stopped` CSS 提供）。**新頁必須照樣 expose,否則背景會 scroll-through。WP 側：即係 theme 嘅 `assets/js/theme.js` 要加一行 expose `window.hbLenis`（一行 diff）。**
+- **搜尋資料**：`store-chrome.js` 內含 `PRODUCTS_JSON`(⚠ 兩份 static JSON 可能有 drift — 例如 stock 欄位;runtime 有 `if(!#plp-data)` guard 防重複,但唔好信「完全同步」嘅注釋);Shop 有 `#plp-data` 就用返,其餘頁自動注入。**Production：兩份都由 WooCommerce 產品資料 / 原生 `?s=` 搜尋 endpoint 取代（單一來源,見 §20.5）;static dataset 只係 demo。**
 - **WP 對應**：`store-chrome.js` → theme JS(`wp_enqueue_script`);抽屜/overlay markup → 一個 `get_template_part('template-parts/store-chrome')`,喺 footer include 一次。購物車內容接 WooCommerce cart fragments(`woocommerce_add_to_cart_fragments`)即時更新;結帳掣 → `wc_get_checkout_url()`。
 - **一致性守則**：nav utility cluster(搜尋 + 會員 + 購物車 icon,全部 ≥ 手機可見)+ `store-chrome.js` include **每個店頁都要有**,順序一致。
 
@@ -145,7 +154,8 @@
 > 所有靜態頁上嘅數字 / 文字 / 相片都係 **demo placeholder**（靜態設計交付物本質），全部應由後端資料取代：
 - 產品(名/價/相/容量/成分/功效) + 搜尋資料(`store-chrome.js` `PRODUCTS_JSON`) → **WooCommerce products / 產品查詢**。
 - 購物車行項目 + nav 購物車數字「2」+ 小計/折扣/總計 → **WC session cart / cart totals**。
-- 會員(Amanda、電郵、等級、近12月消費 $3,820、累積 $8,640、積分、訂單 #HL-…、優惠券、地址) → **登入用戶 / WC 訂單 / ACF / 積分 plugin**。
+- 會員(Amanda、電郵、等級、近12月消費 $3,820、累積 $8,640、訂單 #HL-…、優惠券、地址) → **登入用戶 / WC 訂單 / ACF**。（積分 = Phase 2,demo 無積分數據。）
+- **Demo 每頁嘅 `<head>`（title/description/canonical/JSON-LD）全部係 throwaway** — production 由 theme 嘅 `inc/seo.php` SEO 層統一生成（per-page canonical、Product/BreadcrumbList schema、journey 頁 noindex），唔好照搬。
 - VIP 門檻 & 折扣 %、Checkout 摘要、Order Received 訂單編號/金額 → **ACF options + WC order data**。
 - Menu(About/ODM/Workshops/Journal/Testimonials/Contact)、Privacy/Terms 連結 → **現有 Scent.M 站頁面**(production 解析,非 HIBI 範圍)。
 - Scent.M nav logo → `home_url('/')`（靜態暫指 `index.html`）。
@@ -153,24 +163,12 @@
 
 ---
 
-- **WhatsApp 浮動掣（context-aware · 兩個號碼,WP 後台可入）**：Scent.M 頁 = B2B「Bespoke Inquiry」;HIBI LAB 店頁 = B2C「Customer Care」(客服 label 用英文,同 Scent.M chrome 一致;預填訊息維持廣東話)。**兩個 WhatsApp 號碼由客喺 wp-admin 自己入**(ACF/theme options：`scentm_opt('whatsapp_number')` + `whatsapp_text`;HIBI LAB 加平行 option `hibilab_whatsapp_number` + `_text`,**只喺有號碼先 render、唔 fallback 去錯號碼**(同 `footer.php` `if($wa)` 一致)),前端按頁面 context 出對應號碼 + 文案;綠色 WA 本體不變,只換 label / 預填 / 號碼。HIBI LAB 現用 placeholder `852-0000-0000`,**待客提供客服號碼**。
+- **WhatsApp 浮動掣（context-aware · 兩個號碼,WP 後台可入）**：Scent.M 頁 = B2B「Bespoke Inquiry」;HIBI LAB 店頁 = B2C「Customer Care」(客服 label 用英文,同 Scent.M chrome 一致;預填訊息維持廣東話)。**兩個 WhatsApp 號碼由客喺 wp-admin 自己入**(ACF/theme options：`scentm_opt('whatsapp_number')` + `whatsapp_text`;HIBI LAB 加平行 option `hibilab_whatsapp_number` + `_text`,**只喺有號碼先 render、唔 fallback 去錯號碼**(同 `footer.php` `if($wa)` 一致)),前端按頁面 context 出對應號碼 + 文案;綠色 WA 本體不變,只換 label / 預填 / 號碼。HIBI LAB demo 沿用 inert `href="#"` + `data-wa-pending`（唔 render 假號碼）;上線由客喺 wp-admin 填客服號碼先出現（同 Scent.M 嘅 hide-if-empty 行為一致）。
 
 ---
 
-## 15. PDP 內容區塊 → 資料來源（交接：固定 ACF field group,非 flexible-content）
-現行 PDP 下半部係**固定版式**(唔係 merchant 自由組合 / 新增 block；早期試過 flexible-content,後 revert 返固定 D5 版式)。逐個 section 對應:
-- 香味 variation / 價 / 會員價 / 積分 → **WooCommerce variable product**(`pa_香味`)+ VIP。
-- 整體功效(成分→功效逐項)→ **ACF repeater**(逐件產品)。
-- 成分 / 用法 → **ACF**(逐件產品,textarea / repeater)。
-- 安全使用須知 → **theme-level block**(全線寵物共用,入一次 · ACF options),非逐件。
-- 為何純露(科普)→ **品牌 theme block**(ACF options,共用)。
-- FAQ → **ACF repeater**(逐件產品)。
-- 同系列推薦 → **WooCommerce related products**。
-⚠️ 若日後想俾 merchant **自由砌 block**(純文字 / 表格 / FAQ / 圖 / 片,似 Journal/Workshop 嘅 flexible-content)→ 要改用 **ACF Flexible Content** field + PDP template loop render(現設計未係,係固定 section)。
-
----
-
-## 15. PDP 內容區塊 = ACF Flexible Content（merchant 自由 create + 拖拉排序,同 Journal/Workshop 一致）
+## 15. PDP 內容區塊 = ACF Flexible Content（✅ 已拍板 2026-07-03 · 最終版 — merchant 自由 create + 拖拉排序,同 Journal/Workshop 一致）
+> （早期文件曾有一版「固定 ACF field group」方案,客戶已裁定以本節 Flexible Content 為準,舊版已刪。）
 PDP 下半部**一定要做成 ACF Flexible Content field**(建議 `pdp_blocks`):商家喺 wp-admin **自由新增 / 刪除 / 拖拉排序** block,同 `scentm-wp` Journal / Workshop 嘅 flexible-content **完全一樣 pattern**;`single-product.php` loop 每個 layout render。現靜態稿每個 section = 對應 block layout 嘅**視覺樣板(1:1)**。
 **Block layout 目錄(= 現稿 section):**
 - `rich_text` — 標題 + 正文(產品介紹)
@@ -202,7 +200,7 @@ WooCommerce 慣例:member 定價 / 積分 / tier 折扣**只喺登入會員先 r
 
 ## 19. 售罄 / 預購 product state（pattern spec）
 - **資料來源:** WooCommerce 原生庫存（售罄 = out of stock / on backorder）+ ACF flag `會員搶先`（優先預購,見 §5）。
-- **售罄:** 產品卡 + PDP 圖上 `售罄` badge（深啡底淺字,右上角）· 圖 `opacity:.55` · 加入購物車掣 disabled 灰態「已售罄」· 可加「補貨通知」訂閱。
+- **售罄:** 產品卡 + PDP 圖上 `售罄` badge（深啡底淺字,右上角）· 圖 `opacity:.55` · 加入購物車掣 disabled 灰態「已售罄」。（客戶拍板 2026-07-03:**唔做「補貨通知」訂閱** — 售罄狀態只顯示灰態掣,唔加額外功能。）
 - **預購 / 會員搶先:** `會員搶先預購` badge（terracotta）· 掣文案「立即預購」/ 非會員顯示「登入解鎖搶先預購」（按等級 access,§5）。
 - badge class 建議 `.stk`（`.stk-out` 深啡 / `.stk-pre` terracotta）,`position:absolute;top:12px;left:12px;font-size:16px;padding:5px 12px;border-radius:30px`。WP 由庫存 / ACF 條件 render,設計稿提供視覺 pattern。
 
@@ -247,7 +245,7 @@ WooCommerce 慣例:member 定價 / 積分 / tier 折扣**只喺登入會員先 r
 
 ### 20.8 售罄 PDP + VIP 搶先鎖定 CTA（B3 · 條件狀態，WP 按 WC 庫存 / ACF render）
 - **變體缺貨（已示範）:** PDP 香味/容量 `<input disabled>` + `.box{opacity:.45;line-through}` + 「· 缺貨」標 + 「部分配方暫時缺貨」註;WC variation 無庫存時自動 disabled。
-- **整件售罄:** gallery 左上 `售罄` badge（深啡 `#3B261D` 底淺字,同 PLP `.stk-out`）+ 主圖 `opacity:.6`;加入購物車掣 → disabled 灰態 `background:#cbb8a6;cursor:not-allowed`,文案「已售罄」;下加「補貨通知」訂閱 input。WC `!is_in_stock()` 觸發。
+- **整件售罄:** gallery 左上 `售罄` badge（深啡 `#3B261D` 底淺字,同 PLP `.stk-out`）+ 主圖 `opacity:.6`;加入購物車掣 → disabled 灰態 `background:#cbb8a6;cursor:not-allowed`,文案「已售罄」。WC `!is_in_stock()` 觸發。（客戶拍板 2026-07-03:**唔加「補貨通知」訂閱 input** — 保持簡單,只有灰態掣。）
 - **VIP 會員搶先鎖定（非會員 / 等級不足睇到）:** 加入購物車掣換成鎖定態 `background:transparent;border:1px solid #A64B2A;color:#A64B2A`,文案「🔒 會員搶先・登入解鎖」→ 連 Account Login;上方 `會員搶先預購` terracotta badge。達標會員 → 正常購買掣。由 ACF `會員搶先` flag + 會員等級 gate（§5）。
 
 ---
@@ -258,4 +256,4 @@ WooCommerce 慣例:member 定價 / 積分 / tier 折扣**只喺登入會員先 r
 
 ---
 
-*文件隨設計決定更新；如與 `CLAUDE.md` 有出入，以最新討論為準。*
+*文件隨設計決定更新；以本文件（repo 內最新 commit）為單一真相源。已拍板決策：PDP=Flexible Content（§15）、guest checkout 允許（§17）、Landing 16px 豁免＋771px store-scoped（§1/§10）、coupon＝Cart 輸入＋Checkout 收埋式（§13/§17）。*
