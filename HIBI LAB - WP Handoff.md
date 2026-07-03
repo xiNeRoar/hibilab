@@ -271,4 +271,25 @@ WooCommerce 慣例:member 定價 / 積分 / tier 折扣**只喺登入會員先 r
 
 ---
 
-*文件隨設計決定更新；以本文件（repo 內最新 commit）為單一真相源。已拍板決策総覽：PDP=Flexible Content（§15）、guest checkout 允許（§17）、Landing 16px 豁免＋771px store-scoped（§1/§10）、coupon＝Cart 輸入＋Checkout 收埋式（§13/§17）、唔做補貨通知（§19/§20.8）、§21 全部十一項。*
+## 22. 技術補遺（WP dev 拍板 2026-07-03 — 實作規範，補齊各章未定細節）
+- **HPOS**：啟用 High-Performance Order Storage（現代預設；Orders 為 `woocommerce` 頂層選單嘅 submenu）。
+- **Stripe plugin**：官方 **WooCommerce Stripe Gateway**（`woocommerce-gateway-stripe`）。Payment Element 用 appearance API 對齊 `.co-field` tokens —— **iframe 內部無法逐 pixel 對齊 demo 輸入框，屬明示豁免**。Cart / Checkout 頁一律轉 **classic shortcode**（block 版會繞過 §2 嘅 template override，一定要轉）。
+- **Checkout 欄位對照**（`woocommerce_checkout_fields`）：電郵先行；單一「名字」→ `billing_first_name`（last_name 隱藏＋非必填）；地區＝`billing_state` 自訂 HK 四區（§21.6）；無 postcode；電話必填；billing 複製 shipping（單一地址組，§20.6 兩組地址只喺 Account 管理）。
+- **Coupon 疊加規則**：tier 自動 coupon＝非 `individual_use`（可同 1 張手動碼並用）；手動碼＝`individual_use`；生日 coupon＝`individual_use`＋email restriction＋30 日有效；免運類（FREESHIP／Gold 免運 flag）可與折扣並存。
+- **PLP 分頁**：未篩選＝crawlable `/page/N/`（跟 workshops archive-loadmore pattern）；有 filter 狀態＝AJAX＋URL 參數（`?pa_scent=…`），filter 版 canonical 指返基礎 archive（唔入 index）。「顯示 X / Y 件」由 query `found_posts` 出。
+- **排序對照**：精選推薦＝`menu_order asc`＋date desc fallback（客喺 Products 排序畫面拖）；價格低至高／高至低＝price asc/desc（meta lookup）；名稱 A–Z＝title asc（custom orderby）。
+- **series ↔ catLabel**：series＝`product_cat` **子分類**（寵物護理 → 情緒／身體／日常）；卡 label 組合規則＝「父分類 · 子分類」，無子分類只出父分類；PDP breadcrumb 連去子分類 archive。
+- **audLabel 單一來源**：卡面「適用」label＝ACF 文字欄位「適用對象顯示」（自由文案，例「幼貓幼犬適用」）；`pa_audience` attribute 只做 filter 軸。兩者用途唔同、分別維護。
+- **運費字串單一來源**：免運門檻（$500）＋「1–3 個工作天」＝ **ACF options 兩個欄位**；PDP／Cart／Checkout／Order Received／Shipping 五處全部由 option 讀，Cart「再加購 $X」nudge 同源計算。⚠ WC Shipping Zone 實際門檻要同 option 一致（可加 health 提示）。
+- **Coupon 錢包**：發券時寫 user-meta index；Account 錢包讀 index → `WC_Coupon` 驗有效；「可用優惠券」stat＝index 內未過期未用數目。
+- **搜尋**：overlay 數據＝自訂 REST endpoint（product query → JSON：name／catLabel／audLabel／price／img／url／stock）；直入 `?s=` → 301 去 `/hibi-lab/shop/?s=…` 由 PLP render 結果（無獨立 search.php 設計）。
+- **order-pay ／ order-failed ／ cancelled**：用 `#pay-error` 語彙 skin WC notices＋thankyou.php 失敗分支（沿用 Order Received 版式，紅 banner 取代綠 tick）；無需新設計稿。
+- **生日禮遇防刷**：生日一經設定唔可自改（改動經客服）；生日 coupon＝individual_use＋email-restricted＋**每會員每年一張**（user-meta 年度 flag）；WC 註冊表加 honeypot。
+- **上線 e2e 測試（必行 gate）**：staging＋Stripe test mode → 落單（4242）→ 訂單／庫存／email 全鏈 → Dashboard 退款 → 確認 **workshop webhook 冇誤鳴**（guard 已喺 theme `18b9c76`）→ Woo webhook 正常收 → 先至 flip 三個 coming-soon 入口。
+- **771px scoped 實作（§1 裁決嘅落地方式）**：771px media block 只喺 **store body class**（如 `body.hibi-store`）之下嘅 store-scoped stylesheet 生效；共通 chrome 維持 768。`body{overflow-x:clip}` 同樣只喺 store body class 落 —— theme 手機版嘅 `overflow-x:hidden` 會殺死 PLP sticky filter bar，**不可全局合併**。
+- **積分（§17 修正）**：積分＝Phase 2 —— Phase 1 **唔 render 積分行、guest 提示唔提「賺積分」**（用「生日禮遇＋消費升級享專屬折扣」，demo checkout 現行 copy 已合規）；§17 內「積分行／賺積分」字眼 Phase 2 先生效。
+- **Woo 交易 email（§21.10 落地）**：品牌範本由 WP dev 設計（見 repo `HIBI LAB Email.html` 設計稿），跟 Scent.M 收據 pattern 做 **後台可編輯**（option 儲存＋placeholder＋live preview＋測試寄送）；訂單編號顯示 `HL-` 格式；new-order 通知收件人＝店主通知地址（非 admin_email）。
+
+---
+
+*文件隨設計決定更新；以本文件（repo 內最新 commit）為單一真相源。已拍板決策総覽：PDP=Flexible Content（§15）、guest checkout 允許（§17）、Landing 16px 豁免＋771px store-scoped（§1/§10/§22）、coupon＝Cart 輸入＋Checkout 收埋式（§13/§17）、唔做補貨通知（§19/§20.8）、§21 十一項、§22 實作規範。*
