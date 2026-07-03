@@ -430,7 +430,7 @@
 
             <div class="flex items-center gap-4 md:gap-5 text-current opacity-70">
                 <button id="nav-search-btn" aria-label="搜尋" class="hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 flex items-center justify-center w-5"><i class="fa-solid fa-magnifying-glass text-[1.05rem]"></i></button>
-                <a href="HIBI LAB Account.html" aria-label="會員帳戶" class="flex hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 items-center justify-center w-5"><i class="fa-regular fa-user text-[1.1rem]"></i></a>
+                <a href="HIBI LAB Account Login.html" aria-label="會員帳戶" class="flex hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 items-center justify-center w-5"><i class="fa-regular fa-user text-[1.1rem]"></i></a>
                 <a href="HIBI LAB Cart.html" aria-label="購物車" class="relative hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 flex items-center justify-center w-5"><i class="fa-solid fa-bag-shopping text-[1.05rem]"></i><span class="absolute -top-2 -right-2.5 min-w-[15px] h-[15px] px-1 rounded-full bg-brand-terracotta text-white text-[9px] font-semibold flex items-center justify-center" style="line-height:1;">2</span></a>
             </div>
 
@@ -572,20 +572,21 @@
 
           <div class="mt-6 pt-6 space-y-3.5" style="border-top:1px solid #e3d5c8;">
             <div class="flex justify-between font-sans text-[16px]"><span class="text-brand-brown/65">小計</span><span id="sum-subtotal" class="text-brand-brown" style="font-variant-numeric:tabular-nums;">$575</span></div>
+            <div id="row-tier" class="flex justify-between font-sans text-[16px]" style="display:none;"><span class="text-brand-terracotta" id="tier-label">銀級 9 折</span><span id="sum-tier" class="text-brand-terracotta" style="font-variant-numeric:tabular-nums;">−$58</span></div>
             <div id="row-discount" class="flex justify-between font-sans text-[16px]" style="display:none;"><span class="text-brand-terracotta" id="discount-label">優惠折扣</span><span id="sum-discount" class="text-brand-terracotta" style="font-variant-numeric:tabular-nums;">−$0</span></div>
-            <div class="flex justify-between font-sans text-[16px]"><span class="text-brand-brown/65">運費</span><span id="sum-shipping" class="text-brand-brown" style="font-variant-numeric:tabular-nums;">$50</span></div>
+            <div class="flex justify-between font-sans text-[16px]"><span class="text-brand-brown/65">運費</span><span id="sum-shipping" class="text-brand-brown" style="font-variant-numeric:tabular-nums;">免費</span></div>
             <div id="ship-note" class="font-sans text-[16px] text-brand-brown/50 leading-relaxed"></div>
           </div>
 
           <div class="flex justify-between items-baseline mt-5 pt-5" style="border-top:1px solid #e3d5c8;">
             <span class="font-serif text-[19px] text-brand-brown">總計</span>
-            <span id="sum-total" class="font-serif text-[26px] text-brand-brown" style="font-variant-numeric:tabular-nums;">$625</span>
+            <span id="sum-total" class="font-serif text-[26px] text-brand-brown" style="font-variant-numeric:tabular-nums;">$575</span>
           </div>
 
-          <div class="flex items-center gap-2.5 mt-4 rounded-md px-4 py-3" style="background:#ece0d3;">
-            <i class="fa-solid fa-seedling text-brand-terracotta text-sm"></i>
-            <span class="font-sans text-[16px] text-brand-brown/75">此訂單可賺 <span id="sum-points" class="text-brand-brown font-medium">62</span> 積分</span>
-          </div>
+          <a href="HIBI LAB Account Login.html" id="member-prompt" class="flex items-center gap-3 mt-4 rounded-md px-4 py-3 transition-colors hover:brightness-95" style="background:#ece0d3;">
+            <i class="fa-solid fa-crown text-brand-terracotta"></i>
+            <span class="font-sans text-[16px] text-brand-brown/75">登入 / 註冊 · 生日禮遇，<span class="font-medium text-brand-brown">消費升級享專屬折扣</span> <i class="fa-solid fa-arrow-right-long ml-1 text-[13px]"></i></span>
+          </a>
 
           <a href="HIBI LAB Checkout.html" class="w-full mt-6 inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white font-sans text-[16px] tracking-[0.14em] uppercase rounded-full py-4 transition-all duration-300 hover:bg-brand-brown">前往結帳 <i class="fa-solid fa-arrow-right-long"></i></a>
           <div class="flex items-center justify-center gap-4 mt-4 text-brand-brown/35">
@@ -602,6 +603,9 @@
   var FREE_SHIP=500, SHIP_FEE=50;
   var coupons={ 'HIBILAB10':{type:'pct',val:0.10,label:'HIBILAB10 · 9 折'}, 'WELCOME50':{type:'amt',val:50,label:'WELCOME50 · 首單減 $50'}, 'FREESHIP':{type:'ship',val:0,label:'FREESHIP · 免運費'} };
   var applied=null;
+  // 等級由會員實際 tier derive（WP 登入後填 IS_MEMBER + MEMBER_TIER）；guest 預設 false
+  var IS_MEMBER=false, MEMBER_TIER='silver';
+  var TIERS={ general:{label:'一般會員',rate:0}, silver:{label:'銀級 9 折',rate:0.10}, gold:{label:'金級 85 折',rate:0.15} };
   var itemsWrap=document.getElementById('cart-items');
   function items(){ return Array.prototype.slice.call(itemsWrap.querySelectorAll('.cart-item')); }
   function money(n){ return '$'+n; }
@@ -618,23 +622,28 @@
     document.getElementById('cart-empty').classList.toggle('hidden', n>0);
     itemsWrap.style.display=n>0?'':'none';
 
-    var discount=0, freeShip=false;
+    var tier=TIERS[MEMBER_TIER]||TIERS.general;
+    var tierDisc=(n&&IS_MEMBER)?Math.round(subtotal*tier.rate):0;
+    var manualDisc=0, freeShip=false;
     if(applied){
-      if(applied.type==='pct') discount=Math.round(subtotal*applied.val);
-      else if(applied.type==='amt') discount=Math.min(applied.val,subtotal);
+      if(applied.type==='pct') manualDisc=Math.round(subtotal*applied.val);
+      else if(applied.type==='amt') manualDisc=Math.min(applied.val,subtotal);
       else if(applied.type==='ship') freeShip=true;
     }
+    var discount=tierDisc+manualDisc;
     var afterDisc=subtotal-discount;
+    var rowT=document.getElementById('row-tier'); if(rowT){ rowT.style.display=tierDisc>0?'flex':'none'; var st=document.getElementById('sum-tier'); if(st) st.textContent='−'+money(tierDisc); var tl=document.getElementById('tier-label'); if(tl) tl.textContent=tier.label; }
     var shipping=(afterDisc>=FREE_SHIP||freeShip||n===0)?0:SHIP_FEE;
     var total=afterDisc+shipping;
 
     document.getElementById('sum-subtotal').textContent=money(subtotal);
     var rowD=document.getElementById('row-discount');
-    if(discount>0){ rowD.style.display='flex'; document.getElementById('sum-discount').textContent='−'+money(discount); document.getElementById('discount-label').textContent=applied?applied.label:'優惠折扣'; }
+    if(manualDisc>0){ rowD.style.display='flex'; document.getElementById('sum-discount').textContent='−'+money(manualDisc); document.getElementById('discount-label').textContent=applied?applied.label:'優惠折扣'; }
     else rowD.style.display='none';
     document.getElementById('sum-shipping').textContent=shipping===0?'免費':money(shipping);
     document.getElementById('sum-total').textContent=money(total);
-    document.getElementById('sum-points').textContent=Math.round(total/10);
+    var mp=document.getElementById('member-prompt');
+    if(mp) mp.style.display=n?'flex':'none';
 
     var note=document.getElementById('ship-note');
     if(n===0){ note.textContent=''; }
