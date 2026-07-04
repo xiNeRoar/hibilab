@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-HK" class="no-js">
 <head>
     <meta charset="UTF-8">
+    <script>document.documentElement.classList.replace('no-js','js')</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#FDFBF9">
     <title>購物車 — HIBI LAB by Scent.M</title>
@@ -401,6 +402,8 @@
                 align-items: center;
             }
         }
+
+        html.no-js .ani-this,html.no-js .opacity-0{opacity:1!important;transform:none!important}
     </style>
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"Organization","name":"Scent.M","url":"https://www.scentm.hk","logo":"https://www.scentm.hk/scentm-logo.png","description":"品牌氣味體驗夥伴 — 香氣營銷、ODM 代工與工藝體驗。","areaServed":"HK","sameAs":[]}
@@ -471,8 +474,8 @@
                 </div>
             </div>
             <div class="overflow-hidden pb-2">
-                <a href="HIBI LAB Landing.html" class="menu-link inline-flex items-center gap-3 font-sans text-sm md:text-base tracking-[0.2em] uppercase opacity-70 hover:opacity-100 hover:text-brand-terracotta transition-all duration-300 mt-2">
-                    <span>Explore Hibi Lab</span>
+                <a href="HIBI LAB Shop.html" class="menu-link inline-flex items-center gap-3 font-sans text-sm md:text-base tracking-[0.2em] uppercase opacity-70 hover:opacity-100 hover:text-brand-terracotta transition-all duration-300 mt-2">
+                    <span>HIBI LAB 全部商品</span>
                     <i class="fa-solid fa-arrow-right-long"></i>
                 </a>
             </div>
@@ -554,8 +557,8 @@
         </div>
       </section>
 
-      <!-- SUMMARY -->
-      <aside class="ani-this bottom-in delay-1">
+      <!-- SUMMARY（清空狀態成個 aside 隱藏 — production 行 native cart-empty.php,自然冇 summary aside） -->
+      <aside id="cart-summary" class="ani-this bottom-in delay-1">
         <div class="lg:sticky lg:top-28 rounded-lg p-7 md:p-8" style="background:#f4eee7;">
           <h2 class="font-serif text-2xl text-brand-brown">訂單摘要</h2>
 
@@ -572,21 +575,15 @@
 
           <div class="mt-6 pt-6 space-y-3.5" style="border-top:1px solid #e3d5c8;">
             <div class="flex justify-between font-sans text-[16px]"><span class="text-brand-brown/65">小計</span><span id="sum-subtotal" class="text-brand-brown" style="font-variant-numeric:tabular-nums;">$575</span></div>
-            <div id="row-tier" class="flex justify-between font-sans text-[16px]" style="display:none;"><span class="text-brand-terracotta" id="tier-label">銀級 9 折</span><span id="sum-tier" class="text-brand-terracotta" style="font-variant-numeric:tabular-nums;">−$58</span></div>
-            <div id="row-discount" class="flex justify-between font-sans text-[16px]" style="display:none;"><span class="text-brand-terracotta" id="discount-label">優惠折扣</span><span id="sum-discount" class="text-brand-terracotta" style="font-variant-numeric:tabular-nums;">−$0</span></div>
+            <div id="row-discount" class="flex justify-between font-sans text-[16px]" style="display:none;"><span class="flex items-center gap-2.5"><span class="text-brand-terracotta" id="discount-label">優惠折扣</span><button id="coupon-remove" class="text-brand-brown/45 hover:text-brand-terracotta transition-colors" aria-label="移除優惠碼">移除 ✕</button></span><span id="sum-discount" class="text-brand-terracotta" style="font-variant-numeric:tabular-nums;">−$0</span></div>
             <div class="flex justify-between font-sans text-[16px]"><span class="text-brand-brown/65">運費</span><span id="sum-shipping" class="text-brand-brown" style="font-variant-numeric:tabular-nums;">免費</span></div>
             <div id="ship-note" class="font-sans text-[16px] text-brand-brown/50 leading-relaxed"></div>
           </div>
 
           <div class="flex justify-between items-baseline mt-5 pt-5" style="border-top:1px solid #e3d5c8;">
             <span class="font-serif text-[19px] text-brand-brown">總計</span>
-            <span id="sum-total" class="font-serif text-[26px] text-brand-brown" style="font-variant-numeric:tabular-nums;">$575</span>
+            <span class="flex items-baseline gap-1.5"><span id="sum-total" class="font-serif text-[26px] text-brand-brown" style="font-variant-numeric:tabular-nums;">$575</span><span id="sum-total-note" class="font-sans text-[16px] text-brand-brown/50" style="display:none;">+ 運費</span></span>
           </div>
-
-          <a href="HIBI LAB Account Login.html" id="member-prompt" class="flex items-center gap-3 mt-4 rounded-md px-4 py-3 transition-colors hover:brightness-95" style="background:#ece0d3;">
-            <i class="fa-solid fa-crown text-brand-terracotta"></i>
-            <span class="font-sans text-[16px] text-brand-brown/75">登入 / 註冊 · 生日禮遇，<span class="font-medium text-brand-brown">消費升級享專屬折扣</span> <i class="fa-solid fa-arrow-right-long ml-1 text-[13px]"></i></span>
-          </a>
 
           <a href="HIBI LAB Checkout.html" class="w-full mt-6 inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white font-sans text-[16px] tracking-[0.14em] uppercase rounded-full py-4 transition-all duration-300 hover:bg-brand-brown">前往結帳 <i class="fa-solid fa-arrow-right-long"></i></a>
           <div class="flex items-center justify-center gap-4 mt-4 text-brand-brown/35">
@@ -600,12 +597,10 @@
 
 <script>
 (function(){
-  var FREE_SHIP=500, SHIP_FEE=50;
+  // 免運門檻 = admin 後台 ACF option（demo $500 只係示範值；設空/0 = 停用門檻）；實際運費由 ShipAny 於結帳按送貨方式+地址報價，購物車唔預先計數
+  var FREE_SHIP=500;
   var coupons={ 'HIBILAB10':{type:'pct',val:0.10,label:'HIBILAB10 · 9 折'}, 'WELCOME50':{type:'amt',val:50,label:'WELCOME50 · 首單減 $50'}, 'FREESHIP':{type:'ship',val:0,label:'FREESHIP · 免運費'} };
-  var applied=null;
-  // 等級由會員實際 tier derive（WP 登入後填 IS_MEMBER + MEMBER_TIER）；guest 預設 false
-  var IS_MEMBER=false, MEMBER_TIER='silver';
-  var TIERS={ general:{label:'一般會員',rate:0}, silver:{label:'銀級 9 折',rate:0.10}, gold:{label:'金級 85 折',rate:0.15} };
+  var applied=null, appliedCode=null;
   var itemsWrap=document.getElementById('cart-items');
   function items(){ return Array.prototype.slice.call(itemsWrap.querySelectorAll('.cart-item')); }
   function money(n){ return '$'+n; }
@@ -621,34 +616,36 @@
     var n=items().length;
     document.getElementById('cart-empty').classList.toggle('hidden', n>0);
     itemsWrap.style.display=n>0?'':'none';
+    // 清空狀態：成個 summary aside 隱藏（production 行 native cart-empty.php，成頁自然無 aside）
+    document.getElementById('cart-summary').style.display=n>0?'':'none';
 
-    var tier=TIERS[MEMBER_TIER]||TIERS.general;
-    var tierDisc=(n&&IS_MEMBER)?Math.round(subtotal*tier.rate):0;
     var manualDisc=0, freeShip=false;
     if(applied){
       if(applied.type==='pct') manualDisc=Math.round(subtotal*applied.val);
       else if(applied.type==='amt') manualDisc=Math.min(applied.val,subtotal);
       else if(applied.type==='ship') freeShip=true;
     }
-    var discount=tierDisc+manualDisc;
-    var afterDisc=subtotal-discount;
-    var rowT=document.getElementById('row-tier'); if(rowT){ rowT.style.display=tierDisc>0?'flex':'none'; var st=document.getElementById('sum-tier'); if(st) st.textContent='−'+money(tierDisc); var tl=document.getElementById('tier-label'); if(tl) tl.textContent=tier.label; }
-    var shipping=(afterDisc>=FREE_SHIP||freeShip||n===0)?0:SHIP_FEE;
-    var total=afterDisc+shipping;
+    var afterDisc=subtotal-manualDisc;
 
     document.getElementById('sum-subtotal').textContent=money(subtotal);
     var rowD=document.getElementById('row-discount');
-    if(manualDisc>0){ rowD.style.display='flex'; document.getElementById('sum-discount').textContent='−'+money(manualDisc); document.getElementById('discount-label').textContent=applied?applied.label:'優惠折扣'; }
+    if(applied){ rowD.style.display='flex'; document.getElementById('sum-discount').textContent=applied.type==='ship'?'免運費':'−'+money(manualDisc); document.getElementById('discount-label').textContent=applied.label; }
     else rowD.style.display='none';
-    document.getElementById('sum-shipping').textContent=shipping===0?'免費':money(shipping);
-    document.getElementById('sum-total').textContent=money(total);
-    var mp=document.getElementById('member-prompt');
-    if(mp) mp.style.display=n?'flex':'none';
 
+    // 運費行：折後小計達門檻 → 免費；未達 → 唔出數字，結帳先由 ShipAny 按送貨方式報價
+    var hitThresh=afterDisc>=FREE_SHIP;
     var note=document.getElementById('ship-note');
-    if(n===0){ note.textContent=''; }
-    else if(shipping===0){ note.innerHTML='<span class="text-brand-terracotta">已享免運費 ✓</span>'; }
-    else { note.textContent='再加購 '+money(FREE_SHIP-afterDisc)+' 即享免運費'; }
+    var totalNote=document.getElementById('sum-total-note');
+    if(hitThresh||freeShip){
+      document.getElementById('sum-shipping').textContent='免費';
+      note.innerHTML=hitThresh?'<span class="text-brand-terracotta">已享滿 '+money(FREE_SHIP)+' 免運</span>':'<span class="text-brand-terracotta">已享免運費 ✓</span>';
+      totalNote.style.display='none';
+    } else {
+      document.getElementById('sum-shipping').textContent='於結帳按送貨方式計算';
+      note.textContent='再加購 '+money(FREE_SHIP-afterDisc)+' 即享免運費';
+      totalNote.style.display='';
+    }
+    document.getElementById('sum-total').textContent=money(afterDisc);
   }
 
   itemsWrap.addEventListener('click', function(e){
@@ -662,14 +659,24 @@
     code=(code||'').trim().toUpperCase();
     var msg=document.getElementById('coupon-msg');
     msg.style.display='block';
-    if(coupons[code]){ applied=coupons[code]; msg.style.color='#1f7a4d'; msg.textContent='已套用：'+applied.label; }
-    else { applied=null; msg.style.color='#b4452a'; msg.textContent='優惠碼無效，請再試。'; }
+    // 無效碼唔會清走已套用嘅碼
+    if(!coupons[code]){ msg.style.color='#b4452a'; msg.textContent='優惠碼無效，請再試。'; return; }
+    // 一次只可套一張碼（對齊 production WC individual_use 行為）
+    if(applied&&appliedCode!==code){ msg.style.color='#b4452a'; msg.textContent='一次只可使用一張優惠碼，請先移除現有優惠碼。'; return; }
+    applied=coupons[code]; appliedCode=code;
+    msg.style.color='#1f7a4d'; msg.textContent='已套用：'+applied.label;
     recalc();
   }
   document.getElementById('coupon-apply').addEventListener('click', function(){ applyCode(document.getElementById('coupon-input').value); });
   document.getElementById('coupon-input').addEventListener('keydown', function(e){ if(e.key==='Enter') applyCode(this.value); });
   Array.prototype.slice.call(document.querySelectorAll('.coupon-try')).forEach(function(b){
     b.addEventListener('click', function(){ document.getElementById('coupon-input').value=b.getAttribute('data-code'); applyCode(b.getAttribute('data-code')); });
+  });
+  document.getElementById('coupon-remove').addEventListener('click', function(){
+    applied=null; appliedCode=null;
+    document.getElementById('coupon-input').value='';
+    var msg=document.getElementById('coupon-msg'); msg.style.display='none'; msg.textContent='';
+    recalc();
   });
 
   recalc();

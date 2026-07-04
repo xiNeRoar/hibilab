@@ -62,7 +62,8 @@
               </td>
               <td style="width:50%;vertical-align:top;padding-left:12px;">
                 <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨方式</p>
-                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">標準送貨 · 1–3 個工作天<br><span style="color:#1f7a4d;">免運費</span></p>
+                <!-- 此格＝{shipping_method}：按訂單實際送貨方式輸出（送上門／自取點,ShipAny）;demo＝送上門 -->
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">送上門（順豐）· 1–2 個工作天<br><span style="color:#1f7a4d;">免運費</span></p>
               </td>
             </tr>
           </table>
@@ -72,15 +73,16 @@
         <tr><td style="padding:24px 32px 8px;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf5ee;border:1px solid #ece0d2;border-radius:6px;">
             <tr><td style="padding:14px 18px;font-size:13px;line-height:1.7;color:#5a4a3e;">
-              <span style="color:#A64B2A;">●</span>&nbsp;已確認&nbsp;&nbsp;<span style="color:#d8c8ba;">─────</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">處理中</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">─────</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">已完成</span><br>
-              <span style="font-size:12px;color:#a08e7e;">出貨後我哋會再 email 通知你。你亦可以登入會員中心隨時查看訂單狀態。</span>
+              <span style="color:#A64B2A;">●</span>&nbsp;已確認&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">處理中</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">已寄出</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">已完成</span><br>
+              <!-- {status_note}：member＝「你亦可以登入會員中心隨時查看訂單狀態。」/ guest＝「你可以隨時透過此電郵內嘅連結查看訂單狀態（〈查看訂單〉→ {order_url}）。」 -->
+              <span style="font-size:12px;color:#a08e7e;">寄出後我哋會再 email 通知你，並附上追蹤號。{status_note}</span>
             </td></tr>
           </table>
         </td></tr>
 
         <!-- closing -->
         <tr><td style="padding:18px 32px 34px;">
-          <p style="margin:0;font-size:15px;line-height:1.75;color:#5a4a3e;">如有任何疑問，直接回覆此電郵，或者 WhatsApp 我哋嘅 Customer Care。</p>
+          <p style="margin:0;font-size:15px;line-height:1.75;color:#5a4a3e;">如有任何疑問，直接回覆此電郵，或者 WhatsApp 我哋嘅 Customer Care。如需取消或修改訂單，請於出貨前儘快聯絡我哋。</p>
         </td></tr>
 
         <!-- footer -->
@@ -98,9 +100,9 @@
     <tr><td align="center">
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;">
         <tr><td style="font-size:12px;line-height:1.9;color:#8a7464;padding:0 4px;">
-          <strong style="color:#5a4a3e;">範本 spec（§21.10 / §22）：</strong>同一個 wrapper 出四款 email,只換 eyebrow／標題／開場白／狀態條：<br>
-          ① <strong>訂單確認</strong>（上圖,processing）· ② <strong>訂單完成</strong>（Order completed／已完成,狀態條行到第三步,開場白「你嘅訂單已經寄出／完成」）· ③ <strong>退款通知</strong>（Refund issued／退款通知,金額行顯示退款額,唔出狀態條）· ④ <strong>店主新訂單通知</strong>（內部版,收件人＝店主通知地址,加客人聯絡資料,唔出品牌開場白）。<br>
-          WP 實作＝後台可編輯範本（option 儲存＋placeholder：<code>{name} {order} {date} {items} {subtotal} {discount_rows} {shipping} {total} {address} {shipping_method}</code>＋live preview＋測試寄送,跟 Scent.M 收據 pattern）。折扣行（會員折／優惠碼）有先出、冇就略過。字體用 Georgia serif fallback（email client 唔載得 Baskervville）。
+          <strong style="color:#5a4a3e;">範本 spec（§21.10 / §22）：</strong>同一個 wrapper 出五款 email,只換 eyebrow／標題／開場白／狀態條：<br>
+          ① <strong>訂單確認</strong>（上圖,processing,狀態條第 1 步 active）· ② <strong>寄出通知</strong>（Order shipped／已寄出,狀態條第 3 步 active,加追蹤卡：<code>{carrier}</code> · <code>{tracking_no}</code> ·〈追蹤包裹〉→ <code>{tracking_url}</code>）· ③ <strong>訂單完成</strong>（Order completed／已完成,狀態條第 4 步 active）· ④ <strong>退款通知</strong>（Refund issued／退款通知,金額行顯示退款額,唔出狀態條）· ⑤ <strong>店主新訂單通知</strong>（內部版,收件人＝店主通知地址,加客人聯絡資料,唔出品牌開場白）。<br>
+          WP 實作＝後台可編輯範本（option 儲存＋placeholder：<code>{name} {order} {date} {items} {subtotal} {discount_rows} {shipping} {shipping_method} {total} {address} {tracking_no} {tracking_url} {carrier} {order_url} {status_note}</code>＋live preview＋測試寄送,跟 Scent.M 收據 pattern）。折扣行（優惠碼）有先出、冇就略過。Welcome／密碼重設 email 用同一個 wrapper 做 WC template override skin,唔另設計內容。字體用 Georgia serif fallback（email client 唔載得 Baskervville）。
         </td></tr>
       </table>
     </td></tr>

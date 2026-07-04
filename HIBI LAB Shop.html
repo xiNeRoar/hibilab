@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-HK" class="no-js">
 <head>
     <meta charset="UTF-8">
+    <script>document.documentElement.classList.replace('no-js','js')</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#FDFBF9">
     <title>全部商品 — HIBI LAB by Scent.M</title>
@@ -251,6 +252,7 @@
         .ani-this.bottom-in { transform: translateY(40px); opacity: 0; }
         .ani-this.left-in   { transform: translateX(-40px); opacity: 0; }
         .ani-this.in { transform: translate(0, 0) !important; opacity: 1 !important; }
+        html.no-js .ani-this,html.no-js .opacity-0{opacity:1!important;transform:none!important}
         .delay-1 { transition-delay: 0.1s; }
         .delay-2 { transition-delay: 0.2s; }
         .delay-3 { transition-delay: 0.3s; }
@@ -473,8 +475,8 @@
                 </div>
             </div>
             <div class="overflow-hidden pb-2">
-                <a href="HIBI LAB Landing.html" class="menu-link inline-flex items-center gap-3 font-sans text-sm md:text-base tracking-[0.2em] uppercase opacity-70 hover:opacity-100 hover:text-brand-terracotta transition-all duration-300 mt-2">
-                    <span>Explore Hibi Lab</span>
+                <a href="HIBI LAB Shop.html" class="menu-link inline-flex items-center gap-3 font-sans text-sm md:text-base tracking-[0.2em] uppercase opacity-70 hover:opacity-100 hover:text-brand-terracotta transition-all duration-300 mt-2">
+                    <span>HIBI LAB 全部商品</span>
                     <i class="fa-solid fa-arrow-right-long"></i>
                 </a>
             </div>
@@ -532,7 +534,6 @@
   .plp-select:hover { color:#A64B2A; }
   .stk{position:absolute;top:12px;left:12px;z-index:2;font-family:Montserrat,'Noto Sans TC',sans-serif;font-size:16px;letter-spacing:.04em;padding:5px 13px;border-radius:30px;}
   .stk-out{background:#3B261D;color:#FDFBF9;}
-  .stk-pre{background:#A64B2A;color:#fff;}
   .plp-card.is-out .plp-img-wrap{opacity:.6;}
   .plp-card .pcard-name { transition: color .35s ease; } .plp-card:hover .pcard-name { color:#A64B2A; }
   .plp-more-btn { font-family:Montserrat,"Noto Sans TC",sans-serif; font-size:16px; letter-spacing:0.12em; text-transform:uppercase; color:#3B261D; border:1px solid #3B261D; border-radius:40px; padding:15px 44px; cursor:pointer; transition:all .35s; }
@@ -579,6 +580,7 @@
       <div id="plp-tools-bg" aria-hidden="true" style="position:absolute;top:-1px;bottom:0;left:calc(50% - 50vw);width:100vw;z-index:0;pointer-events:none;background:rgba(253,251,249,0);border-bottom:1px solid transparent;transition:background .42s cubic-bezier(.25,1,.35,1),backdrop-filter .42s cubic-bezier(.25,1,.35,1),border-color .42s cubic-bezier(.25,1,.35,1);"></div>
       <div id="tools-cat" style="overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1),opacity .32s,margin .45s;">
         <span class="block font-sans text-[16px] tracking-[0.18em] uppercase text-brand-brown/45 mb-3">分類 Category</span>
+        <!-- WP-dev(R8):分類 pills production 由 top-level product_cat terms loop 動態輸出(「全部」pill 除外);label = term name。以下 4 個分類係 seed 示範值(§3/§21.21)。 -->
         <div class="flex flex-wrap gap-x-8 gap-y-2.5 pb-1">
         <button class="cat-pill is-active" data-dept="all">全部</button>
         <button class="cat-pill" data-dept="skincare">護膚品</button>
@@ -606,7 +608,7 @@
     <div class="mt-6 font-sans text-[16px] text-brand-brown/60"><span id="plp-count">0</span> 件商品</div>
 
     <div id="plp-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[18px] gap-y-10 md:gap-y-12 mt-6 items-stretch"></div>
-    <div id="plp-empty" class="hidden text-center py-24"><div class="font-serif text-2xl text-brand-brown">未有符合的商品</div><p class="font-sans text-[16px] text-brand-brown/55 mt-3">試下放寬篩選條件。</p><button id="plp-empty-clear" class="mt-6 font-sans text-[16px] tracking-[0.08em] uppercase text-brand-terracotta" style="border-bottom:1px solid #cfa886;padding-bottom:3px;">清除全部篩選</button></div>
+    <div id="plp-empty" class="hidden text-center py-24"><div id="plp-empty-title" class="font-serif text-2xl text-brand-brown">未有符合的商品</div><p id="plp-empty-sub" class="font-sans text-[16px] text-brand-brown/55 mt-3">試下放寬篩選條件。</p><button id="plp-empty-clear" class="mt-6 font-sans text-[16px] tracking-[0.08em] uppercase text-brand-terracotta" style="border-bottom:1px solid #cfa886;padding-bottom:3px;">清除全部篩選</button></div>
     <div id="plp-more-wrap" class="text-center mt-14" style="display:none;"><div class="font-sans text-[16px] text-brand-brown/50 mb-5">顯示 <span id="shown-n">0</span> / <span id="total-n">0</span> 件</div><button id="plp-more" class="plp-more-btn">載入更多</button></div>
   </div>
 </main>
@@ -655,7 +657,7 @@
   "img": "prod-petmist"
  },
  {
-  "id": "calm-hyper-dog","stock":"preorder",
+  "id": "calm-hyper-dog","stock":"in",
   "name": "分離焦慮・改善過分活躍噴霧",
   "scent": [
    "洋甘菊",
@@ -1197,6 +1199,7 @@
   var activeDept="all", PAGE=12, shown=PAGE, filtered=[];
   var state={concern:[],audience:[],form:[],scent:[],size:[],price:[]};
 
+  // WP-dev(R8):banners map production 由 top-level product_cat terms loop 出;每個分類嘅 eyebrow/title/intro/橫幅相 = ACF term fields(§3/§21.21)。以下 4 個分類值(護膚/寵物/助眠/家居)係 seed 示範。
   var banners={
    all:{eyebrow:"All Products",title:"全部商品",intro:"以天然純露為基底、低濃度精油配方，為人、寵物與居家而調。",img:"cat-pet",crumb:"全部商品"},
    skincare:{eyebrow:"Human Skincare",title:"護膚品",intro:"積雪草與純萃配方，舒緩、保濕、修護，回到穩定的肌膚。",img:"cat-skincare",crumb:"護膚品"},
@@ -1253,7 +1256,7 @@
     var mb=document.getElementById("mobile-badge"); if(mb){ mb.style.display=totalSel>0?"inline-flex":"none"; mb.textContent=totalSel; }
     var sn=document.getElementById("sheet-n"); if(sn) sn.textContent=filtered.length; }
 
-  function card(p){ var badge=p.stock==="out"?'<span class="stk stk-out">售罄</span>':(p.stock==="preorder"?'<span class="stk stk-pre">會員搶先預購</span>':''), soldcls=p.stock==="out"?" is-out":""; var media="<img src=\""+p.img+".png\" alt=\""+p.name+"\" class=\"absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out\">";
+  function card(p){ var badge=p.stock==="out"?'<span class="stk stk-out">售罄</span>':'', soldcls=p.stock==="out"?" is-out":""; var media="<img src=\""+p.img+".png\" alt=\""+p.name+"\" class=\"absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out\">";
     var sizeTxt=p.sizes.length>1?(Math.min.apply(null,p.sizes)+"ml 起"):(p.sizes[0]+"ml"); var priceTxt=p.sizes.length>1?("$"+p.price+" 起"):("$"+p.price);
     return "<a href=\"HIBI LAB Product.html\" class=\"plp-card group flex flex-col h-full"+soldcls+"\"><div class=\"relative overflow-hidden rounded-md\" style=\"aspect-ratio:4 / 5;background:#efe6dd;\">"+media+badge+"</div>"+
       "<div class=\"flex flex-col flex-grow text-center px-2 pt-4 pb-1\"><div class=\"font-sans text-[16px] tracking-[0.06em] uppercase text-brand-brown/50\">"+p.catLabel+"</div>"+
@@ -1263,11 +1266,19 @@
 
   function compute(){ filtered=data.filter(function(p){return matches(p,null);}); var mode=sortSel.value;
     filtered.sort(function(x,y){ if(mode==="price-asc")return x.price-y.price; if(mode==="price-desc")return y.price-x.price; if(mode==="name")return x.name.localeCompare(y.name,"zh-Hant"); return 0; }); }
-  function updateChips(){ var chips=[]; if(searchQ){ chips.push("<span class=\"chip\">搜尋:「"+searchQ+"」<button data-search-clear aria-label=\"移除\"><i class=\"fa-solid fa-xmark\" style=\"font-size:10px;\"></i></button></span>"); } [["concern","功效"],["audience","對象"],["form","形態"],["scent","香味"],["size","容量"],["price","價格"]].forEach(function(pair){ var f=pair[0];
+  /* searchQ 來自 URL ?s= — 落 innerHTML 前必須 escape（防反射 XSS；production 由 WP esc_html 處理） */
+  function escQ(s){return String(s).replace(/[&<>"\x27]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","\x27":"&#39;"}[c];});}
+  function updateChips(){ var chips=[]; if(searchQ){ chips.push("<span class=\"chip\">搜尋:「"+escQ(searchQ)+"」<button data-search-clear aria-label=\"移除\"><i class=\"fa-solid fa-xmark\" style=\"font-size:10px;\"></i></button></span>"); } [["concern","功效"],["audience","對象"],["form","形態"],["scent","香味"],["size","容量"],["price","價格"]].forEach(function(pair){ var f=pair[0];
       state[f].forEach(function(v){ var txt=f==="size"?(v+"ml"):f==="price"?("$"+v.split("-")[0]+" – "+(parseInt(v.split("-")[1],10)>=99999?"$1000+":"$"+v.split("-")[1])):v; chips.push("<span class=\"chip\">"+txt+"<button data-facet=\""+f+"\" data-val=\""+v+"\" aria-label=\"移除\"><i class=\"fa-solid fa-xmark\" style=\"font-size:10px;\"></i></button></span>"); }); });
     if(chips.length){ chipsEl.innerHTML=chips.join("")+"<button id=\"plp-chip-clear\" class=\"font-sans text-[16px] text-brand-terracotta ml-1 hover:underline\">清除全部</button>"; chipsEl.style.display="flex"; } else { chipsEl.innerHTML=""; chipsEl.style.display="none"; } }
+  // 空狀態三變體:(a) 無 facet 無搜尋=空分類 (b) 有 facet (c) 搜尋冇結果
+  function updateEmpty(){ if(filtered.length>0) return; var t=document.getElementById("plp-empty-title"), s=document.getElementById("plp-empty-sub"), b=document.getElementById("plp-empty-clear");
+    var hasFacet=Object.keys(state).some(function(k){return state[k].length>0;});
+    if(searchQ){ t.textContent="搜尋「"+searchQ+"」冇結果"; s.textContent="清除搜尋或試下其他關鍵字。"; s.style.display=""; b.textContent="清除搜尋"; b.setAttribute("data-empty-action","search"); }
+    else if(hasFacet){ t.textContent="未有符合的商品"; s.textContent="試下放寬篩選條件。"; s.style.display=""; b.textContent="清除全部篩選"; b.setAttribute("data-empty-action","filters"); }
+    else { t.textContent="呢個系列即將上架"; s.style.display="none"; b.textContent="瀏覽全部商品"; b.setAttribute("data-empty-action","all"); } }
   function render(){ var slice=filtered.slice(0,shown); grid.innerHTML=slice.map(card).join(""); countEl.textContent=filtered.length;
-    emptyEl.classList.toggle("hidden",filtered.length>0); grid.classList.toggle("hidden",filtered.length===0);
+    emptyEl.classList.toggle("hidden",filtered.length>0); grid.classList.toggle("hidden",filtered.length===0); updateEmpty();
     shownEl.textContent=Math.min(shown,filtered.length); totalEl.textContent=filtered.length;
     moreWrap.style.display=filtered.length>PAGE?"block":"none"; moreBtn.style.display=shown<filtered.length?"inline-flex":"none";
     renderPanels(); updateBadges(); updateChips(); }
@@ -1279,8 +1290,14 @@
   document.addEventListener('change', function(e){ if(!e.target.matches('[data-price-handle]')) return; var ps=e.target.closest('[data-price-slider]'); var mn=ps.querySelector('[data-price-handle=min]'),mx=ps.querySelector('[data-price-handle=max]'); var lo=+mn.value,hi=+mx.value; if(lo>hi){var t=lo;lo=hi;hi=t;} state.price=(lo<=0&&hi>=1000)?[]:[lo+'-'+(hi>=1000?99999:hi)]; apply(); });
   sortSel.addEventListener("change", apply);
   moreBtn.addEventListener("click", function(){ shown+=PAGE; render(); });
-  function clearAll(){ Object.keys(state).forEach(function(k){ state[k]=[]; }); searchQ=""; apply(); }
-  document.getElementById("plp-empty-clear").addEventListener("click", clearAll);
+  function clearAll(){ Object.keys(state).forEach(function(k){ state[k]=[]; }); searchQ="";
+    // R10.2:空分類(該分類本身無商品)撳「清除」要 reset 返「全部」;非空分類維持原行為(留喺分類、淨清 facets/搜尋)
+    if(activeDept!=="all"&&!data.some(function(x){return x.cat===activeDept;})){ var p=document.querySelector(".cat-pill[data-dept=\"all\"]"); if(p){ p.click(); return; } activeDept="all"; setBanner("all"); }
+    apply(); }
+  document.getElementById("plp-empty-clear").addEventListener("click", function(){ var a=this.getAttribute("data-empty-action");
+    if(a==="search"){ searchQ=""; apply(); }
+    else if(a==="all"){ var p=document.querySelector(".cat-pill[data-dept=\"all\"]"); if(p) p.click(); }
+    else clearAll(); });
   document.getElementById("sheet-clear").addEventListener("click", clearAll);
   chipsEl.addEventListener("click", function(e){ if(e.target.closest("[data-search-clear]")){ searchQ=""; apply(); return; } var b=e.target.closest("button[data-facet]"); if(b){ var f=b.getAttribute("data-facet"),v=b.getAttribute("data-val"),i=state[f].indexOf(v); if(i>-1){state[f].splice(i,1); apply();} return; } if(e.target.id==="plp-chip-clear") clearAll(); });
 

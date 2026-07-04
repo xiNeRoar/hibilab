@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-HK" class="no-js">
 <head>
     <meta charset="UTF-8">
+    <script>document.documentElement.classList.replace('no-js','js')</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#FDFBF9">
     <title>頁面不存在 — HIBI LAB</title>
@@ -249,6 +250,7 @@
         .ani-this.bottom-in { transform: translateY(40px); opacity: 0; }
         .ani-this.left-in   { transform: translateX(-40px); opacity: 0; }
         .ani-this.in { transform: translate(0, 0) !important; opacity: 1 !important; }
+        html.no-js .ani-this,html.no-js .opacity-0{opacity:1!important;transform:none!important}
         .delay-1 { transition-delay: 0.1s; }
         .delay-2 { transition-delay: 0.2s; }
         .delay-3 { transition-delay: 0.3s; }
@@ -471,8 +473,8 @@
                 </div>
             </div>
             <div class="overflow-hidden pb-2">
-                <a href="HIBI LAB Landing.html" class="menu-link inline-flex items-center gap-3 font-sans text-sm md:text-base tracking-[0.2em] uppercase opacity-70 hover:opacity-100 hover:text-brand-terracotta transition-all duration-300 mt-2">
-                    <span>Explore Hibi Lab</span>
+                <a href="HIBI LAB Shop.html" class="menu-link inline-flex items-center gap-3 font-sans text-sm md:text-base tracking-[0.2em] uppercase opacity-70 hover:opacity-100 hover:text-brand-terracotta transition-all duration-300 mt-2">
+                    <span>HIBI LAB 全部商品</span>
                     <i class="fa-solid fa-arrow-right-long"></i>
                 </a>
             </div>

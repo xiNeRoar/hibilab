@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-HK" class="no-js">
 <head>
     <meta charset="UTF-8">
+    <script>document.documentElement.classList.replace('no-js','js')</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#FDFBF9">
     <title>我的戶口 — HIBI LAB by Scent.M</title>
@@ -249,6 +250,7 @@
         .ani-this.bottom-in { transform: translateY(40px); opacity: 0; }
         .ani-this.left-in   { transform: translateX(-40px); opacity: 0; }
         .ani-this.in { transform: translate(0, 0) !important; opacity: 1 !important; }
+        html.no-js .ani-this,html.no-js .opacity-0{opacity:1!important;transform:none!important}
         .delay-1 { transition-delay: 0.1s; }
         .delay-2 { transition-delay: 0.2s; }
         .delay-3 { transition-delay: 0.3s; }
@@ -471,8 +473,8 @@
                 </div>
             </div>
             <div class="overflow-hidden pb-2">
-                <a href="HIBI LAB Landing.html" class="menu-link inline-flex items-center gap-3 font-sans text-sm md:text-base tracking-[0.2em] uppercase opacity-70 hover:opacity-100 hover:text-brand-terracotta transition-all duration-300 mt-2">
-                    <span>Explore Hibi Lab</span>
+                <a href="HIBI LAB Shop.html" class="menu-link inline-flex items-center gap-3 font-sans text-sm md:text-base tracking-[0.2em] uppercase opacity-70 hover:opacity-100 hover:text-brand-terracotta transition-all duration-300 mt-2">
+                    <span>HIBI LAB 全部商品</span>
                     <i class="fa-solid fa-arrow-right-long"></i>
                 </a>
             </div>
@@ -481,9 +483,9 @@
 
     
 
-<!-- ===== HIBI LAB · My Account / VIP (我的戶口) ===== -->
+<!-- ===== HIBI LAB · My Account (我的戶口) ===== -->
 <style>
-  /* content always visible — shared-chrome GSAP pins .ani-this at opacity:0 and its ScrollTrigger never fires on these composed pages; !important guarantees visibility regardless of JS/animation/foreground timing */
+  /* 結構性 no-js 修法已喺 chrome 層(html.no-js),此行留作雙保險 */
   .ani-this{opacity:1 !important;transform:none !important;}
 
   html, body { scrollbar-width: none; -ms-overflow-style: none; }
@@ -510,7 +512,6 @@
   }
   .acct-panel.is-active { display:block; animation:acctFade .45s ease; }
   @keyframes acctFade { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:none;} }
-  .copy-code { transition:all .2s; }
 </style>
 
 <main class="pt-28 md:pt-36 pb-20 md:pb-28 px-6 md:px-12">
@@ -532,8 +533,6 @@
         <nav class="lg:sticky lg:top-28 flex flex-col gap-0 lg:gap-1.5" id="acct-nav">
           <button class="acct-nav-link is-active" data-panel="overview"><i class="fa-regular fa-circle-user"></i> 會員概覽</button>
           <button class="acct-nav-link" data-panel="orders"><i class="fa-solid fa-box"></i> 訂單記錄</button>
-          <button class="acct-nav-link" data-panel="tier"><i class="fa-solid fa-crown"></i> 會員等級</button>
-          <button class="acct-nav-link" data-panel="coupons"><i class="fa-solid fa-ticket"></i> 優惠券</button>
           <button class="acct-nav-link" data-panel="address"><i class="fa-solid fa-location-dot"></i> 地址</button>
           <button class="acct-nav-link" data-panel="settings"><i class="fa-solid fa-gear"></i> 帳戶設定</button>
           <button id="acct-logout-btn" class="acct-nav-link lg:mt-2" data-panel="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> 登出</button>
@@ -545,41 +544,17 @@
         <button id="acct-back" class="font-sans text-[16px] text-brand-terracotta mb-6"><i class="fa-solid fa-chevron-left" style="font-size:13px;"></i> 會員中心</button>
         <!-- OVERVIEW -->
         <div class="acct-panel is-active" data-panel="overview">
-          <!-- VIP tier card -->
-          <div class="rounded-xl p-7 md:px-9 md:py-6 text-brand-light relative overflow-hidden" style="background:linear-gradient(120deg,#3B261D 0%,#5a3d2c 60%,#7a4f33 100%);">
-            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
-              <div>
-                <div class="font-sans text-[16px] tracking-[0.2em] uppercase text-brand-light/55">HIBI LAB Membership</div>
-                <div class="font-serif text-3xl md:text-[2.1rem] mt-2">銀級會員 <span class="font-serif italic text-[#e8b896] text-2xl">Silver</span></div>
-              </div>
-              <div class="sm:text-right">
-                <div class="font-serif text-3xl md:text-4xl text-[#e8b896]" style="font-variant-numeric:tabular-nums;">$3,820</div>
-                <div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-light/55 mt-1">近 12 個月消費</div>
-              </div>
-            </div>
-            <div class="mt-5">
-              <div class="flex justify-between font-sans text-[16px] text-brand-light/70 mb-2"><span>距離 金級會員 還差 $1,180</span><span>$3,820 / $5,000</span></div>
-              <div class="h-2 rounded-full overflow-hidden" style="background:rgba(243,234,225,0.18);"><div style="width:76%;height:100%;background:linear-gradient(90deg,#d8a98c,#e8b896);border-radius:9999px;"></div></div>
-            </div>
-            <div class="flex flex-wrap gap-x-7 gap-y-2 mt-6 font-sans text-[16px] text-brand-light/80">
-              <span><i class="fa-solid fa-check text-[#e8b896] mr-2"></i>全店 9 折</span>
-              <span><i class="fa-solid fa-check text-[#e8b896] mr-2"></i>生日禮遇</span>
-              <span><i class="fa-solid fa-check text-[#e8b896] mr-2"></i>優先預購</span>
-            </div>
-          </div>
-
           <!-- quick stats -->
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+          <div class="grid grid-cols-2 gap-4 mt-5">
             <div class="rounded-lg p-5" style="background:#f4eee7;"><div class="font-serif text-3xl text-brand-brown">8</div><div class="font-sans text-[16px] text-brand-brown/55 mt-1">累積訂單</div></div>
-            <div class="rounded-lg p-5" style="background:#f4eee7;"><div class="font-serif text-3xl text-brand-brown">2</div><div class="font-sans text-[16px] text-brand-brown/55 mt-1">可用優惠券</div></div>
-            <div class="rounded-lg p-5 col-span-2 md:col-span-1" style="background:#f4eee7;"><div class="font-serif text-3xl text-brand-brown">$8,640</div><div class="font-sans text-[16px] text-brand-brown/55 mt-1">累積消費</div></div>
+            <div class="rounded-lg p-5" style="background:#f4eee7;"><div class="font-serif text-3xl text-brand-brown">$8,640</div><div class="font-sans text-[16px] text-brand-brown/55 mt-1">累積消費</div></div>
           </div>
 
           <h3 class="font-serif text-xl text-brand-brown mt-10 mb-1">最近訂單</h3>
           <div class="rounded-lg overflow-hidden mt-3" style="border:1px solid #ece0d5;">
             <div class="flex items-center justify-between px-5 py-4" style="border-bottom:1px solid #f0e6db;">
               <div><div class="font-sans text-[16px] text-brand-brown">#HL-2406 · 2 件商品</div><div class="font-sans text-[16px] text-brand-brown/50 mt-0.5">2026年6月18日</div></div>
-              <div class="text-right"><div class="font-serif text-[16px] text-brand-brown">$625</div><span class="font-sans text-[16px] text-[#1f7a4d]">已完成</span></div>
+              <div class="text-right"><div class="font-serif text-[16px] text-brand-brown">$620</div><span class="font-sans text-[16px] text-brand-terracotta">已寄出</span></div>
             </div>
             <div class="flex items-center justify-between px-5 py-4">
               <div><div class="font-sans text-[16px] text-brand-brown">#HL-2389 · 1 件商品</div><div class="font-sans text-[16px] text-brand-brown/50 mt-0.5">2026年5月30日</div></div>
@@ -589,66 +564,16 @@
         </div>
 
         <!-- ORDERS -->
-<style>.ord>summary,.addr-edit>summary,.addr-add>summary{list-style:none;cursor:pointer;}.ord>summary::-webkit-details-marker,.addr-edit>summary::-webkit-details-marker,.addr-add>summary::-webkit-details-marker{display:none;}.ord-chev{transition:transform .3s;}.ord[open] .ord-chev{transform:rotate(180deg);}.acct-field label{display:block;font-family:Montserrat,"Noto Sans TC",sans-serif;font-size:16px;color:#6a5a4e;margin-bottom:6px;}.acct-field input,.acct-field select{width:100%;font-family:Montserrat,"Noto Sans TC",sans-serif;font-size:16px;color:#3B261D;background:#fff;border:1px solid #d8c8ba;border-radius:8px;padding:12px 14px;outline:none;transition:border-color .2s;}.acct-field input:focus,.acct-field select:focus{border-color:#A64B2A;}.acct-field input:user-invalid{border-color:#b4452a;}.copy-code:hover{background:#A64B2A;color:#fff;border-color:#A64B2A;}.acct-cancel{transition:background .3s,color .3s;}.acct-cancel:hover{background:#f3eae1;}.addr-edit>summary{transition:color .2s;}.addr-edit>summary:hover{color:#3B261D;}.acct-save{font-family:Montserrat,"Noto Sans TC",sans-serif;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#A64B2A;border-radius:40px;padding:13px 32px;cursor:pointer;transition:background .3s;}.acct-save:hover{background:#3B261D;}</style>
+<style>.ord>summary,.addr-edit>summary,.addr-add>summary{list-style:none;cursor:pointer;}.ord>summary::-webkit-details-marker,.addr-edit>summary::-webkit-details-marker,.addr-add>summary::-webkit-details-marker{display:none;}.ord-chev{transition:transform .3s;}.ord[open] .ord-chev{transform:rotate(180deg);}.acct-field label{display:block;font-family:Montserrat,"Noto Sans TC",sans-serif;font-size:16px;color:#6a5a4e;margin-bottom:6px;}.acct-field input,.acct-field select{width:100%;font-family:Montserrat,"Noto Sans TC",sans-serif;font-size:16px;color:#3B261D;background:#fff;border:1px solid #d8c8ba;border-radius:8px;padding:12px 14px;outline:none;transition:border-color .2s;}.acct-field input:focus,.acct-field select:focus{border-color:#A64B2A;}.acct-field input:user-invalid{border-color:#b4452a;}.acct-cancel{transition:background .3s,color .3s;}.acct-cancel:hover{background:#f3eae1;}.addr-edit>summary{transition:color .2s;}.addr-edit>summary:hover{color:#3B261D;}.acct-save{font-family:Montserrat,"Noto Sans TC",sans-serif;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#A64B2A;border-radius:40px;padding:13px 32px;cursor:pointer;transition:background .3s;}.acct-save:hover{background:#3B261D;}</style>
         <div class="acct-panel" data-panel="orders">
           <h2 class="font-serif text-2xl text-brand-brown mb-2">訂單記錄</h2>
           <p class="font-sans text-[16px] text-brand-brown/60 mb-5">撳訂單睇詳情同狀態。</p>
+          <!-- 再次購買:production = WC 原生 order-again endpoint — 成單可購 lines 以現價 re-add,唔可購嘅出 per-item notice,全部唔可購就藏掣(§22);demo 指去單一 PDP 只係 placeholder -->
+          <!-- 查詢此訂單:production href = wa.me/{hibilab_whatsapp_number}?text=預填「你好,我想查詢訂單 #HL-XXXX」;hibilab_whatsapp_number 未設定→藏 link,fallback mailto {hibilab_support_email}(§22);demo href="#" -->
           <div class="space-y-3">
-            <details class="ord rounded-lg" style="border:1px solid #ece0d5;"><summary class="flex items-center justify-between gap-4 p-5"><div class="font-sans text-[16px] text-brand-brown font-medium">#HL-2406 <span class="text-brand-brown/45 font-normal">· 2026年6月18日</span></div><div class="flex items-center gap-4"><span class="font-serif text-[18px] text-brand-brown">$625</span><span class="font-sans text-[16px] text-[#1f7a4d]">已完成</span><i class="fa-solid fa-chevron-down ord-chev text-brand-brown/40"></i></div></summary><div class="px-5 pb-6" style="border-top:1px solid #f0e6db;padding-top:22px;"><div class="flex items-start mb-6"><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已落單</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">處理中</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已完成</span></div></div><div class="font-sans text-[16px] tracking-[0.1em] uppercase text-brand-brown/45 mb-1">商品</div><div class="flex justify-between py-2.5 font-sans text-[16px]"><span class="text-brand-brown/80">Q10 Centella Essence <span class="text-brand-brown/45">50ml × 1</span></span><span class="text-brand-brown">$340</span></div><div class="flex justify-between py-2.5 font-sans text-[16px]"><span class="text-brand-brown/80">睡眠噴霧・薰衣草 <span class="text-brand-brown/45">100ml × 1</span></span><span class="text-brand-brown">$235</span></div><div class="mt-4 pt-4 space-y-2" style="border-top:1px solid #f0e6db;"><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>小計</span><span>$575</span></div><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>運費</span><span>$50</span></div><div class="flex justify-between font-serif text-[18px] text-brand-brown pt-1"><span>總計</span><span>$625</span></div></div><div class="mt-5 font-sans text-[16px] text-brand-brown/60 leading-relaxed"><span class="text-brand-brown/45">送貨地址　</span>Amanda H.，香港島 灣仔區 軒尼詩道 123 號 28 樓</div><div class="flex flex-wrap gap-3 mt-6"><a href="HIBI LAB Product.html" class="inline-flex items-center justify-center font-sans text-[16px] tracking-[.08em] uppercase text-brand-terracotta border border-brand-terracotta rounded-full px-8 py-[13px] transition-colors hover:bg-brand-terracotta hover:text-white">再次購買</a></div></div></details>
-            <details class="ord rounded-lg" style="border:1px solid #ece0d5;"><summary class="flex items-center justify-between gap-4 p-5"><div class="font-sans text-[16px] text-brand-brown font-medium">#HL-2389 <span class="text-brand-brown/45 font-normal">· 2026年5月30日</span></div><div class="flex items-center gap-4"><span class="font-serif text-[18px] text-brand-brown">$980</span><span class="font-sans text-[16px] text-[#1f7a4d]">已完成</span><i class="fa-solid fa-chevron-down ord-chev text-brand-brown/40"></i></div></summary><div class="px-5 pb-6" style="border-top:1px solid #f0e6db;padding-top:22px;"><div class="flex items-start mb-6"><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已落單</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">處理中</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已完成</span></div></div><div class="font-sans text-[16px] tracking-[0.1em] uppercase text-brand-brown/45 mb-1">商品</div><div class="flex justify-between py-2.5 font-sans text-[16px]"><span class="text-brand-brown/80">擴香・琥珀與小蒼蘭 <span class="text-brand-brown/45">200ml × 1</span></span><span class="text-brand-brown">$980</span></div><div class="mt-4 pt-4 space-y-2" style="border-top:1px solid #f0e6db;"><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>小計</span><span>$980</span></div><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>運費</span><span>免費</span></div><div class="flex justify-between font-serif text-[18px] text-brand-brown pt-1"><span>總計</span><span>$980</span></div></div><div class="mt-5 font-sans text-[16px] text-brand-brown/60 leading-relaxed"><span class="text-brand-brown/45">送貨地址　</span>Amanda H.，香港島 灣仔區 軒尼詩道 123 號 28 樓</div><div class="flex flex-wrap gap-3 mt-6"><a href="HIBI LAB Product.html" class="inline-flex items-center justify-center font-sans text-[16px] tracking-[.08em] uppercase text-brand-terracotta border border-brand-terracotta rounded-full px-8 py-[13px] transition-colors hover:bg-brand-terracotta hover:text-white">再次購買</a></div></div></details>
-            <details class="ord rounded-lg" style="border:1px solid #ece0d5;"><summary class="flex items-center justify-between gap-4 p-5"><div class="font-sans text-[16px] text-brand-brown font-medium">#HL-2351 <span class="text-brand-brown/45 font-normal">· 2026年5月8日</span></div><div class="flex items-center gap-4"><span class="font-serif text-[18px] text-brand-brown">$450</span><span class="font-sans text-[16px] text-[#1f7a4d]">已完成</span><i class="fa-solid fa-chevron-down ord-chev text-brand-brown/40"></i></div></summary><div class="px-5 pb-6" style="border-top:1px solid #f0e6db;padding-top:22px;"><div class="flex items-start mb-6"><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已落單</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">處理中</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已完成</span></div></div><div class="font-sans text-[16px] tracking-[0.1em] uppercase text-brand-brown/45 mb-1">商品</div><div class="flex justify-between py-2.5 font-sans text-[16px]"><span class="text-brand-brown/80">毛髮柔順噴霧・玫瑰 <span class="text-brand-brown/45">100ml × 2</span></span><span class="text-brand-brown">$450</span></div><div class="mt-4 pt-4 space-y-2" style="border-top:1px solid #f0e6db;"><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>小計</span><span>$450</span></div><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>運費</span><span>免費</span></div><div class="flex justify-between font-serif text-[18px] text-brand-brown pt-1"><span>總計</span><span>$450</span></div></div><div class="mt-5 font-sans text-[16px] text-brand-brown/60 leading-relaxed"><span class="text-brand-brown/45">送貨地址　</span>Amanda H.，香港島 灣仔區 軒尼詩道 123 號 28 樓</div><div class="flex flex-wrap gap-3 mt-6"><a href="HIBI LAB Product.html" class="inline-flex items-center justify-center font-sans text-[16px] tracking-[.08em] uppercase text-brand-terracotta border border-brand-terracotta rounded-full px-8 py-[13px] transition-colors hover:bg-brand-terracotta hover:text-white">再次購買</a></div></div></details>
-          </div>
-        </div>
-
-        <!-- TIER (前身 POINTS;redeem 延後,見 CLAUDE.md) -->
-        <div class="acct-panel" data-panel="tier">
-          <h2 class="font-serif text-2xl text-brand-brown mb-2">會員等級</h2>
-          <p class="font-sans text-[16px] leading-relaxed text-brand-brown/60 mb-6">消費即自動累積，達標自動升級，尊享各級專屬禮遇。會籍按近 12 個月消費滾動評定。</p>
-          <div class="space-y-4">
-            <div class="rounded-lg p-6 flex items-start justify-between gap-4" style="border:1px solid #ece0d5;">
-              <div><div class="font-serif text-[20px] text-brand-brown">一般會員 <span class="font-sans text-[16px] text-brand-brown/45">General</span></div><div class="font-sans text-[16px] text-brand-brown/60 mt-1.5">註冊即享・生日提醒</div></div>
-              <span class="font-sans text-[16px] text-brand-brown/45 flex-none whitespace-nowrap">$0</span>
-            </div>
-            <div class="rounded-lg p-6" style="border:1.5px solid #A64B2A;background:#fbf4ee;">
-              <div class="flex items-start justify-between gap-4">
-                <div><div class="font-serif text-[20px] text-brand-brown">銀級會員 <span class="font-serif italic text-[16px] text-brand-terracotta">Silver</span> <span class="inline-block font-sans text-[16px] tracking-[0.06em] text-white bg-brand-terracotta rounded-full px-3 py-0.5 ml-1 align-middle">目前等級</span></div><div class="font-sans text-[16px] text-brand-brown/70 mt-2">全店 9 折・生日禮遇・優先預購</div></div>
-                <span class="font-sans text-[16px] text-brand-brown/60 flex-none whitespace-nowrap">$2,000</span>
-              </div>
-            </div>
-            <div class="rounded-lg p-6" style="border:1px solid #ece0d5;">
-              <div class="flex items-start justify-between gap-4">
-                <div><div class="font-serif text-[20px] text-brand-brown">金級會員 <span class="font-serif italic text-[16px] text-brand-terracotta">Gold</span></div><div class="font-sans text-[16px] text-brand-brown/60 mt-1.5">全店 85 折・免運・專屬新品・生日雙倍禮遇</div></div>
-                <span class="font-sans text-[16px] text-brand-brown/45 flex-none whitespace-nowrap">$5,000</span>
-              </div>
-              <div class="mt-5 pt-5" style="border-top:1px solid #ece0d5;">
-                <div class="flex justify-between font-sans text-[16px] text-brand-brown/70 mb-2"><span>近 12 個月消費 · 距金級還差 $1,180</span><span style="font-variant-numeric:tabular-nums;">$3,820 / $5,000</span></div>
-                <div class="h-2 rounded-full overflow-hidden" style="background:#ece0d3;"><div style="width:76%;height:100%;background:linear-gradient(90deg,#d8a98c,#A64B2A);border-radius:9999px;"></div></div>
-              </div>
-            </div>
-          </div>
-          <p class="font-sans text-[16px] text-brand-brown/45 mt-6">＊ 會籍按近 12 個月累積消費滾動評定；跌級最多跌一級（軟著陸）。福利與門檻以官方最新公告為準。</p>
-        </div>
-
-        <!-- COUPONS -->
-        <div class="acct-panel" data-panel="coupons">
-          <h2 class="font-serif text-2xl text-brand-brown mb-5">我的優惠券</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="rounded-lg overflow-hidden flex" style="border:1px dashed #c9a98f;">
-              <div class="flex items-center justify-center px-5 text-white" style="background:#A64B2A;"><span class="font-serif text-2xl" style="writing-mode:vertical-rl;letter-spacing:2px;">生日禮遇</span></div>
-              <div class="p-5 flex-1">
-                <div class="font-serif text-2xl text-brand-brown">全單 9 折</div>
-                <div class="font-sans text-[16px] text-brand-brown/55 mt-1">有效至 2026年7月31日</div>
-                <button class="copy-code mt-3 inline-flex items-center gap-2 font-sans text-[16px] tracking-[0.08em] text-brand-terracotta" data-code="BDAY10" style="border:1px solid #d8b9a4;border-radius:30px;padding:5px 12px;">BDAY10 <i class="fa-regular fa-copy"></i></button>
-              </div>
-            </div>
-            <div class="rounded-lg overflow-hidden flex" style="border:1px dashed #c9a98f;">
-              <div class="flex items-center justify-center px-5 text-white" style="background:#3B4A3D;"><span class="font-serif text-2xl" style="writing-mode:vertical-rl;letter-spacing:2px;">滿額禮</span></div>
-              <div class="p-5 flex-1">
-                <div class="font-serif text-2xl text-brand-brown">滿 $800 減 $100</div>
-                <div class="font-sans text-[16px] text-brand-brown/55 mt-1">有效至 2026年8月15日</div>
-                <button class="copy-code mt-3 inline-flex items-center gap-2 font-sans text-[16px] tracking-[0.08em] text-brand-terracotta" data-code="SAVE100" style="border:1px solid #d8b9a4;border-radius:30px;padding:5px 12px;">SAVE100 <i class="fa-regular fa-copy"></i></button>
-              </div>
-            </div>
+            <details class="ord rounded-lg" style="border:1px solid #ece0d5;"><summary class="flex items-center justify-between gap-4 p-5"><div class="font-sans text-[16px] text-brand-brown font-medium">#HL-2406 <span class="text-brand-brown/45 font-normal">· 2026年6月18日</span></div><div class="flex items-center gap-4"><span class="font-serif text-[18px] text-brand-brown">$620</span><span class="font-sans text-[16px] text-brand-terracotta">已寄出</span><i class="fa-solid fa-chevron-down ord-chev text-brand-brown/40"></i></div></summary><div class="px-5 pb-6" style="border-top:1px solid #f0e6db;padding-top:22px;"><div class="flex items-start mb-6"><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已確認</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">處理中</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已寄出</span></div><span class="flex-1 h-px mt-1.5" style="background:#ece0d5;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#d8c8ba;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown/45">已完成</span></div></div><!-- 追蹤卡:production 追蹤 link = ShipAny tracking url({tracking_url});demo href="#" --><div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 rounded-lg px-5 py-4 mb-6 font-sans text-[16px]" style="background:#f4eee7;"><i class="fa-solid fa-truck-fast text-brand-terracotta" style="font-size:14px;"></i><span class="text-brand-brown">順豐速運</span><span class="text-brand-brown/40">·</span><span class="text-brand-brown" style="font-variant-numeric:tabular-nums;">SF1234567890HK</span><span class="text-brand-brown/40">·</span><a href="#" class="text-brand-terracotta hover:underline">追蹤包裹</a></div><div class="font-sans text-[16px] tracking-[0.1em] uppercase text-brand-brown/45 mb-1">商品</div><div class="flex justify-between py-2.5 font-sans text-[16px]"><span class="text-brand-brown/80">Q10 Centella Essence <span class="text-brand-brown/45">50ml × 1</span></span><span class="text-brand-brown">$340</span></div><div class="flex justify-between py-2.5 font-sans text-[16px]"><span class="text-brand-brown/80">睡眠噴霧・薰衣草 <span class="text-brand-brown/45">100ml × 1</span></span><span class="text-brand-brown">$235</span></div><div class="mt-4 pt-4 space-y-2" style="border-top:1px solid #f0e6db;"><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>小計</span><span>$575</span></div><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>運費</span><span>$45</span></div><div class="flex justify-between font-serif text-[18px] text-brand-brown pt-1"><span>總計</span><span>$620</span></div></div><div class="mt-5 font-sans text-[16px] text-brand-brown/60 leading-relaxed"><span class="text-brand-brown/45">送貨地址　</span>Amanda H.，香港島 灣仔區 軒尼詩道 123 號 28 樓</div><div class="flex flex-wrap gap-3 mt-6"><a href="HIBI LAB Product.html" class="inline-flex items-center justify-center font-sans text-[16px] tracking-[.08em] uppercase text-brand-terracotta border border-brand-terracotta rounded-full px-8 py-[13px] transition-colors hover:bg-brand-terracotta hover:text-white">再次購買</a><a href="#" data-wa-pending data-wa-text="你好，我想查詢訂單 #HL-2406。" class="inline-flex items-center font-sans text-[16px] text-brand-terracotta hover:underline">查詢此訂單</a></div></div></details>
+            <details class="ord rounded-lg" style="border:1px solid #ece0d5;"><summary class="flex items-center justify-between gap-4 p-5"><div class="font-sans text-[16px] text-brand-brown font-medium">#HL-2389 <span class="text-brand-brown/45 font-normal">· 2026年5月30日</span></div><div class="flex items-center gap-4"><span class="font-serif text-[18px] text-brand-brown">$980</span><span class="font-sans text-[16px] text-[#1f7a4d]">已完成</span><i class="fa-solid fa-chevron-down ord-chev text-brand-brown/40"></i></div></summary><div class="px-5 pb-6" style="border-top:1px solid #f0e6db;padding-top:22px;"><div class="flex items-start mb-6"><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已確認</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">處理中</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已寄出</span></div><span class="flex-1 h-px mt-1.5" style="background:#A64B2A;"></span><div class="flex flex-col items-center flex-none" style="width:64px;"><span style="width:14px;height:14px;border-radius:50%;background:#A64B2A;"></span><span class="font-sans text-[16px] mt-2 text-brand-brown">已完成</span></div></div><div class="font-sans text-[16px] tracking-[0.1em] uppercase text-brand-brown/45 mb-1">商品</div><div class="flex justify-between py-2.5 font-sans text-[16px]"><span class="text-brand-brown/80">擴香・琥珀與小蒼蘭 <span class="text-brand-brown/45">200ml × 1</span></span><span class="text-brand-brown">$980</span></div><div class="mt-4 pt-4 space-y-2" style="border-top:1px solid #f0e6db;"><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>小計</span><span>$980</span></div><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>運費</span><span>免費</span></div><div class="flex justify-between font-serif text-[18px] text-brand-brown pt-1"><span>總計</span><span>$980</span></div></div><div class="mt-5 font-sans text-[16px] text-brand-brown/60 leading-relaxed"><span class="text-brand-brown/45">送貨地址　</span>Amanda H.，香港島 灣仔區 軒尼詩道 123 號 28 樓</div><div class="flex flex-wrap gap-3 mt-6"><a href="HIBI LAB Product.html" class="inline-flex items-center justify-center font-sans text-[16px] tracking-[.08em] uppercase text-brand-terracotta border border-brand-terracotta rounded-full px-8 py-[13px] transition-colors hover:bg-brand-terracotta hover:text-white">再次購買</a><a href="#" data-wa-pending data-wa-text="你好，我想查詢訂單 #HL-2389。" class="inline-flex items-center font-sans text-[16px] text-brand-terracotta hover:underline">查詢此訂單</a></div></div></details>
+            <details class="ord rounded-lg" style="border:1px solid #ece0d5;"><summary class="flex items-center justify-between gap-4 p-5"><div class="font-sans text-[16px] text-brand-brown font-medium">#HL-2351 <span class="text-brand-brown/45 font-normal">· 2026年5月8日</span></div><div class="flex items-center gap-4"><span class="font-serif text-[18px] text-brand-brown">$450</span><span class="font-sans text-[16px] text-brand-brown/45">已退款</span><i class="fa-solid fa-chevron-down ord-chev text-brand-brown/40"></i></div></summary><div class="px-5 pb-6" style="border-top:1px solid #f0e6db;padding-top:22px;"><!-- 非快樂狀態(§22 label map):唔出 timeline,改單行狀態 label — 已退款/已取消用 muted brown,付款失敗用 #b4452a --><div class="mb-6 font-sans text-[16px] text-brand-brown/45">已退款</div><div class="font-sans text-[16px] tracking-[0.1em] uppercase text-brand-brown/45 mb-1">商品</div><div class="flex justify-between py-2.5 font-sans text-[16px]"><span class="text-brand-brown/80">毛髮柔順噴霧・玫瑰 <span class="text-brand-brown/45">100ml × 2</span></span><span class="text-brand-brown">$450</span></div><div class="mt-4 pt-4 space-y-2" style="border-top:1px solid #f0e6db;"><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>小計</span><span>$450</span></div><div class="flex justify-between font-sans text-[16px] text-brand-brown/70"><span>運費</span><span>免費</span></div><div class="flex justify-between font-serif text-[18px] text-brand-brown pt-1"><span>總計</span><span>$450</span></div><div class="flex justify-between font-sans text-[16px] text-brand-brown/45"><span>已退款</span><span>−$450</span></div></div><div class="mt-5 font-sans text-[16px] text-brand-brown/60 leading-relaxed"><span class="text-brand-brown/45">送貨地址　</span>Amanda H.，香港島 灣仔區 軒尼詩道 123 號 28 樓</div><div class="flex flex-wrap gap-3 mt-6"><a href="HIBI LAB Product.html" class="inline-flex items-center justify-center font-sans text-[16px] tracking-[.08em] uppercase text-brand-terracotta border border-brand-terracotta rounded-full px-8 py-[13px] transition-colors hover:bg-brand-terracotta hover:text-white">再次購買</a><a href="#" data-wa-pending data-wa-text="你好，我想查詢訂單 #HL-2351。" class="inline-flex items-center font-sans text-[16px] text-brand-terracotta hover:underline">查詢此訂單</a></div></div></details>
           </div>
         </div>
 
@@ -685,8 +610,6 @@
   </div>
 </main>
 
-<div id="acct-toast" style="position:fixed;left:50%;bottom:32px;transform:translate(-50%,20px);opacity:0;pointer-events:none;transition:all .4s cubic-bezier(.25,1,.35,1);z-index:90;"><div class="flex items-center gap-3 bg-brand-brown text-brand-light rounded-full pl-5 pr-6 py-3.5 shadow-lg"><i class="fa-solid fa-check text-brand-terracotta"></i><span class="font-sans text-[16px]">已複製優惠碼</span></div></div>
-
 <script>
 (function(){
   var navLinks=Array.prototype.slice.call(document.querySelectorAll('.acct-nav-link'));
@@ -701,16 +624,6 @@
   if(backBtn) backBtn.addEventListener('click', function(){ if(shell){ shell.classList.remove('drill'); window.scrollTo(0,0); } });
   window.addEventListener('resize', function(){ if(shell && window.innerWidth>=1024) shell.classList.remove('drill'); });
   document.querySelector('.acct-cancel') && document.querySelector('.acct-cancel').addEventListener('click', function(){ if(shell) shell.classList.remove('drill'); show('overview'); });
-  // copy coupon
-  var toast=document.getElementById('acct-toast'), tT;
-  Array.prototype.slice.call(document.querySelectorAll('.copy-code')).forEach(function(b){
-    b.addEventListener('click', function(){
-      var code=b.getAttribute('data-code');
-      if(navigator.clipboard) navigator.clipboard.writeText(code).catch(function(){});
-      toast.style.opacity='1'; toast.style.transform='translate(-50%,0)';
-      clearTimeout(tT); tT=setTimeout(function(){ toast.style.opacity='0'; toast.style.transform='translate(-50%,20px)'; },2000);
-    });
-  });
 })();
 </script>
 
