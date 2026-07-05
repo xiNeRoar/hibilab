@@ -170,12 +170,6 @@
 
 ---
 
-## 16. WhatsApp 浮動掣＋支援渠道
-- **WhatsApp 浮動掣（context-aware · 兩個號碼,WP 後台可入）**：Scent.M 頁 = B2B「Bespoke Inquiry」;HIBI LAB 店頁 = B2C「Customer Care」(客服 label 用英文,同 Scent.M chrome 一致;預填訊息維持廣東話)。**兩個 WhatsApp 號碼由客喺 wp-admin 自己入**(ACF/theme options：`scentm_opt('whatsapp_number')` + `whatsapp_text`;HIBI LAB 加平行 option `hibilab_whatsapp_number` + `_text`,**只喺有號碼先 render、唔 fallback 去錯號碼**(同 `footer.php` `if($wa)` 一致)),前端按頁面 context 出對應號碼 + 文案;綠色 WA 本體不變,只換 label / 預填 / 號碼。HIBI LAB demo 沿用 inert `href="#"` + `data-wa-pending`（唔 render 假號碼）;上線由客喺 wp-admin 填客服號碼先出現（同 Scent.M 嘅 hide-if-empty 行為一致）。
-- **支援 email（2026-07-03 新增,§21.18）**：平行 option `hibilab_support_email` — Shipping 政策頁「退換流程／有疑問」以 mailto render,hide-if-empty;「查詢此訂單」link 嘅 fallback 渠道。**兩個支援渠道（WA 號碼＋support email）都係 §22 launch gate 硬項** — hide-if-empty 唔可以變成「店開咗但零支援渠道」。
-
----
-
 ## 15. PDP 內容區塊 = ACF Flexible Content（✅ 已拍板 2026-07-03 · 最終版 — merchant 自由 create + 拖拉排序,同 Journal/Workshop 一致）
 > （早期文件曾有一版「固定 ACF field group」方案,客戶已裁定以本節 Flexible Content 為準,舊版已刪。）
 PDP 下半部**一定要做成 ACF Flexible Content field**(建議 `pdp_blocks`):商家喺 wp-admin **自由新增 / 刪除 / 拖拉排序** block,同 `scentm-wp` Journal / Workshop 嘅 flexible-content **完全一樣 pattern**;`single-product.php` loop 每個 layout render。現靜態稿每個 section = 對應 block layout 嘅**視覺樣板(1:1)**。
@@ -189,6 +183,12 @@ PDP 下半部**一定要做成 ACF Flexible Content field**(建議 `pdp_blocks`)
 - `image` / `gallery` — 單圖 / 多圖
 - `video` — 影片(使用示範)
 每個 layout 欄位 + 樣式跟現稿 token(serif 標題 / ≥16px 正文 / `#ece0d5` 分隔 / terracotta accent)。安全須知 / 純露科普 / **保存期限（保存期限・開封後使用期・儲存方法,`spec_list` layout — 純露類產品標準購買疑慮,2026-07-03 journey audit 加入;內容由客戶上架時提供,launch checklist 有項）** 若全線通用可設 theme 預設 block,逐件可加自己版本 override。上半部(相片庫 / 標題 / 價 / 香味 variation / 加入購物車)= WooCommerce 固定 summary,唔入 flexible-content。
+
+---
+
+## 16. WhatsApp 浮動掣＋支援渠道
+- **WhatsApp 浮動掣（context-aware · 兩個號碼,WP 後台可入）**：Scent.M 頁 = B2B「Bespoke Inquiry」;HIBI LAB 店頁 = B2C「Customer Care」(客服 label 用英文,同 Scent.M chrome 一致;預填訊息維持廣東話)。**兩個 WhatsApp 號碼由客喺 wp-admin 自己入**(ACF/theme options：`scentm_opt('whatsapp_number')` + `whatsapp_text`;HIBI LAB 加平行 option `hibilab_whatsapp_number` + `_text`,**只喺有號碼先 render、唔 fallback 去錯號碼**(同 `footer.php` `if($wa)` 一致)),前端按頁面 context 出對應號碼 + 文案;綠色 WA 本體不變,只換 label / 預填 / 號碼。HIBI LAB demo 沿用 inert `href="#"` + `data-wa-pending`（唔 render 假號碼）;上線由客喺 wp-admin 填客服號碼先出現（同 Scent.M 嘅 hide-if-empty 行為一致）。
+- **支援 email（2026-07-03 新增,§21.18）**：平行 option `hibilab_support_email` — Shipping 政策頁「退換流程／有疑問」以 mailto render,hide-if-empty;「查詢此訂單」link 嘅 fallback 渠道。**兩個支援渠道（WA 號碼＋support email）都係 §22 launch gate 硬項** — hide-if-empty 唔可以變成「店開咗但零支援渠道」。
 
 ---
 
@@ -293,6 +293,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**(建議 `pdp_blocks`)
 22. **Guest 售後閉環**：thankyou「查看訂單」條件 render（登入→my-account orders；guest→「建立帳戶以追蹤訂單」＝WC 原生 post-checkout account creation，email 預填＋連結訂單）；email 加 `{order_url}`（WC order-received URL 連 order key，guest-safe）；email 狀態句 guest 變體（唔講「會員中心」）。
 23. **Wishlist／最近瀏覽 = 明確 deferred**（現目錄規模唔做；SKU 過 ~50 再評估）。
 24. **Scent.M 整合推遲**：「先做好 HIBI LAB，我會再整合入 Scent.M；Scent.M 而家只係 staging 未 production」— 入口層（coming-soon 標示／第 4 nav 入口／首頁描述句）全部到整合階段先處理（§0／§22 flip checklist）。
+25. **後台文案語言（2026-07-04）**：wp-admin 一切介面文字（欄位說明／提示／按鈕／確認框／通知，包括 Woo 後台自訂部分同店主內部警示電郵）一律用**港式書面語**；前台網站文案同客人電郵維持品牌廣東話（demo 為準）。scentm-wp 現有後台已按此全面轉換 — 新寫嘅 Woo admin 文案照跟。
 
 ---
 
