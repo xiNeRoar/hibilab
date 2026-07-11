@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIBI LAB · 側滑車＋搜尋狀態樣本</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#FDFBF9;color:#3B261D;font-family:Montserrat,"Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased;padding:56px 24px 96px}
+  .wrap{max-width:920px;margin:0 auto}
+  .eyb{font-size:16px;letter-spacing:.28em;text-transform:uppercase;color:#A64B2A}
+  h1{font-family:Baskervville,serif;font-size:42px;font-weight:400;letter-spacing:.02em;margin:12px 0 0}
+  .lead{font-size:16px;line-height:1.8;color:#6a5a4e;margin:14px 0 0}
+  .snote{display:flex;align-items:center;gap:12px;margin:46px 0 14px}
+  .snote .n{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#8a7464}
+  .snote .l{flex:1;height:1px;background:#e2d5c8}
+  .row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:start}
+  .drawer{width:100%;max-width:430px;background:#FDFBF9;border:1px solid #ece0d5;border-radius:12px;box-shadow:0 10px 34px rgba(59,38,29,.08);display:flex;flex-direction:column;overflow:hidden}
+  .dhead{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid #ece0d5}
+  .dhead .t{font-family:Baskervville,serif;font-size:22px}
+  .dfoot{border-top:1px solid #ece0d5;padding:16px 24px 22px}
+  .ditem{display:flex;gap:16px;padding:18px 24px;border-bottom:1px solid #ece0d5}
+  .dthumb{width:64px;aspect-ratio:4/5;background:#efe6dd;border-radius:6px;flex:none}
+  .money{font-variant-numeric:tabular-nums}
+  .devnote{font-size:14px;line-height:1.8;color:#8a7464;margin-top:10px}
+  .scard{width:100%;max-width:560px;background:#FDFBF9;border:1px solid #ece0d5;border-radius:16px;box-shadow:0 10px 34px rgba(59,38,29,.08);overflow:hidden}
+  .srow{display:flex;align-items:center;gap:16px;padding:12px 20px;border-top:1px solid #ece0d5}
+  .sthumb{width:52px;aspect-ratio:4/5;background:#efe6dd;border-radius:6px;flex:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="eyb">Slide-cart &amp; Search · State Specimens</span>
+  <h1>側滑車＋搜尋狀態樣本</h1>
+  <p class="lead">狀態樣本檔（唔上線）。側滑車＋搜尋 overlay（store-chrome.js，全站共用 §12）嘅預設 demo＝銀級會員＋達標購物車；呢頁補齊其餘狀態。production 全部由 WC fragments／REST 實時 render（§22 搜尋契約、§364 drawer 接線）。</p>
+
+  <!-- ═══ 1. 側滑車：訪客 ═══ -->
+  <div class="snote"><span class="n">① 側滑車 — 訪客（原價、無會員行 §5.E）</span><span class="l"></span></div>
+  <div class="row2">
+    <div class="drawer">
+      <div class="dhead"><span class="t">購物車</span><span style="color:rgba(59,38,29,.5)">✕</span></div>
+      <div class="ditem"><div class="dthumb"></div><div style="flex:1"><div style="font-family:Baskervville,serif;font-size:17px">Q10 Centella Essence</div><div style="font-size:15px;color:rgba(59,38,29,.5);margin-top:2px">30ml</div></div><span class="money" style="font-family:Baskervville,serif;font-size:17px">HK$340</span></div>
+      <div class="ditem"><div class="dthumb"></div><div style="flex:1"><div style="font-family:Baskervville,serif;font-size:17px">睡眠噴霧・薰衣草</div><div style="font-size:15px;color:rgba(59,38,29,.5);margin-top:2px">100ml</div></div><span class="money" style="font-family:Baskervville,serif;font-size:17px">HK$235</span></div>
+      <div class="dfoot">
+        <div style="display:flex;justify-content:space-between;font-size:16px;color:rgba(59,38,29,.7);margin-bottom:6px"><span>小計</span><span class="money" style="color:#3B261D">HK$575</span></div>
+        <div style="font-size:15px;color:rgba(59,38,29,.45)">滿 HK$500 免運 · 運費於結帳按送貨方式計算</div>
+      </div>
+    </div>
+    <p class="devnote">訪客：無「會員優惠」行、逐行原價（teaser 只限 PDP — 07-08 裁定，側滑車唔出）。互動樣本：開任何 <code>_p14／_p16／_p18／_p19</code> 訪客頁再開側滑車（HB_GUEST 樣本旗）。</p>
+  </div>
+
+  <!-- ═══ 2. 側滑車：未達免運門檻 nudge ═══ -->
+  <div class="snote"><span class="n">② 側滑車 — 未達免運門檻（§361 nudge）</span><span class="l"></span></div>
+  <div class="row2">
+    <div class="drawer">
+      <div class="dhead"><span class="t">購物車</span><span style="color:rgba(59,38,29,.5)">✕</span></div>
+      <div class="ditem"><div class="dthumb"></div><div style="flex:1"><div style="font-family:Baskervville,serif;font-size:17px">睡眠噴霧・薰衣草</div><div style="font-size:15px;color:rgba(59,38,29,.5);margin-top:2px">100ml</div></div><span class="money" style="font-family:Baskervville,serif;font-size:17px">HK$235</span></div>
+      <div class="dfoot">
+        <div style="display:flex;justify-content:space-between;font-size:16px;color:rgba(59,38,29,.7);margin-bottom:6px"><span>小計</span><span class="money" style="color:#3B261D">HK$235</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:16px;color:#A64B2A;margin-bottom:8px"><span>會員優惠</span><span class="money">−HK$23</span></div>
+        <div style="font-size:15px;color:rgba(59,38,29,.45)">滿 HK$500 免運 · 運費於結帳按送貨方式計算</div>
+        <div style="font-size:15px;color:#A64B2A;margin-top:4px">再加購 HK$288 即享免運費</div>
+      </div>
+    </div>
+    <p class="devnote">§361：門檻測「會員價之後、coupon 之前」小計（HK$212 &lt; HK$500）→ 出 nudge「再加購 HK$X 即享免運費」，X＝門檻−會員價小計；門檻停用（option 空/0）＝免運句＋nudge 全部隱藏。</p>
+  </div>
+
+  <!-- ═══ 3. 側滑車：空車 ═══ -->
+  <div class="snote"><span class="n">③ 側滑車 — 空車（§364）</span><span class="l"></span></div>
+  <div class="row2">
+    <div class="drawer">
+      <div class="dhead"><span class="t">購物車</span><span style="color:rgba(59,38,29,.5)">✕</span></div>
+      <div style="text-align:center;padding:56px 24px">
+        <div style="font-family:Baskervville,serif;font-size:20px">購物車暫時係空嘅</div>
+        <span style="display:inline-block;margin-top:18px;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:#A64B2A;border-bottom:1px solid #cfa886;padding-bottom:3px">繼續購物</span>
+      </div>
+    </div>
+    <p class="devnote">最後一件移除 → 藏 小計行／會員行／免運句／查看購物車／去結帳，出「繼續購物」（關 drawer）。預設 demo 都試到：側滑車逐件「移除」。</p>
+  </div>
+
+  <!-- ═══ 4. 搜尋 overlay：loading / 錯誤 / 截斷 ═══ -->
+  <div class="snote"><span class="n">④ 搜尋 overlay — loading／錯誤／截斷（production REST 狀態 §22 搜尋契約）</span><span class="l"></span></div>
+  <div class="row2">
+    <div class="scard">
+      <div style="padding:16px 20px;font-family:Baskervville,serif;font-size:22px;color:rgba(59,38,29,.45)">薰衣草<span style="color:#A64B2A">｜</span></div>
+      <div style="border-top:1px solid #ece0d5;padding:22px 20px;font-size:15px;color:rgba(59,38,29,.55)"><i class="fa-solid fa-circle-notch fa-spin" style="color:#A64B2A;margin-right:8px"></i>搜尋緊…</div>
+    </div>
+    <div class="scard">
+      <div style="padding:16px 20px;font-family:Baskervville,serif;font-size:22px;color:rgba(59,38,29,.45)">薰衣草<span style="color:#A64B2A">｜</span></div>
+      <div style="border-top:1px solid #ece0d5;padding:22px 20px;font-size:15px;color:rgba(59,38,29,.65)">暫時未能完成搜尋，請再試一次。<button style="margin-left:10px;font-size:14px;color:#A64B2A;border:1px solid #d8c8ba;border-radius:20px;padding:3px 14px;background:#fff;cursor:pointer">重試</button></div>
+    </div>
+  </div>
+  <div class="row2" style="margin-top:24px">
+    <div class="scard">
+      <div style="padding:16px 20px;font-family:Baskervville,serif;font-size:22px;color:rgba(59,38,29,.45)">噴霧<span style="color:#A64B2A">｜</span></div>
+      <div style="border-top:1px solid #ece0d5;padding:12px 20px 4px;font-size:15px;color:rgba(59,38,29,.5)">84 件結果 · 顯示首 50 件</div>
+      <div class="srow"><div class="sthumb"></div><div style="flex:1"><div style="font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:rgba(59,38,29,.45)">寵物護理 · 改善情緒</div><div style="font-family:Baskervville,serif;font-size:18px">情緒舒緩・分離焦慮噴霧</div></div><span style="text-align:right"><span class="money" style="font-family:Baskervville,serif;font-size:17px;color:#A64B2A">HK$239</span> <s class="money" style="font-size:16px;color:rgba(59,38,29,.4)">HK$265</s></span></div>
+      <div class="srow" style="padding-bottom:20px"><div class="sthumb"></div><div style="flex:1"><div style="font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:rgba(59,38,29,.45)">助眠系列</div><div style="font-family:Baskervville,serif;font-size:18px">睡眠噴霧・薰衣草</div></div><span style="text-align:right"><span class="money" style="font-family:Baskervville,serif;font-size:17px;color:#A64B2A">HK$212</span> <s class="money" style="font-size:16px;color:rgba(59,38,29,.4)">HK$235</s></span></div>
+    </div>
+    <p class="devnote">Loading＝REST 請求飛行中（demo 內存數據即時所以冇呢個態）；錯誤＝fetch 失敗／timeout（<strong>唔准</strong>當「冇符合結果」呈現 — 兩句唔同意思）；截斷＝結果多過 50 出「顯示首 50 件」disclosure。搜尋行嘅價錢／售罄／搶先 tag 直讀 REST 回傳嘅 stock／價欄位（§22 搜尋契約）。訪客行＝原價無 struck（開 _p14 等訪客頁試）。</p>
+  </div>
+</div>
+</body>
+</html>

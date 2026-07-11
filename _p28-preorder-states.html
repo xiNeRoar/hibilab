@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIBI LAB · 預訂狀態樣本</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#FDFBF9;color:#3B261D;font-family:Montserrat,"Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased;padding:56px 24px 96px}
+  .wrap{max-width:920px;margin:0 auto}
+  .eyb{font-size:16px;letter-spacing:.28em;text-transform:uppercase;color:#A64B2A}
+  h1{font-family:Baskervville,serif;font-size:42px;font-weight:400;letter-spacing:.02em;margin:12px 0 0}
+  .lead{font-size:16px;line-height:1.8;color:#6a5a4e;margin:14px 0 0}
+  .snote{display:flex;align-items:center;gap:12px;margin:46px 0 14px}
+  .snote .n{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#8a7464}
+  .snote .l{flex:1;height:1px;background:#e2d5c8}
+  .row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:start}
+  .devnote{font-size:14px;line-height:1.8;color:#8a7464;margin-top:10px}
+  .money{font-variant-numeric:tabular-nums}
+  .stk{position:absolute;top:12px;left:12px;z-index:2;font-size:16px;letter-spacing:.04em;padding:5px 13px;border-radius:30px}
+  .stk-pre{background:#FDFBF9;color:#A64B2A;border:1.5px solid #A64B2A}
+  .scard{width:100%;max-width:560px;background:#FDFBF9;border:1px solid #ece0d5;border-radius:16px;box-shadow:0 10px 34px rgba(59,38,29,.08);overflow:hidden}
+  .srow{display:flex;align-items:center;gap:16px;padding:12px 20px;border-top:1px solid #ece0d5}
+  .sthumb{width:52px;aspect-ratio:4/5;background:#efe6dd;border-radius:6px;flex:none}
+  .panelbox{border:1px solid #ece0d5;border-radius:10px;padding:24px;background:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="eyb">Preorder · State Specimens</span>
+  <h1>預訂狀態樣本</h1>
+  <p class="lead">狀態樣本檔（唔上線）。預訂＝第三個庫存狀態（§19／§21.11，2026-07-10 鎖定）：WC 缺貨＋開放 backorder；即刻全額付款；到貨期＝per-product 欄位＋全局預設（出廠「約 1 週到貨」）；混合車＝允許、等齊貨一併寄；無接單上限（商家熄 backorder 手動停）。PDP 全頁樣本見 <strong>_p27</strong>。</p>
+
+  <!-- ═══ 1. PLP 預訂卡 ═══ -->
+  <div class="snote"><span class="n">① 商品卡 — 預訂（.stk-pre 外框 terracotta）</span><span class="l"></span></div>
+  <div class="row2">
+    <div style="max-width:300px">
+      <div style="position:relative;overflow:hidden;border-radius:6px;aspect-ratio:4/5;background:#efe6dd;">
+        <span class="stk stk-pre">預訂</span>
+      </div>
+      <div style="text-align:center;padding:16px 8px 4px">
+        <div style="font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:rgba(59,38,29,.5)">助眠系列</div>
+        <div style="font-family:Baskervville,serif;font-size:18px;margin-top:8px">枕頭噴霧・洋甘菊</div>
+        <div style="font-size:16px;color:rgba(166,75,42,.85);margin-top:4px">人用</div>
+        <div style="font-size:16px;color:rgba(59,38,29,.55);margin-top:4px">50ml</div>
+        <div style="margin-top:10px"><span class="money" style="font-family:Baskervville,serif;font-size:20px;color:#A64B2A">HK$194</span> <s class="money" style="font-family:Baskervville,serif;font-size:16px;color:rgba(59,38,29,.4)">HK$215</s></div>
+        <div style="font-size:16px;color:#A64B2A;margin-top:2px">銀級會員價</div>
+      </div>
+    </div>
+    <p class="devnote">預訂 badge＝<strong>外框 terracotta</strong>（`.stk-pre`），有別於 搶先＝實色 terracotta、售罄＝深啡；圖<strong>唔</strong>變暗（可照買）。card()／搜尋 render 嘅 preorder branch 已入引擎 code（Shop 三檔＋store-chrome.js），dataset `stock:"preorder"` 即出。production＝WC 缺貨＋backorder 條件 render（§20.3）。</p>
+  </div>
+
+  <!-- ═══ 2. 搜尋 overlay 預訂行 ═══ -->
+  <div class="snote"><span class="n">② 搜尋結果行 — 預訂 tag（§22 搜尋契約 stock=preorder）</span><span class="l"></span></div>
+  <div class="row2">
+    <div class="scard">
+      <div style="padding:16px 20px;font-family:Baskervville,serif;font-size:22px;color:rgba(59,38,29,.45)">枕頭<span style="color:#A64B2A">｜</span></div>
+      <div class="srow" style="padding-bottom:20px"><div class="sthumb"></div><div style="flex:1"><div style="font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:rgba(59,38,29,.45)">助眠系列</div><div style="font-family:Baskervville,serif;font-size:18px">枕頭噴霧・洋甘菊</div></div><span class="stk-pre" style="font-size:16px;letter-spacing:.04em;padding:3px 11px;border-radius:30px;flex:none">預訂</span><span style="text-align:right"><span class="money" style="font-family:Baskervville,serif;font-size:17px;color:#A64B2A">HK$194</span> <s class="money" style="font-size:16px;color:rgba(59,38,29,.4)">HK$215</s></span></div>
+    </div>
+    <p class="devnote">REST payload `stock` 欄＝`in|preorder|out`，overlay 直接消費（§19／§22 搜尋契約）— 免得撳入 PDP 先知係預訂。`.hb-stk-pre` 已入 store-chrome.js。</p>
+  </div>
+
+  <!-- ═══ 3. 結帳同意 checkbox ═══ -->
+  <div class="snote"><span class="n">③ 結帳 — 預訂同意 checkbox（必填，§20.1）</span><span class="l"></span></div>
+  <div class="panelbox" style="max-width:560px">
+    <label style="display:flex;align-items:flex-start;gap:10px;font-size:16px;line-height:1.7;color:#3B261D;cursor:pointer">
+      <input type="checkbox" required style="width:18px;height:18px;accent-color:#A64B2A;flex:none;margin-top:3px">
+      <span>我明白並接受預訂商品約 1 週到貨，訂單將於預訂商品到貨後一併寄出。 <abbr class="required" title="必填" style="color:#b4452a;text-decoration:none;">*</abbr></span>
+    </label>
+  </div>
+  <p class="devnote">只喺車內有預訂項先 render；入 place-order 驗證（未剔＝reportValidity 攔）。「約 1 週到貨」＝per-product 到貨期 derive；<strong>多件預訂項、到貨期唔同</strong>時句子轉：「我明白並接受訂單內預訂商品之到貨期（見商品標示），訂單將於預訂商品到貨後一併寄出。」尾句＝混合車行為（2026-07-10 鎖定：允許混車、等齊貨一併寄）。</p>
+
+  <!-- ═══ 4. Email／訂單 標示 ═══ -->
+  <div class="snote"><span class="n">④ Email ①／訂單詳情 — 預訂項標示</span><span class="l"></span></div>
+  <div class="panelbox" style="max-width:560px;background:#fff">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-family:'Helvetica Neue',Arial,'PingFang HK',sans-serif">
+      <tr>
+        <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">枕頭噴霧・洋甘菊<br><span style="font-size:12px;color:#a08e7e;">50ml × 1 · </span><span style="font-size:12px;color:#A64B2A;">預訂 · 約 1 週到貨</span></td>
+        <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$194</td>
+      </tr>
+    </table>
+  </div>
+  <p class="devnote">同款標示出喺：email ①（§21.10）、Order Received 摘要、Account 訂單詳情 line item — 「預訂 · {到貨期}」細字 terracotta。email 唔准焊死日數，{到貨期}＝落單一刻快照（訂單歷史＝快照 §23.2#5）。</p>
+</div>
+</body>
+</html>

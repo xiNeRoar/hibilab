@@ -37,7 +37,7 @@
 <div class="wrap">
   <span class="eyb">Membership · Tier Colours</span>
   <h1>會員等級色階</h1>
-  <p class="lead">三個等級用「<strong style="color:#3B261D">由淺到深、越高越 luxe</strong>」嘅色階區分,一眼睇到高低。全部沿用 Scent.M 品牌色(米 / 啡 / terracotta)加一層鎏金 accent。等級卡背景由會員系統按目前等級自動切換 —— 呢頁只係展示三種色。</p>
+  <p class="lead">等級用「<strong style="color:#3B261D">由淺到深、越高越 luxe</strong>」嘅色階區分,一眼睇到高低。全部沿用 Scent.M 品牌色(米 / 啡 / terracotta)加一層鎏金 accent。等級卡背景由會員系統按目前等級自動切換 —— 呢頁只係展示 demo 三個 seed 級嘅色樣(等級數目/名/主色全部後台可設定 §5.A,加級=系統自動搭「深底→主色」漸變)。</p>
 
   <!-- 一般 -->
   <div class="tier-note"><span class="swatch" style="background:#e4d6c5"></span><span class="n">一般會員 · General</span><span class="l"></span><span style="font-size:16px;color:#9a8678">淺米 · 入門</span></div>
@@ -48,13 +48,14 @@
         <div class="tname" style="color:#3B261D">一般會員 <span class="en" style="color:#A64B2A">General</span></div>
       </div>
       <div>
-        <div class="num" style="color:#A64B2A">$680</div>
+        <div class="num" style="color:#A64B2A">HK$680</div>
         <div class="numlab" style="color:rgba(59,38,29,0.5)">近 12 個月消費</div>
       </div>
     </div>
     <div class="prog">
-      <div class="progrow" style="color:rgba(59,38,29,0.65)"><span>距離 銀級會員 還差 $1,320</span><span>$680 / $2,000</span></div>
+      <div class="progrow" style="color:rgba(59,38,29,0.65)"><span>距離 銀級會員 還差 HK$1,320</span><span>HK$680 / HK$2,000</span></div>
       <div class="track" style="background:rgba(59,38,29,0.12)"><div class="fill" style="width:34%;background:linear-gradient(90deg,#c98f6e,#A64B2A)"></div></div>
+      <div style="font-size:16px;color:rgba(59,38,29,0.6);margin-top:12px">再消費 HK$1,320 即升 銀級會員</div>
     </div>
   </div>
 
@@ -67,13 +68,15 @@
         <div class="tname" style="color:#FDFBF9">銀級會員 <span class="en" style="color:#e8b896">Silver</span></div>
       </div>
       <div>
-        <div class="num" style="color:#e8b896">$3,820</div>
+        <!-- 數字對齊 Account demo（Amanda 銀級 · 近12月淨消費 HK$2,478）— 同一會員兩處渲染必須一致 -->
+        <div class="num" style="color:#e8b896">HK$2,478</div>
         <div class="numlab" style="color:rgba(253,251,249,0.55)">近 12 個月消費</div>
       </div>
     </div>
     <div class="prog">
-      <div class="progrow" style="color:rgba(253,251,249,0.7)"><span>距離 金級會員 還差 $1,180</span><span>$3,820 / $5,000</span></div>
-      <div class="track" style="background:rgba(243,234,225,0.18)"><div class="fill" style="width:76%;background:linear-gradient(90deg,#d8a98c,#e8b896)"></div></div>
+      <div class="progrow" style="color:rgba(253,251,249,0.7)"><span>距離 金級會員 還差 HK$2,522</span><span>HK$2,478 / HK$5,000</span></div>
+      <div class="track" style="background:rgba(243,234,225,0.18)"><div class="fill" style="width:50%;background:linear-gradient(90deg,#d8a98c,#e8b896)"></div></div>
+      <div style="font-size:16px;color:rgba(253,251,249,0.6);margin-top:12px">再消費 HK$2,522 即升 金級會員</div>
     </div>
   </div>
 
@@ -87,17 +90,17 @@
         <div class="tname" style="color:#FDFBF9">金級會員 <span class="en" style="color:#e8c88a">Gold</span></div>
       </div>
       <div>
-        <div class="num" style="color:#e8c88a">$6,240</div>
+        <div class="num" style="color:#e8c88a">HK$6,240</div>
         <div class="numlab" style="color:rgba(253,251,249,0.6)">近 12 個月消費</div>
       </div>
     </div>
     <div class="prog" style="position:relative">
       <div class="progrow" style="color:rgba(253,251,249,0.75)"><span><i class="fa-solid fa-crown" style="color:#e8c88a;margin-right:8px"></i>尊尚會籍 · 已達最高等級</span><span>維持中</span></div>
-      <div class="track" style="background:rgba(243,234,225,0.2)"><div class="fill" style="width:100%;background:linear-gradient(90deg,#d4a95e,#e8c88a)"></div></div>
+      <!-- 頂級卡無進度條（§22.6／§23.2#6） -->
     </div>
   </div>
 
-  <p class="lead" style="margin-top:40px;font-size:16px;color:#8a7464">＊ 金級為最高等級,故顯示「已達最高等級」而非升級進度。三張卡結構、字級、佈局一致,只換背景色階與 accent。確定色階後,我就將等級卡背景做成按會員目前等級自動切換。</p>
+  <p class="lead" style="margin-top:40px;font-size:16px;color:#8a7464">＊ 呢頁＝設計樣板稿（唔上線）。「已達最高等級／維持中」＝該會員之上<strong>冇更高 enabled 級</strong>時先出（唔係焊死金級 — 客戶可以加級/改名/刪級 §5.A）；非頂級卡出「距離／還差／暖行」，四個值由同一對數（近12月淨消費, 下一級門檻）derive，還差 clamp ≥0、fill clamp ≤100%（超標未結算/override 情況 §22.6）；英文名＝可選欄位，冇填就唔出。production 由 VIP repeater 動態 render，等級卡背景按會員目前等級自動切換。</p>
 </div>
 </body>
 </html>

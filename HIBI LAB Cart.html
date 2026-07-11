@@ -506,7 +506,7 @@
     </nav>
     <h1 class="font-serif text-4xl md:text-5xl tracking-tight text-brand-brown mt-5 ani-this bottom-in delay-1">購物車 <span class="font-serif italic text-brand-terracotta text-2xl md:text-3xl align-middle ml-1">Cart</span></h1>
 
-    <div id="cart-wrap" class="mt-10 md:mt-12 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 lg:gap-16">
+    <div id="cart-wrap" class="mt-10 md:mt-12 grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-10 lg:gap-16">
       <!-- ITEMS -->
       <section class="ani-this bottom-in">
         <div class="hidden md:grid grid-cols-[1fr_auto_auto] gap-6 pb-4 font-sans text-[16px] tracking-[0.14em] uppercase text-brand-brown/45" style="border-bottom:1px solid #ece0d5;">
@@ -514,12 +514,12 @@
         </div>
         <div id="cart-items">
           <!-- line item -->
-          <div class="cart-item grid grid-cols-[88px_1fr] md:grid-cols-[100px_1fr_auto_auto] gap-4 md:gap-6 py-6 items-center" style="border-bottom:1px solid #ece0d5;" data-price="340" data-qty="1">
+          <div class="cart-item grid grid-cols-[88px_1fr] md:grid-cols-[100px_1fr_auto_auto] gap-4 md:gap-6 py-6 items-center" style="border-bottom:1px solid #ece0d5;" data-price="340" data-mprice="306" data-qty="1">
             <div class="rounded-md overflow-hidden" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-q10.png" alt="Q10 Centella Essence" class="w-full h-full object-cover"></div>
             <div>
               <div class="font-sans text-[16px] tracking-[0.1em] uppercase text-brand-brown/50">護膚品</div>
               <a href="HIBI LAB Product.html" class="font-serif text-[18px] text-brand-brown leading-snug hover:text-brand-terracotta transition-colors">Q10 Centella Essence</a>
-              <div class="font-sans text-[16px] text-brand-brown/55 mt-1">容量：50ml</div>
+              <div class="font-sans text-[16px] text-brand-brown/55 mt-1">容量：30ml</div>
               <button class="ci-remove font-sans text-[16px] text-brand-brown/45 mt-2 inline-flex items-center gap-1.5"><i class="fa-solid fa-xmark text-[10px]"></i> 移除</button>
             </div>
             <div class="flex items-center rounded-full md:justify-self-center" style="border:1px solid #d2c1b2;width:max-content;">
@@ -527,10 +527,10 @@
               <span class="ci-qty font-sans text-[16px] text-brand-brown w-7 text-center" style="font-variant-numeric:tabular-nums;">1</span>
               <button class="qty-btn ci-inc" aria-label="增加"><i class="fa-solid fa-plus text-[10px]"></i></button>
             </div>
-            <div class="ci-total font-serif text-[18px] text-brand-brown md:w-20 md:text-right">$340</div>
+            <div class="ci-total font-serif text-[18px] text-brand-brown md:w-20 md:text-right">HK$340</div>
           </div>
 
-          <div class="cart-item grid grid-cols-[88px_1fr] md:grid-cols-[100px_1fr_auto_auto] gap-4 md:gap-6 py-6 items-center" style="border-bottom:1px solid #ece0d5;" data-price="235" data-qty="1">
+          <div class="cart-item grid grid-cols-[88px_1fr] md:grid-cols-[100px_1fr_auto_auto] gap-4 md:gap-6 py-6 items-center" style="border-bottom:1px solid #ece0d5;" data-price="235" data-mprice="212" data-qty="1">
             <div class="rounded-md overflow-hidden" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="睡眠噴霧・薰衣草" class="w-full h-full object-cover"></div>
             <div>
               <div class="font-sans text-[16px] tracking-[0.1em] uppercase text-brand-brown/50">助眠系列</div>
@@ -543,7 +543,7 @@
               <span class="ci-qty font-sans text-[16px] text-brand-brown w-7 text-center" style="font-variant-numeric:tabular-nums;">1</span>
               <button class="qty-btn ci-inc" aria-label="增加"><i class="fa-solid fa-plus text-[10px]"></i></button>
             </div>
-            <div class="ci-total font-serif text-[18px] text-brand-brown md:w-20 md:text-right">$235</div>
+            <div class="ci-total font-serif text-[18px] text-brand-brown md:w-20 md:text-right">HK$235</div>
           </div>
         </div>
 
@@ -551,7 +551,7 @@
 
         <!-- empty -->
         <div id="cart-empty" class="hidden text-center py-20">
-          <div class="font-serif text-2xl text-brand-brown">購物車是空的</div>
+          <div class="font-serif text-2xl text-brand-brown">購物車暫時係空嘅</div>
           <p class="font-sans text-[16px] text-brand-brown/55 mt-3">探索 HIBI LAB 全系列，開始你的感官儀式。</p>
           <a href="HIBI LAB Shop.html" class="inline-block mt-6 font-sans text-[16px] tracking-[0.12em] uppercase text-brand-terracotta" style="border-bottom:1px solid #cfa886;padding-bottom:3px;">前往商店</a>
         </div>
@@ -570,19 +570,22 @@
               <button id="coupon-apply" class="font-sans text-[16px] tracking-[0.1em] uppercase text-white bg-brand-brown rounded-md px-4 transition-colors hover:bg-brand-terracotta">套用</button>
             </div>
             <div id="coupon-msg" class="font-sans text-[16px] mt-2" style="display:none;"></div>
-            <div class="font-sans text-[16px] text-brand-brown/40 mt-2">試用：<button class="coupon-try underline hover:text-brand-terracotta" data-code="HIBILAB10">HIBILAB10</button> · <button class="coupon-try underline hover:text-brand-terracotta" data-code="WELCOME50">WELCOME50</button></div>
+            <!-- ⚠ DEMO-ONLY 試碼快捷鍵：production 絕對唔准出 coupon-hint 清單（§6 禁提示；一次一張 individual_use）。theme build 時成行剷走。 -->
+            <div class="font-sans text-[16px] text-brand-brown/40 mt-2">試用：<button class="coupon-try underline hover:text-brand-terracotta" data-code="WELCOME50">WELCOME50</button> · <button class="coupon-try underline hover:text-brand-terracotta" data-code="HIBILAB15">HIBILAB15</button></div>
           </div>
 
           <div class="mt-6 pt-6 space-y-3.5" style="border-top:1px solid #e3d5c8;">
-            <div class="flex justify-between font-sans text-[16px]"><span class="text-brand-brown/65">小計</span><span id="sum-subtotal" class="text-brand-brown" style="font-variant-numeric:tabular-nums;">$575</span></div>
-            <div id="row-discount" class="flex justify-between font-sans text-[16px]" style="display:none;"><span class="flex items-center gap-2.5"><span class="text-brand-terracotta" id="discount-label">優惠折扣</span><button id="coupon-remove" class="text-brand-brown/45 hover:text-brand-terracotta transition-colors" aria-label="移除優惠碼">移除 ✕</button></span><span id="sum-discount" class="text-brand-terracotta" style="font-variant-numeric:tabular-nums;">−$0</span></div>
-            <div class="flex justify-between font-sans text-[16px]"><span class="text-brand-brown/65">運費</span><span id="sum-shipping" class="text-brand-brown" style="font-variant-numeric:tabular-nums;">免費</span></div>
-            <div id="ship-note" class="font-sans text-[16px] text-brand-brown/50 leading-relaxed"></div>
+            <div class="flex justify-between font-sans text-[16px]"><span class="text-brand-brown/65">小計</span><span id="sum-subtotal" class="text-brand-brown" style="font-variant-numeric:tabular-nums;">HK$575</span></div>
+            <div id="row-member" class="flex justify-between font-sans text-[16px]" style="display:none;"><span class="flex items-center gap-2.5"><span class="text-brand-terracotta" id="member-label">會員優惠</span></span><span id="sum-member" class="text-brand-terracotta" style="font-variant-numeric:tabular-nums;">−HK$57</span></div>
+            <div id="row-discount" class="flex justify-between font-sans text-[16px]" style="display:none;"><span class="flex items-center gap-2.5"><span class="text-brand-terracotta" id="discount-label">優惠碼</span><button id="coupon-remove" class="text-brand-brown/45 hover:text-brand-terracotta transition-colors" aria-label="移除優惠碼">移除 ✕</button></span><span id="sum-discount" class="text-brand-terracotta" style="font-variant-numeric:tabular-nums;">−HK$86</span></div>
+            <!-- 運費行＝靜態樣本：demo 會員價小計 HK$518 ≥ 門檻 HK$500 → 免費。§6 口徑：門檻測「會員價之後、coupon 之前」，所以套咗優惠碼（總計 HK$489）都仍然免運。未達門檻樣本見 _p21；門檻金額＝ACF option 單一來源（§22，demo $500 示範值）。 -->
+            <div class="flex justify-between font-sans text-[16px]"><span class="text-brand-brown/65">運費</span><span id="sum-shipping" class="text-[#1f7a4d]" style="font-variant-numeric:tabular-nums;">免費</span></div>
+            <div id="ship-note" class="font-sans text-[16px] text-brand-brown/50 leading-relaxed"><span class="text-brand-terracotta">已享滿 HK$500 免運</span></div>
           </div>
 
           <div class="flex justify-between items-baseline mt-5 pt-5" style="border-top:1px solid #e3d5c8;">
             <span class="font-serif text-[19px] text-brand-brown">總計</span>
-            <span class="flex items-baseline gap-1.5"><span id="sum-total" class="font-serif text-[26px] text-brand-brown" style="font-variant-numeric:tabular-nums;">$575</span><span id="sum-total-note" class="font-sans text-[16px] text-brand-brown/50" style="display:none;">+ 運費</span></span>
+            <span class="flex items-baseline gap-1.5"><span id="sum-total" class="font-serif text-[26px] text-brand-brown" style="font-variant-numeric:tabular-nums;">HK$518</span></span>
           </div>
 
           <a href="HIBI LAB Checkout.html" class="w-full mt-6 inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white font-sans text-[16px] tracking-[0.14em] uppercase rounded-full py-4 transition-all duration-300 hover:bg-brand-brown">前往結帳 <i class="fa-solid fa-arrow-right-long"></i></a>
@@ -597,20 +600,20 @@
 
 <script>
 (function(){
-  // 免運門檻 = admin 後台 ACF option（demo $500 只係示範值；設空/0 = 停用門檻）；實際運費由 ShipAny 於結帳按送貨方式+地址報價，購物車唔預先計數
-  var FREE_SHIP=500;
-  var coupons={ 'HIBILAB10':{type:'pct',val:0.10,label:'HIBILAB10 · 9 折'}, 'WELCOME50':{type:'amt',val:50,label:'WELCOME50 · 首單減 $50'}, 'FREESHIP':{type:'ship',val:0,label:'FREESHIP · 免運費'} };
-  var applied=null, appliedCode=null;
+  /* Demo＝「銀級會員」persona 靜態樣本：會員價＝cart line data-mprice 設計值（§22 G2 樣式）— 前端零計價、零 best-wins、零免運門檻邏輯；production 全部 server-side（§5／§6／§7）。訪客購物車樣本見 _p19；生日月見 _p20；未達免運門檻見 _p21。 */
   var itemsWrap=document.getElementById('cart-items');
   function items(){ return Array.prototype.slice.call(itemsWrap.querySelectorAll('.cart-item')); }
-  function money(n){ return '$'+n; }
+  function money(n){ return 'HK$'+Number(n).toLocaleString('en-US'); }
+  // demo 優惠碼固定結果（設計值，非計算；只對預設購物車 HK$575 有效）：WELCOME50 輸畀會員價（§22 文案 3）、HIBILAB15 贏（§22 文案 4，−HK$86、總計 HK$489）。production＝WC native coupon（一次一張 individual_use、無免運碼）+ server-side 二選一取最抵（§6）。
+  var DEMO_CODES={ 'WELCOME50':{win:false}, 'HIBILAB15':{win:true, save:86} };
+  var couponOn=false, couponCode=null;
 
   function recalc(){
-    var subtotal=0;
+    var subtotal=0, mSave=0;
     items().forEach(function(it){
-      var price=+it.getAttribute('data-price'), qty=+it.getAttribute('data-qty');
-      var line=price*qty; subtotal+=line;
-      it.querySelector('.ci-total').textContent=money(line);
+      var price=+it.getAttribute('data-price'), mp=+(it.getAttribute('data-mprice')||it.getAttribute('data-price')), qty=+it.getAttribute('data-qty');
+      subtotal+=price*qty; mSave+=(price-mp)*qty;
+      it.querySelector('.ci-total').textContent=money(price*qty); // 逐行＝原價；會員慳幅集中喺「會員優惠」行（§22 客面文案 5）
       it.querySelector('.ci-qty').textContent=qty;
     });
     var n=items().length;
@@ -618,53 +621,49 @@
     itemsWrap.style.display=n>0?'':'none';
     // 清空狀態：成個 summary aside 隱藏（production 行 native cart-empty.php，成頁自然無 aside）
     document.getElementById('cart-summary').style.display=n>0?'':'none';
-
-    var manualDisc=0, freeShip=false;
-    if(applied){
-      if(applied.type==='pct') manualDisc=Math.round(subtotal*applied.val);
-      else if(applied.type==='amt') manualDisc=Math.min(applied.val,subtotal);
-      else if(applied.type==='ship') freeShip=true;
-    }
-    var afterDisc=subtotal-manualDisc;
-
     document.getElementById('sum-subtotal').textContent=money(subtotal);
-    var rowD=document.getElementById('row-discount');
-    if(applied){ rowD.style.display='flex'; document.getElementById('sum-discount').textContent=applied.type==='ship'?'免運費':'−'+money(manualDisc); document.getElementById('discount-label').textContent=applied.label; }
-    else rowD.style.display='none';
-
-    // 運費行：折後小計達門檻 → 免費；未達 → 唔出數字，結帳先由 ShipAny 按送貨方式報價
-    var hitThresh=afterDisc>=FREE_SHIP;
-    var note=document.getElementById('ship-note');
-    var totalNote=document.getElementById('sum-total-note');
-    if(hitThresh||freeShip){
-      document.getElementById('sum-shipping').textContent='免費';
-      note.innerHTML=hitThresh?'<span class="text-brand-terracotta">已享滿 '+money(FREE_SHIP)+' 免運</span>':'<span class="text-brand-terracotta">已享免運費 ✓</span>';
-      totalNote.style.display='none';
+    // 會員行 vs 優惠碼行＝二選一顯示（設計值樣本）；運費行＝靜態（見 markup 註解，§6 口徑套碼唔影響免運）
+    var rowM=document.getElementById('row-member'), rowD=document.getElementById('row-discount');
+    if(couponOn){
+      rowM.style.display='none'; rowD.style.display='flex';
+      document.getElementById('sum-discount').textContent='−'+money(DEMO_CODES[couponCode].save);
+      document.getElementById('discount-label').textContent='優惠碼 '+couponCode;
+      document.getElementById('sum-total').textContent=money(subtotal-DEMO_CODES[couponCode].save);
     } else {
-      document.getElementById('sum-shipping').textContent='於結帳按送貨方式計算';
-      note.textContent='再加購 '+money(FREE_SHIP-afterDisc)+' 即享免運費';
-      totalNote.style.display='';
+      rowD.style.display='none';
+      if(n&&mSave>0){ rowM.style.display='flex'; document.getElementById('sum-member').textContent='−'+money(mSave); } else rowM.style.display='none';
+      document.getElementById('sum-total').textContent=money(subtotal-mSave);
     }
-    document.getElementById('sum-total').textContent=money(afterDisc);
   }
+
+  function resetCoupon(){ couponOn=false; couponCode=null; var msg=document.getElementById('coupon-msg'); msg.style.display='none'; msg.textContent=''; }
 
   itemsWrap.addEventListener('click', function(e){
     var it=e.target.closest('.cart-item'); if(!it) return;
-    if(e.target.closest('.ci-inc')){ it.setAttribute('data-qty', Math.min(99,+it.getAttribute('data-qty')+1)); recalc(); }
-    else if(e.target.closest('.ci-dec')){ it.setAttribute('data-qty', Math.max(1,+it.getAttribute('data-qty')-1)); recalc(); }
-    else if(e.target.closest('.ci-remove')){ it.remove(); recalc(); }
+    var hit=false;
+    if(e.target.closest('.ci-inc')){ it.setAttribute('data-qty', Math.min(99,+it.getAttribute('data-qty')+1)); hit=true; }
+    else if(e.target.closest('.ci-dec')){ it.setAttribute('data-qty', Math.max(1,+it.getAttribute('data-qty')-1)); hit=true; }
+    else if(e.target.closest('.ci-remove')){ it.remove(); hit=true; }
+    // 車一變＝還原會員價狀態（demo 固定值冇得重算，唔准出現「顯示已套用但冇效果」嘅殭屍碼）；production WC 每次 recalc server-side 重新比較（§6）
+    if(hit){ if(couponOn) resetCoupon(); recalc(); }
   });
 
+  // applyCode＝四個 §22 訊息狀態嘅固定樣本（無效／一次一張／會員價較抵／成功）；決策唔喺前端計 — production server-side 二選一取最抵（§6）
   function applyCode(code){
     code=(code||'').trim().toUpperCase();
     var msg=document.getElementById('coupon-msg');
     msg.style.display='block';
     // 無效碼唔會清走已套用嘅碼
-    if(!coupons[code]){ msg.style.color='#b4452a'; msg.textContent='優惠碼無效，請再試。'; return; }
+    if(!DEMO_CODES[code]){ msg.style.color='#b4452a'; msg.textContent='優惠碼無效，請再試。'; return; }
     // 一次只可套一張碼（對齊 production WC individual_use 行為）
-    if(applied&&appliedCode!==code){ msg.style.color='#b4452a'; msg.textContent='一次只可使用一張優惠碼，請先移除現有優惠碼。'; return; }
-    applied=coupons[code]; appliedCode=code;
-    msg.style.color='#1f7a4d'; msg.textContent='已套用：'+applied.label;
+    if(couponOn&&couponCode!==code){ msg.style.color='#b4452a'; msg.textContent='一次只可使用一張優惠碼，請先移除現有優惠碼。'; return; }
+    // 二選一取最抵（固定結果）：coupon 冇嚴格大過會員慳幅 → 唔套（§6；文案禁「保留／暫停」字眼）
+    if(!DEMO_CODES[code].win){
+      msg.style.color='#8a6d54'; msg.textContent='會員價更抵，此優惠碼無需使用。';
+      return;
+    }
+    couponOn=true; couponCode=code;
+    msg.style.color='#1f7a4d'; msg.textContent='已套用優惠碼。';
     recalc();
   }
   document.getElementById('coupon-apply').addEventListener('click', function(){ applyCode(document.getElementById('coupon-input').value); });
@@ -673,9 +672,8 @@
     b.addEventListener('click', function(){ document.getElementById('coupon-input').value=b.getAttribute('data-code'); applyCode(b.getAttribute('data-code')); });
   });
   document.getElementById('coupon-remove').addEventListener('click', function(){
-    applied=null; appliedCode=null;
+    resetCoupon();
     document.getElementById('coupon-input').value='';
-    var msg=document.getElementById('coupon-msg'); msg.style.display='none'; msg.textContent='';
     recalc();
   });
 

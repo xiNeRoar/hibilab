@@ -591,6 +591,7 @@
 </section>
 
 <!-- ===================== TESTIMONIALS ===================== -->
+<!-- WP-dev（§23）：真實回饋＝ACF repeater，客戶自填；repeater 空＝成個 section（連 carousel dots）hide-if-empty。以下 6 張卡＝deletable seed 示範 — 卡內產品名係示範文案，客戶換入真實回饋時自然對應真產品；星級/名/標籤全部 repeater 欄位 -->
 <section class="pt-10 pb-10 md:pt-8 md:pb-8">
   <div class="max-w-screen-xl mx-auto px-6 md:px-12">
     <div class="text-center">
@@ -667,6 +668,7 @@
       <div class="hibi-orn mt-4 ani-this bottom-in delay-1"><span class="l"></span><span class="text-brand-terracotta text-sm">&#10059;</span><span class="l"></span></div>
     </div>
 
+    <!-- WP-dev：精選商品 6 卡＝WC featured products loop — 每卡 link=該產品自己嘅 permalink（demo 全部指去單一 PDP 檔只係 placeholder）；名/價/相/售罄/搶先 badge 全部由該產品實時讀（catalog 有 stock/early 欄位）。價錢顯示＝按瀏覽者身份：demo persona=銀級會員（會員價+struck+tag，同 Shop 卡一致）；訪客形（原價、無 tag、teaser）見 _p18 樣本＋§5.E — 訪客絕不出實數會員價 -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 items-stretch gap-x-[18px] gap-y-[18px] mt-12">
       <a href="HIBI LAB Product.html" class="fp-card group flex flex-col h-full ani-this bottom-in">
         <div class="relative overflow-hidden" style="aspect-ratio:4 / 5;background:#efe6dd;">
@@ -676,7 +678,10 @@
           <div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">護膚品</div>
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">Gentle pH Gel Cleanser</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">100ml</div>
-          <div class="font-serif text-[19px] md:text-[20px] text-brand-brown mt-auto pt-3">$320</div>
+          <div class="mt-auto pt-3">
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$288 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$320</s></div>
+            <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
+          </div>
         </div>
       </a>
       <a href="HIBI LAB Product.html" class="fp-card group flex flex-col h-full ani-this bottom-in delay-1">
@@ -687,7 +692,10 @@
           <div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">護膚品</div>
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">Centella Soothing Essence Water</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">100ml</div>
-          <div class="font-serif text-[19px] md:text-[20px] text-brand-brown mt-auto pt-3">$298</div>
+          <div class="mt-auto pt-3">
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$268 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$298</s></div>
+            <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
+          </div>
         </div>
       </a>
       <a href="HIBI LAB Product.html" class="fp-card group flex flex-col h-full ani-this bottom-in delay-2">
@@ -697,8 +705,11 @@
         <div class="flex flex-col flex-grow text-center px-4 pt-4 pb-5">
           <div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">護膚品</div>
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">Q10 Centella Essence</div>
-          <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">50ml</div>
-          <div class="font-serif text-[19px] md:text-[20px] text-brand-brown mt-auto pt-3">$340</div>
+          <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">30ml 起</div>
+          <div class="mt-auto pt-3">
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$306 起 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$340</s></div>
+            <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
+          </div>
         </div>
       </a>
       <a href="HIBI LAB Product.html" class="fp-card group flex flex-col h-full ani-this bottom-in">
@@ -709,7 +720,10 @@
           <div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理</div>
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">毛髮柔順噴霧</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">100ml</div>
-          <div class="font-serif text-[19px] md:text-[20px] text-brand-brown mt-auto pt-3">$225</div>
+          <div class="mt-auto pt-3">
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$203 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$225</s></div>
+            <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
+          </div>
         </div>
       </a>
       <a href="HIBI LAB Product.html" class="fp-card group flex flex-col h-full ani-this bottom-in delay-1">
@@ -720,7 +734,10 @@
           <div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">助眠系列</div>
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">睡眠噴霧・薰衣草</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">100ml</div>
-          <div class="font-serif text-[19px] md:text-[20px] text-brand-brown mt-auto pt-3">$235</div>
+          <div class="mt-auto pt-3">
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$212 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$235</s></div>
+            <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
+          </div>
         </div>
       </a>
       <a href="HIBI LAB Product.html" class="fp-card group flex flex-col h-full ani-this bottom-in delay-2">
@@ -731,7 +748,10 @@
           <div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">家居香氛</div>
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">擴香・琥珀與小蒼蘭</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">200ml</div>
-          <div class="font-serif text-[19px] md:text-[20px] text-brand-brown mt-auto pt-3">$980</div>
+          <div class="mt-auto pt-3">
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$882 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$980</s></div>
+            <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
+          </div>
         </div>
       </a>
     </div>

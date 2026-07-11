@@ -1,0 +1,590 @@
+<!-- 狀態樣本檔（唔上線）：email 變體樣本，由 HIBI LAB Email.html wrapper 生成（§21.10/§22 六款；⑥補購 DEFERRED；生日祝賀=同 wrapper skin） -->
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>HIBI LAB · Email 變體樣本</title></head>
+<body style="margin:0;padding:0;background:#f3eae1;font-family:'Helvetica Neue',Arial,'PingFang HK','Microsoft JhengHei',sans-serif;color:#3B261D;">
+
+  <!-- ═══════════ 訂單確認 email（主範本 · demo 數據 = Checkout 稿同一張單） ═══════════ -->
+  <div style="max-width:600px;margin:12px auto 0;font-family:Georgia,serif;font-size:22px;color:#3B261D;">HIBI LAB · Email 變體樣本</div>
+<div style="max-width:600px;margin:36px auto 10px;font-family:Montserrat,sans-serif;font-size:14px;letter-spacing:.12em;color:#A64B2A;">② 寄出通知（第 3 步 active＋追蹤卡；lead 句/閉幕 per-variant）</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3eae1;padding:32px 12px;">
+    <tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7d9c9;border-radius:6px;overflow:hidden;">
+
+        <!-- header band -->
+        <tr><td style="background:#3B261D;padding:26px 32px;text-align:center;">
+          <span style="font-family:Georgia,'Times New Roman',serif;font-size:24px;letter-spacing:4px;color:#FDFBF9;">HIBI LAB</span><br>
+          <span style="font-family:Georgia,serif;font-style:italic;font-size:12px;letter-spacing:2px;color:#e8b896;">by Scent.M</span>
+        </td></tr>
+
+        <!-- eyebrow + heading + greeting -->
+        <tr><td style="padding:34px 32px 6px;">
+          <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A64B2A;">Order shipped</p>
+          <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:26px;font-weight:normal;color:#3B261D;">寄出通知</h1>
+          <p style="margin:0 0 6px;font-size:15px;line-height:1.75;color:#5a4a3e;">你好 Amanda，你嘅訂單已經寄出，好快就到！</p>
+          <!-- {date}＝中文日期格式（全站統一「YYYY年M月D日」，同 Account 訂單記錄一致 §22） -->
+          <p style="margin:0 0 22px;font-size:12px;color:#a08e7e;">訂單編號 <span style="color:#A64B2A;">HL-1024</span> · 2026年7月3日</p>
+        </td></tr>
+
+        <!-- line items -->
+        <tr><td style="padding:0 32px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">Q10 Centella Essence<br><span style="font-size:12px;color:#a08e7e;">30ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$340</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">睡眠噴霧・薰衣草<br><span style="font-size:12px;color:#a08e7e;">100ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$235</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:13px;color:#a08e7e;">小計</td>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:14px;color:#3B261D;text-align:right;">HK$575</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;font-size:13px;color:#A64B2A;">會員優惠</td>
+              <td style="padding:6px 0;font-size:14px;color:#A64B2A;text-align:right;">−HK$57</td>
+            </tr>
+            <tr>
+              <!-- 運費 label 唔出門檻括註：免運門檻字串單一來源＝六個站內消費位（§22），email 只出 {shipping} 實數，唔焊死門檻 -->
+              <td style="padding:6px 0 11px;font-size:13px;color:#a08e7e;">運費</td>
+              <td style="padding:6px 0 11px;font-size:14px;color:#1f7a4d;text-align:right;">免費</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-size:15px;color:#3B261D;">總計</td>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-family:Georgia,serif;font-size:20px;color:#A64B2A;text-align:right;">HK$518</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- shipping address + next step -->
+        <tr><td style="padding:22px 32px 0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="width:50%;vertical-align:top;padding-right:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨地址</p>
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">Amanda H.<br>香港島 灣仔區 軒尼詩道 123 號 28 樓<br>+852 9123 4567</p>
+              </td>
+              <td style="width:50%;vertical-align:top;padding-left:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨方式</p>
+                <!-- 此格＝{shipping_method}：按訂單實際送貨方式輸出（送上門／自取點,ShipAny）;demo＝送上門。⚠ {shipping_method} 只含方式名 — 唔准焊死送達日數（SLA 全站單一來源 §22,如要出=另設 per-method 欄位）;運費值={shipping}(免費/實數),自取點單 {address}=自取點地址（plugin write-back §7） -->
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">送上門<br><span style="color:#1f7a4d;">免運費</span></p>
+              </td>
+            </tr>
+          </table>
+        </td></tr>
+
+        
+        <!-- 追蹤卡（②專屬）：{carrier} · {tracking_no} ·〈追蹤包裹〉→{tracking_url} -->
+        <tr><td style="padding:0 32px 4px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf5ee;border:1px solid #ece0d2;border-radius:6px;"><tr><td style="padding:14px 18px;font-size:13px;color:#5a4a3e;">順豐速運 · <span style="font-variant-numeric:tabular-nums;">SF1234567890HK</span> · <a href="#" style="color:#A64B2A;">追蹤包裹</a></td></tr></table></td></tr>
+        <!-- status strip -->
+        <tr><td style="padding:24px 32px 8px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf5ee;border:1px solid #ece0d2;border-radius:6px;">
+            <tr><td style="padding:14px 18px;font-size:13px;line-height:1.7;color:#5a4a3e;">
+              <span style="color:#A64B2A;">●</span>&nbsp;已確認&nbsp;&nbsp;<span style="color:#A64B2A;">───</span>&nbsp;&nbsp;<span style="color:#A64B2A;">●</span>&nbsp;處理中&nbsp;&nbsp;<span style="color:#A64B2A;">───</span>&nbsp;&nbsp;<span style="color:#A64B2A;">●</span>&nbsp;已寄出&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">已完成</span><br>
+              <!-- {status_note}：member＝「你亦可以登入會員中心隨時查看訂單狀態。」/ guest＝「你可以隨時透過此電郵內嘅連結查看訂單狀態（〈查看訂單〉→ {order_url}）。」 -->
+              <!-- ⚠ 狀態條 lead 句＝per-variant 區域：①「寄出後我哋會再 email 通知你，並附上追蹤號。」／②寄出＝追蹤卡就喺上面，唔重覆呢句／③完成④退款＝唔出 — 唔准當 wrapper 共用字 -->
+              <span style="font-size:12px;color:#a08e7e;">追蹤號喺上面，隨時掌握包裹去向。你亦可以登入會員中心隨時查看訂單狀態。</span>
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- closing — ⚠ 「如需取消或修改訂單，請於出貨前儘快聯絡我哋。」呢句＝per-variant：只出喺①訂單確認（§21.21 取消政策句）;②寄出③完成④退款唔出（句子唔再適用），只留前半「如有任何疑問…」 -->
+        <tr><td style="padding:18px 32px 34px;">
+          <p style="margin:0;font-size:15px;line-height:1.75;color:#5a4a3e;">如有任何疑問，直接回覆此電郵，或者 WhatsApp 我哋嘅 Customer Care。</p>
+        </td></tr>
+
+        <!-- footer -->
+        <tr><td style="background:#f3eae1;padding:18px 32px;text-align:center;font-size:11px;letter-spacing:1px;color:#a08e7e;">
+          HIBI LAB by SCENT.M · 日常香氣與溫柔護理<br>
+          <span style="color:#b5a595;">此電郵由系統發出 · 私隱政策及退換安排請見網站</span>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+<div style="max-width:600px;margin:36px auto 10px;font-family:Montserrat,sans-serif;font-size:14px;letter-spacing:.12em;color:#A64B2A;">③ 訂單完成（第 4 步 active；無 lead 句、閉幕短版）</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3eae1;padding:32px 12px;">
+    <tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7d9c9;border-radius:6px;overflow:hidden;">
+
+        <!-- header band -->
+        <tr><td style="background:#3B261D;padding:26px 32px;text-align:center;">
+          <span style="font-family:Georgia,'Times New Roman',serif;font-size:24px;letter-spacing:4px;color:#FDFBF9;">HIBI LAB</span><br>
+          <span style="font-family:Georgia,serif;font-style:italic;font-size:12px;letter-spacing:2px;color:#e8b896;">by Scent.M</span>
+        </td></tr>
+
+        <!-- eyebrow + heading + greeting -->
+        <tr><td style="padding:34px 32px 6px;">
+          <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A64B2A;">Order completed</p>
+          <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:26px;font-weight:normal;color:#3B261D;">訂單完成</h1>
+          <p style="margin:0 0 6px;font-size:15px;line-height:1.75;color:#5a4a3e;">你好 Amanda，你嘅訂單已經完成，多謝支持 HIBI LAB。</p>
+          <!-- {date}＝中文日期格式（全站統一「YYYY年M月D日」，同 Account 訂單記錄一致 §22） -->
+          <p style="margin:0 0 22px;font-size:12px;color:#a08e7e;">訂單編號 <span style="color:#A64B2A;">HL-1024</span> · 2026年7月3日</p>
+        </td></tr>
+
+        <!-- line items -->
+        <tr><td style="padding:0 32px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">Q10 Centella Essence<br><span style="font-size:12px;color:#a08e7e;">30ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$340</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">睡眠噴霧・薰衣草<br><span style="font-size:12px;color:#a08e7e;">100ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$235</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:13px;color:#a08e7e;">小計</td>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:14px;color:#3B261D;text-align:right;">HK$575</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;font-size:13px;color:#A64B2A;">會員優惠</td>
+              <td style="padding:6px 0;font-size:14px;color:#A64B2A;text-align:right;">−HK$57</td>
+            </tr>
+            <tr>
+              <!-- 運費 label 唔出門檻括註：免運門檻字串單一來源＝六個站內消費位（§22），email 只出 {shipping} 實數，唔焊死門檻 -->
+              <td style="padding:6px 0 11px;font-size:13px;color:#a08e7e;">運費</td>
+              <td style="padding:6px 0 11px;font-size:14px;color:#1f7a4d;text-align:right;">免費</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-size:15px;color:#3B261D;">總計</td>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-family:Georgia,serif;font-size:20px;color:#A64B2A;text-align:right;">HK$518</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- shipping address + next step -->
+        <tr><td style="padding:22px 32px 0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="width:50%;vertical-align:top;padding-right:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨地址</p>
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">Amanda H.<br>香港島 灣仔區 軒尼詩道 123 號 28 樓<br>+852 9123 4567</p>
+              </td>
+              <td style="width:50%;vertical-align:top;padding-left:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨方式</p>
+                <!-- 此格＝{shipping_method}：按訂單實際送貨方式輸出（送上門／自取點,ShipAny）;demo＝送上門。⚠ {shipping_method} 只含方式名 — 唔准焊死送達日數（SLA 全站單一來源 §22,如要出=另設 per-method 欄位）;運費值={shipping}(免費/實數),自取點單 {address}=自取點地址（plugin write-back §7） -->
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">送上門<br><span style="color:#1f7a4d;">免運費</span></p>
+              </td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- status strip -->
+        <tr><td style="padding:24px 32px 8px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf5ee;border:1px solid #ece0d2;border-radius:6px;">
+            <tr><td style="padding:14px 18px;font-size:13px;line-height:1.7;color:#5a4a3e;">
+              <span style="color:#A64B2A;">●</span>&nbsp;已確認&nbsp;&nbsp;<span style="color:#A64B2A;">───</span>&nbsp;&nbsp;<span style="color:#A64B2A;">●</span>&nbsp;處理中&nbsp;&nbsp;<span style="color:#A64B2A;">───</span>&nbsp;&nbsp;<span style="color:#A64B2A;">●</span>&nbsp;已寄出&nbsp;&nbsp;<span style="color:#A64B2A;">───</span>&nbsp;&nbsp;<span style="color:#A64B2A;">●</span>&nbsp;已完成<br>
+              <!-- {status_note}：member＝「你亦可以登入會員中心隨時查看訂單狀態。」/ guest＝「你可以隨時透過此電郵內嘅連結查看訂單狀態（〈查看訂單〉→ {order_url}）。」 -->
+              <!-- ⚠ 狀態條 lead 句＝per-variant 區域：①「寄出後我哋會再 email 通知你，並附上追蹤號。」／②寄出＝追蹤卡就喺上面，唔重覆呢句／③完成④退款＝唔出 — 唔准當 wrapper 共用字 -->
+              <span style="font-size:12px;color:#a08e7e;">你亦可以登入會員中心隨時查看訂單狀態。</span>
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- closing — ⚠ 「如需取消或修改訂單，請於出貨前儘快聯絡我哋。」呢句＝per-variant：只出喺①訂單確認（§21.21 取消政策句）;②寄出③完成④退款唔出（句子唔再適用），只留前半「如有任何疑問…」 -->
+        <tr><td style="padding:18px 32px 34px;">
+          <p style="margin:0;font-size:15px;line-height:1.75;color:#5a4a3e;">如有任何疑問，直接回覆此電郵，或者 WhatsApp 我哋嘅 Customer Care。</p>
+        </td></tr>
+
+        <!-- footer -->
+        <tr><td style="background:#f3eae1;padding:18px 32px;text-align:center;font-size:11px;letter-spacing:1px;color:#a08e7e;">
+          HIBI LAB by SCENT.M · 日常香氣與溫柔護理<br>
+          <span style="color:#b5a595;">此電郵由系統發出 · 私隱政策及退換安排請見網站</span>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+<div style="max-width:600px;margin:36px auto 10px;font-family:Montserrat,sans-serif;font-size:14px;letter-spacing:.12em;color:#A64B2A;">④ 退款通知（退款金額行、無狀態條、閉幕短版）</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3eae1;padding:32px 12px;">
+    <tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7d9c9;border-radius:6px;overflow:hidden;">
+
+        <!-- header band -->
+        <tr><td style="background:#3B261D;padding:26px 32px;text-align:center;">
+          <span style="font-family:Georgia,'Times New Roman',serif;font-size:24px;letter-spacing:4px;color:#FDFBF9;">HIBI LAB</span><br>
+          <span style="font-family:Georgia,serif;font-style:italic;font-size:12px;letter-spacing:2px;color:#e8b896;">by Scent.M</span>
+        </td></tr>
+
+        <!-- eyebrow + heading + greeting -->
+        <tr><td style="padding:34px 32px 6px;">
+          <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A64B2A;">Refund issued</p>
+          <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:26px;font-weight:normal;color:#3B261D;">退款通知</h1>
+          <p style="margin:0 0 6px;font-size:15px;line-height:1.75;color:#5a4a3e;">你好 Amanda，你嘅訂單已完成退款，款項已退回原付款方式。</p>
+          <!-- {date}＝中文日期格式（全站統一「YYYY年M月D日」，同 Account 訂單記錄一致 §22） -->
+          <p style="margin:0 0 22px;font-size:12px;color:#a08e7e;">訂單編號 <span style="color:#A64B2A;">HL-1024</span> · 2026年7月3日</p>
+        </td></tr>
+
+        <!-- line items -->
+        <tr><td style="padding:0 32px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">Q10 Centella Essence<br><span style="font-size:12px;color:#a08e7e;">30ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$340</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">睡眠噴霧・薰衣草<br><span style="font-size:12px;color:#a08e7e;">100ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$235</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:13px;color:#a08e7e;">小計</td>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:14px;color:#3B261D;text-align:right;">HK$575</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;font-size:13px;color:#A64B2A;">會員優惠</td>
+              <td style="padding:6px 0;font-size:14px;color:#A64B2A;text-align:right;">−HK$57</td>
+            </tr>
+            <tr>
+              <!-- 運費 label 唔出門檻括註：免運門檻字串單一來源＝六個站內消費位（§22），email 只出 {shipping} 實數，唔焊死門檻 -->
+              <td style="padding:6px 0 11px;font-size:13px;color:#a08e7e;">運費</td>
+              <td style="padding:6px 0 11px;font-size:14px;color:#1f7a4d;text-align:right;">免費</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-size:15px;color:#3B261D;">總計</td>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-family:Georgia,serif;font-size:20px;color:#A64B2A;text-align:right;">HK$518</td>
+            </tr>
+            <tr>
+              <!-- 「已退款」金額行＝實際退款額（可部分退 §23.2#5） --><td style="padding:11px 0;font-size:13px;color:#a08e7e;">已退款</td>
+              <td style="padding:11px 0;font-size:14px;color:#a08e7e;text-align:right;">−HK$518</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- shipping address + next step -->
+        <tr><td style="padding:22px 32px 0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="width:50%;vertical-align:top;padding-right:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨地址</p>
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">Amanda H.<br>香港島 灣仔區 軒尼詩道 123 號 28 樓<br>+852 9123 4567</p>
+              </td>
+              <td style="width:50%;vertical-align:top;padding-left:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨方式</p>
+                <!-- 此格＝{shipping_method}：按訂單實際送貨方式輸出（送上門／自取點,ShipAny）;demo＝送上門。⚠ {shipping_method} 只含方式名 — 唔准焊死送達日數（SLA 全站單一來源 §22,如要出=另設 per-method 欄位）;運費值={shipping}(免費/實數),自取點單 {address}=自取點地址（plugin write-back §7） -->
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">送上門<br><span style="color:#1f7a4d;">免運費</span></p>
+              </td>
+            </tr>
+          </table>
+        </td></tr>
+        <!-- ④退款：唔出狀態條（§21.10） -->
+
+        <!-- closing — ⚠ 「如需取消或修改訂單，請於出貨前儘快聯絡我哋。」呢句＝per-variant：只出喺①訂單確認（§21.21 取消政策句）;②寄出③完成④退款唔出（句子唔再適用），只留前半「如有任何疑問…」 -->
+        <tr><td style="padding:18px 32px 34px;">
+          <p style="margin:0;font-size:15px;line-height:1.75;color:#5a4a3e;">如有任何疑問，直接回覆此電郵，或者 WhatsApp 我哋嘅 Customer Care。</p>
+        </td></tr>
+
+        <!-- footer -->
+        <tr><td style="background:#f3eae1;padding:18px 32px;text-align:center;font-size:11px;letter-spacing:1px;color:#a08e7e;">
+          HIBI LAB by SCENT.M · 日常香氣與溫柔護理<br>
+          <span style="color:#b5a595;">此電郵由系統發出 · 私隱政策及退換安排請見網站</span>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+<div style="max-width:600px;margin:36px auto 10px;font-family:Montserrat,sans-serif;font-size:14px;letter-spacing:.12em;color:#A64B2A;">⑤ 店主新訂單通知（內部版：港式書面語、加客戶聯絡）</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3eae1;padding:32px 12px;">
+    <tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7d9c9;border-radius:6px;overflow:hidden;">
+
+        <!-- header band -->
+        <tr><td style="background:#3B261D;padding:26px 32px;text-align:center;">
+          <span style="font-family:Georgia,'Times New Roman',serif;font-size:24px;letter-spacing:4px;color:#FDFBF9;">HIBI LAB</span><br>
+          <span style="font-family:Georgia,serif;font-style:italic;font-size:12px;letter-spacing:2px;color:#e8b896;">by Scent.M</span>
+        </td></tr>
+
+        <!-- eyebrow + heading + greeting -->
+        <tr><td style="padding:34px 32px 6px;">
+          <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A64B2A;">New order - internal</p>
+          <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:26px;font-weight:normal;color:#3B261D;">新訂單通知</h1>
+          <p style="margin:0 0 6px;font-size:15px;line-height:1.75;color:#5a4a3e;">收到新訂單，請安排出貨。</p><!-- 內部通知：收件人＝店主通知地址；不出品牌開場白；admin 文案＝港式書面語 §21.6 -->
+          <!-- {date}＝中文日期格式（全站統一「YYYY年M月D日」，同 Account 訂單記錄一致 §22） -->
+          <p style="margin:0 0 22px;font-size:12px;color:#a08e7e;">訂單編號 <span style="color:#A64B2A;">HL-1024</span> · 2026年7月3日</p>
+        </td></tr>
+
+        <!-- line items -->
+        <tr><td style="padding:0 32px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">Q10 Centella Essence<br><span style="font-size:12px;color:#a08e7e;">30ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$340</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">睡眠噴霧・薰衣草<br><span style="font-size:12px;color:#a08e7e;">100ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$235</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:13px;color:#a08e7e;">小計</td>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:14px;color:#3B261D;text-align:right;">HK$575</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;font-size:13px;color:#A64B2A;">會員優惠</td>
+              <td style="padding:6px 0;font-size:14px;color:#A64B2A;text-align:right;">−HK$57</td>
+            </tr>
+            <tr>
+              <!-- 運費 label 唔出門檻括註：免運門檻字串單一來源＝六個站內消費位（§22），email 只出 {shipping} 實數，唔焊死門檻 -->
+              <td style="padding:6px 0 11px;font-size:13px;color:#a08e7e;">運費</td>
+              <td style="padding:6px 0 11px;font-size:14px;color:#1f7a4d;text-align:right;">免費</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-size:15px;color:#3B261D;">總計</td>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-family:Georgia,serif;font-size:20px;color:#A64B2A;text-align:right;">HK$518</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- shipping address + next step -->
+        <tr><td style="padding:22px 32px 0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="width:50%;vertical-align:top;padding-right:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨地址</p>
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">Amanda H.<br>香港島 灣仔區 軒尼詩道 123 號 28 樓<br>+852 9123 4567</p>
+              </td>
+              <td style="width:50%;vertical-align:top;padding-left:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨方式</p>
+                <!-- 此格＝{shipping_method}：按訂單實際送貨方式輸出（送上門／自取點,ShipAny）;demo＝送上門。⚠ {shipping_method} 只含方式名 — 唔准焊死送達日數（SLA 全站單一來源 §22,如要出=另設 per-method 欄位）;運費值={shipping}(免費/實數),自取點單 {address}=自取點地址（plugin write-back §7） -->
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">送上門<br><span style="color:#1f7a4d;">免運費</span></p>
+              </td>
+            </tr>
+          </table>
+        </td></tr>
+        <!-- ⑤內部版：加客人聯絡資料 -->
+        <tr><td style="padding:20px 32px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf5ee;border:1px solid #ece0d2;border-radius:6px;"><tr><td style="padding:14px 18px;font-size:13px;line-height:1.9;color:#5a4a3e;"><strong style="color:#3B261D;">客戶資料</strong><br>Amanda H. · amanda.h@email.com · +852 9123 4567</td></tr></table></td></tr>
+
+        <!-- closing — ⚠ 「如需取消或修改訂單，請於出貨前儘快聯絡我哋。」呢句＝per-variant：只出喺①訂單確認（§21.21 取消政策句）;②寄出③完成④退款唔出（句子唔再適用），只留前半「如有任何疑問…」 -->
+        <tr><td style="padding:18px 32px 34px;">
+          <p style="margin:0;font-size:15px;line-height:1.75;color:#5a4a3e;">此為內部訂單通知，請於後台處理訂單。</p>
+        </td></tr>
+
+        <!-- footer -->
+        <tr><td style="background:#f3eae1;padding:18px 32px;text-align:center;font-size:11px;letter-spacing:1px;color:#a08e7e;">
+          HIBI LAB by SCENT.M · 日常香氣與溫柔護理<br>
+          <span style="color:#b5a595;">此電郵由系統發出 · 私隱政策及退換安排請見網站</span>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+<div style="max-width:600px;margin:36px auto 10px;font-family:Montserrat,sans-serif;font-size:14px;letter-spacing:.12em;color:#A64B2A;">①-B 訪客／無折扣行變體（{discount_rows} 空、總計＝小計）</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3eae1;padding:32px 12px;">
+    <tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7d9c9;border-radius:6px;overflow:hidden;">
+
+        <!-- header band -->
+        <tr><td style="background:#3B261D;padding:26px 32px;text-align:center;">
+          <span style="font-family:Georgia,'Times New Roman',serif;font-size:24px;letter-spacing:4px;color:#FDFBF9;">HIBI LAB</span><br>
+          <span style="font-family:Georgia,serif;font-style:italic;font-size:12px;letter-spacing:2px;color:#e8b896;">by Scent.M</span>
+        </td></tr>
+
+        <!-- eyebrow + heading + greeting -->
+        <tr><td style="padding:34px 32px 6px;">
+          <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A64B2A;">Order confirmed</p>
+          <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:26px;font-weight:normal;color:#3B261D;">訂單確認</h1>
+          <p style="margin:0 0 6px;font-size:15px;line-height:1.75;color:#5a4a3e;">你好 Amanda，多謝你嘅訂購！我哋已經收到你嘅訂單，執好貨就會盡快寄出。</p>
+          <!-- {date}＝中文日期格式（全站統一「YYYY年M月D日」，同 Account 訂單記錄一致 §22） -->
+          <p style="margin:0 0 22px;font-size:12px;color:#a08e7e;">訂單編號 <span style="color:#A64B2A;">HL-1024</span> · 2026年7月3日</p>
+        </td></tr>
+
+        <!-- line items -->
+        <tr><td style="padding:0 32px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">Q10 Centella Essence<br><span style="font-size:12px;color:#a08e7e;">30ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$340</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">睡眠噴霧・薰衣草<br><span style="font-size:12px;color:#a08e7e;">100ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$235</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:13px;color:#a08e7e;">小計</td>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:14px;color:#3B261D;text-align:right;">HK$575</td>
+            </tr>
+            <!-- {discount_rows}＝空（guest／一般會員 0%／無碼）：成行略過，總計＝小計＋運費 -->
+            <tr>
+              <!-- 運費 label 唔出門檻括註：免運門檻字串單一來源＝六個站內消費位（§22），email 只出 {shipping} 實數，唔焊死門檻 -->
+              <td style="padding:6px 0 11px;font-size:13px;color:#a08e7e;">運費</td>
+              <td style="padding:6px 0 11px;font-size:14px;color:#1f7a4d;text-align:right;">免費</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-size:15px;color:#3B261D;">總計</td>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-family:Georgia,serif;font-size:20px;color:#A64B2A;text-align:right;">HK$575</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- shipping address + next step -->
+        <tr><td style="padding:22px 32px 0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="width:50%;vertical-align:top;padding-right:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨地址</p>
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">Amanda H.<br>香港島 灣仔區 軒尼詩道 123 號 28 樓<br>+852 9123 4567</p>
+              </td>
+              <td style="width:50%;vertical-align:top;padding-left:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨方式</p>
+                <!-- 此格＝{shipping_method}：按訂單實際送貨方式輸出（送上門／自取點,ShipAny）;demo＝送上門。⚠ {shipping_method} 只含方式名 — 唔准焊死送達日數（SLA 全站單一來源 §22,如要出=另設 per-method 欄位）;運費值={shipping}(免費/實數),自取點單 {address}=自取點地址（plugin write-back §7） -->
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">送上門<br><span style="color:#1f7a4d;">免運費</span></p>
+              </td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- status strip -->
+        <tr><td style="padding:24px 32px 8px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf5ee;border:1px solid #ece0d2;border-radius:6px;">
+            <tr><td style="padding:14px 18px;font-size:13px;line-height:1.7;color:#5a4a3e;">
+              <span style="color:#A64B2A;">●</span>&nbsp;已確認&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">處理中</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">已寄出</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">已完成</span><br>
+              <!-- {status_note}：member＝「你亦可以登入會員中心隨時查看訂單狀態。」/ guest＝「你可以隨時透過此電郵內嘅連結查看訂單狀態（〈查看訂單〉→ {order_url}）。」 -->
+              <!-- ⚠ 狀態條 lead 句＝per-variant 區域：①「寄出後我哋會再 email 通知你，並附上追蹤號。」／②寄出＝追蹤卡就喺上面，唔重覆呢句／③完成④退款＝唔出 — 唔准當 wrapper 共用字 -->
+              <span style="font-size:12px;color:#a08e7e;">寄出後我哋會再 email 通知你，並附上追蹤號。你可以隨時透過此電郵內嘅連結查看訂單狀態。</span>
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- closing — ⚠ 「如需取消或修改訂單，請於出貨前儘快聯絡我哋。」呢句＝per-variant：只出喺①訂單確認（§21.21 取消政策句）;②寄出③完成④退款唔出（句子唔再適用），只留前半「如有任何疑問…」 -->
+        <tr><td style="padding:18px 32px 34px;">
+          <p style="margin:0;font-size:15px;line-height:1.75;color:#5a4a3e;">如有任何疑問，直接回覆此電郵，或者 WhatsApp 我哋嘅 Customer Care。如需取消或修改訂單，請於出貨前儘快聯絡我哋。</p>
+        </td></tr>
+
+        <!-- footer -->
+        <tr><td style="background:#f3eae1;padding:18px 32px;text-align:center;font-size:11px;letter-spacing:1px;color:#a08e7e;">
+          HIBI LAB by SCENT.M · 日常香氣與溫柔護理<br>
+          <span style="color:#b5a595;">此電郵由系統發出 · 私隱政策及退換安排請見網站</span>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+<div style="max-width:600px;margin:36px auto 10px;font-family:Montserrat,sans-serif;font-size:14px;letter-spacing:.12em;color:#A64B2A;">①-C 付運費＋優惠碼贏變體（未達門檻單：優惠碼行取代會員行、運費實數）</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3eae1;padding:32px 12px;">
+    <tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7d9c9;border-radius:6px;overflow:hidden;">
+
+        <!-- header band -->
+        <tr><td style="background:#3B261D;padding:26px 32px;text-align:center;">
+          <span style="font-family:Georgia,'Times New Roman',serif;font-size:24px;letter-spacing:4px;color:#FDFBF9;">HIBI LAB</span><br>
+          <span style="font-family:Georgia,serif;font-style:italic;font-size:12px;letter-spacing:2px;color:#e8b896;">by Scent.M</span>
+        </td></tr>
+
+        <!-- eyebrow + heading + greeting -->
+        <tr><td style="padding:34px 32px 6px;">
+          <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A64B2A;">Order confirmed</p>
+          <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:26px;font-weight:normal;color:#3B261D;">訂單確認</h1>
+          <p style="margin:0 0 6px;font-size:15px;line-height:1.75;color:#5a4a3e;">你好 Amanda，多謝你嘅訂購！我哋已經收到你嘅訂單，執好貨就會盡快寄出。</p>
+          <!-- {date}＝中文日期格式（全站統一「YYYY年M月D日」，同 Account 訂單記錄一致 §22） -->
+          <p style="margin:0 0 22px;font-size:12px;color:#a08e7e;">訂單編號 <span style="color:#A64B2A;">HL-1025</span> · 2026年7月3日</p>
+        </td></tr>
+
+        <!-- line items -->
+        <tr><td style="padding:0 32px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">睡眠噴霧・薰衣草<br><span style="font-size:12px;color:#a08e7e;">100ml × 1</span></td>
+              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$235</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:13px;color:#a08e7e;">小計</td>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:14px;color:#3B261D;text-align:right;">HK$235</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;font-size:13px;color:#A64B2A;">優惠碼 HIBILAB15</td>
+              <td style="padding:6px 0;font-size:14px;color:#A64B2A;text-align:right;">−HK$35</td>
+            </tr>
+            <tr>
+              <!-- 運費 label 唔出門檻括註：免運門檻字串單一來源＝六個站內消費位（§22），email 只出 {shipping} 實數，唔焊死門檻 -->
+              <td style="padding:6px 0 11px;font-size:13px;color:#a08e7e;">運費</td>
+              <td style="padding:6px 0 11px;font-size:14px;color:#3B261D;text-align:right;">HK$45</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-size:15px;color:#3B261D;">總計</td>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-family:Georgia,serif;font-size:20px;color:#A64B2A;text-align:right;">HK$245</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- shipping address + next step -->
+        <tr><td style="padding:22px 32px 0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="width:50%;vertical-align:top;padding-right:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨地址</p>
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">Amanda H.<br>香港島 灣仔區 軒尼詩道 123 號 28 樓<br>+852 9123 4567</p>
+              </td>
+              <td style="width:50%;vertical-align:top;padding-left:12px;">
+                <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a08e7e;">送貨方式</p>
+                <!-- 此格＝{shipping_method}：按訂單實際送貨方式輸出（送上門／自取點,ShipAny）;demo＝送上門。⚠ {shipping_method} 只含方式名 — 唔准焊死送達日數（SLA 全站單一來源 §22,如要出=另設 per-method 欄位）;運費值={shipping}(免費/實數),自取點單 {address}=自取點地址（plugin write-back §7） -->
+                <p style="margin:0;font-size:14px;line-height:1.7;color:#5a4a3e;">送上門<br><span>運費 HK$45</span></p>
+              </td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- status strip -->
+        <tr><td style="padding:24px 32px 8px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf5ee;border:1px solid #ece0d2;border-radius:6px;">
+            <tr><td style="padding:14px 18px;font-size:13px;line-height:1.7;color:#5a4a3e;">
+              <span style="color:#A64B2A;">●</span>&nbsp;已確認&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">處理中</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">已寄出</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">已完成</span><br>
+              <!-- {status_note}：member＝「你亦可以登入會員中心隨時查看訂單狀態。」/ guest＝「你可以隨時透過此電郵內嘅連結查看訂單狀態（〈查看訂單〉→ {order_url}）。」 -->
+              <!-- ⚠ 狀態條 lead 句＝per-variant 區域：①「寄出後我哋會再 email 通知你，並附上追蹤號。」／②寄出＝追蹤卡就喺上面，唔重覆呢句／③完成④退款＝唔出 — 唔准當 wrapper 共用字 -->
+              <span style="font-size:12px;color:#a08e7e;">寄出後我哋會再 email 通知你，並附上追蹤號。你亦可以登入會員中心隨時查看訂單狀態。</span>
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- closing — ⚠ 「如需取消或修改訂單，請於出貨前儘快聯絡我哋。」呢句＝per-variant：只出喺①訂單確認（§21.21 取消政策句）;②寄出③完成④退款唔出（句子唔再適用），只留前半「如有任何疑問…」 -->
+        <tr><td style="padding:18px 32px 34px;">
+          <p style="margin:0;font-size:15px;line-height:1.75;color:#5a4a3e;">如有任何疑問，直接回覆此電郵，或者 WhatsApp 我哋嘅 Customer Care。如需取消或修改訂單，請於出貨前儘快聯絡我哋。</p>
+        </td></tr>
+
+        <!-- footer -->
+        <tr><td style="background:#f3eae1;padding:18px 32px;text-align:center;font-size:11px;letter-spacing:1px;color:#a08e7e;">
+          HIBI LAB by SCENT.M · 日常香氣與溫柔護理<br>
+          <span style="color:#b5a595;">此電郵由系統發出 · 私隱政策及退換安排請見網站</span>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+<!-- ═══════════ ⑥ 補購提醒（2026-07-10 鎖定：購買重錨・循環直至暫停/取消・只限會員・逐件獨立・非扣款；placeholders：{name} {product} {date} {schedule} {reorder_url}（{schedule}＝human 排程字串：「每隔 8 週」／「每月 16 號」）） ═══════════ -->
+<div style="max-width:600px;margin:36px auto 10px;font-family:Montserrat,sans-serif;font-size:14px;letter-spacing:.12em;color:#A64B2A;">⑥ 補購提醒（Reorder reminder · 循環提醒直至取消，非扣款）</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3eae1;padding:32px 12px;">
+    <tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7d9c9;border-radius:6px;overflow:hidden;">
+        <tr><td style="background:#3B261D;padding:26px 32px;text-align:center;">
+          <span style="font-family:Georgia,'Times New Roman',serif;font-size:24px;letter-spacing:4px;color:#FDFBF9;">HIBI LAB</span><br>
+          <span style="font-family:Georgia,serif;font-style:italic;font-size:12px;letter-spacing:2px;color:#e8b896;">by Scent.M</span>
+        </td></tr>
+        <tr><td style="padding:34px 32px 6px;">
+          <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A64B2A;">Reorder reminder</p>
+          <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:26px;font-weight:normal;color:#3B261D;">補購提醒</h1>
+          <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:#5a4a3e;">你好 Amanda，你喺 2026年6月18日 買嘅 Q10 Centella Essence（30ml），按你設定嘅提醒排程（每隔 8 週），而家差唔多係補購時間。</p>
+        </td></tr>
+        <tr><td style="padding:0 32px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf5ee;border:1px solid #ece0d2;border-radius:6px;">
+            <tr><td style="padding:18px;">
+              <p style="margin:0;font-size:15px;color:#3B261D;">Q10 Centella Essence <span style="font-size:12px;color:#a08e7e;">30ml</span></p>
+              <!-- {reorder_url}＝WC add-to-cart URL（?add-to-cart={product_id}，入車後照平時結帳；現價計，email 唔承諾價錢） -->
+              <a href="#" style="display:inline-block;margin-top:12px;font-size:13px;letter-spacing:1px;color:#FDFBF9;background:#A64B2A;border-radius:24px;padding:10px 26px;text-decoration:none;">一鍵再買</a>
+            </td></tr>
+          </table>
+        </td></tr>
+        <tr><td style="padding:20px 32px 6px;">
+          <p style="margin:0;font-size:13px;line-height:1.8;color:#a08e7e;">呢封只係提醒電郵，唔會自動扣款。想暫停、更改或取消提醒，隨時可以喺會員中心嘅「補購提醒」處理（<a href="HIBI LAB Account.html" style="color:#A64B2A;">管理提醒</a>）。</p>
+        </td></tr>
+        <!-- 閉幕＝無「取消或修改訂單」句（唔係訂單 email）；無狀態條 -->
+        <tr><td style="padding:16px 32px 34px;">
+          <p style="margin:0;font-size:15px;line-height:1.75;color:#5a4a3e;">如有任何疑問，直接回覆此電郵，或者 WhatsApp 我哋嘅 Customer Care。</p>
+        </td></tr>
+        <tr><td style="background:#f3eae1;padding:18px 32px;text-align:center;font-size:11px;letter-spacing:1px;color:#a08e7e;">
+          HIBI LAB by SCENT.M · 日常香氣與溫柔護理<br>
+          <span style="color:#b5a595;">此電郵由系統發出 · 私隱政策及退換安排請見網站</span>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIBI LAB · Cookie 同意橫額樣本</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#FDFBF9;color:#3B261D;font-family:Montserrat,"Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased;padding:56px 24px 96px}
+  .wrap{max-width:920px;margin:0 auto}
+  .eyb{font-size:16px;letter-spacing:.28em;text-transform:uppercase;color:#A64B2A}
+  h1{font-family:Baskervville,serif;font-size:42px;font-weight:400;letter-spacing:.02em;margin:12px 0 0}
+  .lead{font-size:16px;line-height:1.8;color:#6a5a4e;margin:14px 0 0}
+  .snote{display:flex;align-items:center;gap:12px;margin:46px 0 14px}
+  .snote .n{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#8a7464}
+  .snote .l{flex:1;height:1px;background:#e2d5c8}
+  .devnote{font-size:14px;line-height:1.8;color:#8a7464;margin-top:10px}
+  .stage{border:1px solid #e2d5c8;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#f7f0e8 0%,#efe6dd 100%);position:relative;height:300px}
+  .stage .hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(59,38,29,.35);font-size:16px;letter-spacing:.1em}
+  .cbar{position:absolute;left:0;right:0;bottom:0;background:#FDFBF9;border-top:1px solid #e2d5c8;box-shadow:0 -8px 24px rgba(59,38,29,.08);padding:14px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .cbar p{flex:1;min-width:240px;font-size:16px;line-height:1.6;color:#3B261D}
+  .cbar a{color:#A64B2A;text-decoration:underline;text-underline-offset:2px}
+  .cbar .btns{display:flex;gap:10px;flex:none}
+  .cbar button{font-family:inherit;font-size:16px;letter-spacing:.06em;border-radius:24px;padding:9px 24px;cursor:pointer}
+  .c-accept{background:#A64B2A;color:#FDFBF9;border:1px solid #A64B2A}
+  .c-decline{background:#fff;color:#3B261D;border:1px solid #d8c8ba}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="eyb">Cookie Consent · State Specimen</span>
+  <h1>Cookie 同意橫額樣本</h1>
+  <p class="lead">狀態樣本檔（唔上線）。GA4＋cookie 同意（§21.15，2026-07-10 鎖定）：底部細橫條、<strong>全站</strong>（HIBI LAB＋Scent.M 同一 consent 狀態）、硬性 gate — 未同意零 GA4 hit。<strong>文案＝港式書面中文</strong>（2026-07-10 客戶裁定，係前台廣東話規則嘅明文例外——法律／私隱性質文字用書面語）。</p>
+
+  <!-- ═══ 1. 橫額預設態 ═══ -->
+  <div class="snote"><span class="n">① 底部橫條 — 未同意（預設態）</span><span class="l"></span></div>
+  <div class="stage">
+    <div class="hint">（頁面內容 — 橫條唔遮擋、可照瀏覽）</div>
+    <div class="cbar">
+      <p>本網站使用 Cookies 分析網站使用情況，以改善購物體驗。<a href="#">私隱政策</a></p>
+      <div class="btns">
+        <button class="c-decline" type="button">拒絕</button>
+        <button class="c-accept" type="button">接受</button>
+      </div>
+    </div>
+  </div>
+  <p class="devnote">「接受」／「拒絕」兩粒<strong>平權</strong>（無 dark pattern：拒絕唔會收埋／變灰）；手機版文字同掣自動堆疊（flex-wrap）。橫條唔遮內容、唔鎖 scroll — 客唔揀都可以照瀏覽（＝零追蹤）。</p>
+
+  <!-- ═══ 2. 行為合約 ═══ -->
+  <div class="snote"><span class="n">② 行為合約（theme build 必守）</span><span class="l"></span></div>
+  <p class="devnote" style="margin-top:0">
+    ・<strong>硬性 gate</strong>：未撳「接受」＝零 GA4 請求（連 page_view 都冇）；GA4 事件（view_item／add_to_cart／begin_checkout／purchase）只喺同意後先 fire（§21.15）。<br>
+    ・<strong>記住選擇</strong>：接受／拒絕都寫一個 first-party cookie（建議 12 個月）；拒絕咗＝唔再彈、維持零追蹤；用戶想改主意＝privacy 頁提供重設入口（Scent.M Privacy 頁補網店段時一併加）。<br>
+    ・<strong>全站範圍</strong>：同一個橫條／consent 狀態覆蓋 Scent.M brochure＋HIBI LAB 店（同一網域一個狀態）。<br>
+    ・<strong>文案</strong>＝上面書面語版本，字冧全部 admin 唔使入（theme 字串；如日後要改＝改 theme／加 option）。<br>
+    ・WooCommerce 內建 Analytics＋自建「購買洞察」報表<strong>唔受 consent 影響</strong>（server-side 訂單數據，非 tracking cookie — §21.15）。
+  </p>
+</div>
+</body>
+</html>

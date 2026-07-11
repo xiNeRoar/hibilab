@@ -552,11 +552,13 @@
           <h1 class="font-serif text-[2.6rem] md:text-[3.3rem] text-brand-brown mt-4" style="line-height:1.2;letter-spacing:0.05em;">情緒舒緩・分離焦慮噴霧</h1>
 
           <!-- price -->
-          <div class="mt-6 flex items-baseline gap-3">
-            <span id="pdp-price" class="font-serif text-3xl text-brand-brown">$265</span>
-          </div>
-          <!-- WP-dev:免運門檻 $500 只係示範值;production 由 ACF option hibilab_free_ship_threshold 讀入(admin 後台可改;設空/0=停用門檻並隱藏免運文案)。送達日數按送貨方式(ShipAny 送上門 1–2/自取點 2–4),PDP 層只出通用範圍 -->
-          <div id="pdp-points" class="font-sans text-[16px] text-brand-brown/55 mt-1.5">滿 $500 免運 · 送上門或自取點 1–4 個工作天</div>
+          <div class="mt-6 flex items-baseline flex-wrap gap-x-3 gap-y-1">
+            <span id="pdp-price" class="font-serif text-3xl text-brand-terracotta">HK$239</span>
+            <s id="pdp-price-orig" class="font-serif text-xl text-brand-brown/40">HK$265</s>
+            <span id="pdp-price-tag" class="w-full font-sans text-[16px] text-brand-terracotta">銀級會員價</span>
+            </div>
+          <!-- WP-dev(2026-07-08 客戶裁定):PDP 唔出免運門檻/送達日數 — 資訊唔重複(免運=Cart/Checkout/OR/政策頁/側滑車 五個面;SLA=Checkout 方式卡/OR/政策頁);送貨詳情經下面「送貨與退換」link -->
+          <div id="pdp-member-teaser" class="font-sans text-[16px] text-brand-terracotta mt-2" style="display:none;"><i class="fa-regular fa-user text-[12px] mr-1.5"></i>登入即享會員價 · 全單 9 折起</div>
 
           <p class="font-sans text-[16px] leading-loose text-brand-brown/75 mt-6">以洋甘菊與薰衣草純露為基底，加入低濃度薰衣草與依蘭依蘭精油，溫和舒緩貓狗的不安與分離焦慮。</p>
 
@@ -564,9 +566,10 @@
           <div class="mt-8">
             <span class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/55">容量</span>
             <div class="flex flex-wrap gap-2.5 mt-3" id="pdp-vols">
-              <label class="vopt"><input type="radio" name="vol" value="50ml" data-price="168"><span class="box"><span class="font-sans text-[16px] text-brand-brown">50ml</span></span></label>
-              <label class="vopt"><input type="radio" name="vol" value="100ml" data-price="265" checked><span class="box"><span class="font-sans text-[16px] text-brand-brown">100ml</span></span></label>
-              <label class="vopt"><input type="radio" name="vol" value="200ml" data-price="438"><span class="box"><span class="font-sans text-[16px] text-brand-brown">200ml</span></span></label>
+              <!-- data-mprice＝該容量會員價設計值（§22 G2 樣式）；production 由 server 計（§5），per-variation SKU／庫存亦由 variation 讀（§21） -->
+              <label class="vopt"><input type="radio" name="vol" value="50ml" data-price="168" data-mprice="151"><span class="box"><span class="font-sans text-[16px] text-brand-brown">50ml</span></span></label>
+              <label class="vopt"><input type="radio" name="vol" value="100ml" data-price="265" data-mprice="239" checked><span class="box"><span class="font-sans text-[16px] text-brand-brown">100ml</span></span></label>
+              <label class="vopt"><input type="radio" name="vol" value="200ml" data-price="438" data-mprice="394"><span class="box"><span class="font-sans text-[16px] text-brand-brown">200ml</span></span></label>
             </div>
           </div>
           <!-- variant axis 2: 香味 -->
@@ -576,7 +579,8 @@
               <label class="vopt"><input type="radio" name="scent" value="薰衣草依蘭" checked><span class="box"><span style="width:15px;height:15px;border-radius:50%;background:#9b8cc0;flex:none;"></span><span class="font-sans text-[16px] text-brand-brown">薰衣草・依蘭依蘭</span></span></label>
               <label class="vopt"><input type="radio" name="scent" value="洋甘菊甜橙" disabled><span class="box" aria-disabled="true" style="opacity:.45;cursor:not-allowed;"><span style="width:15px;height:15px;border-radius:50%;background:#e08a3c;flex:none;"></span><span class="font-sans text-[16px] text-brand-brown" style="text-decoration:line-through;">洋甘菊・甜橙</span><span class="font-sans text-[16px] text-brand-brown/50">· 缺貨</span></span></label>
             </div>
-            <p class="font-sans text-[16px] text-brand-brown/50 mt-2">部分配方暫時缺貨，補貨中。</p>
+            <!-- WP-dev:呢句只喺「至少一個 variation 缺貨」時 render(demo 洋甘菊甜橙=缺貨所以出);全部有貨=唔出,唔可以焊死 -->
+            <p class="font-sans text-[16px] text-brand-brown/50 mt-2">部分配方暫時缺貨。</p>
           </div>
 
           <!-- qty + add -->
@@ -586,13 +590,25 @@
               <span id="qty-val" class="font-sans text-[16px] text-brand-brown w-7 text-center" style="font-variant-numeric:tabular-nums;">1</span>
               <button class="qty-btn" id="qty-inc" aria-label="增加"><i class="fa-solid fa-plus text-xs"></i></button>
             </div>
-            <button id="pdp-add" class="flex-1 inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white font-sans text-[16px] tracking-[0.08em] uppercase rounded-full py-4 transition-all duration-300 hover:bg-brand-brown"><span>加入購物車</span><span class="text-white/60">·</span><span id="pdp-add-price">$265</span></button>
+            <button id="pdp-add" class="flex-1 inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white font-sans text-[16px] tracking-[0.08em] uppercase rounded-full py-4 transition-all duration-300 hover:bg-brand-brown"><span>加入購物車</span><span class="text-white/60">·</span><span id="pdp-add-price">HK$239</span></button>
+          </div>
+          <!-- 補購提醒 opt-in（§21.12，2026-07-11 裁定＝PDP 購買區、Amazon 式）：只限登入會員＋產品設有建議間隔（hibilab_repurchase_interval）＋可購買（有貨/預訂）先 render；揀咗＝cart item meta → 訂單完成建 schedule；checkout 唔再問（結帳保持最少摩擦）；排程掣＝模式+數值（同 Account 面板同一套） -->
+          <div class="mt-5 rounded-lg px-5 py-4" style="border:1px solid #e4d5c3;background:#faf5ee;">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <label class="flex items-center gap-2.5 font-sans text-[16px] text-brand-brown cursor-pointer"><input type="checkbox" style="width:18px;height:18px;accent-color:#A64B2A;flex:none;"> 到期提醒我補購</label>
+              <span class="flex items-center gap-2 flex-none">
+                <select class="font-sans text-[16px] text-brand-brown" style="border:1px solid #d8c8ba;border-radius:8px;padding:9px 12px;background:#fff;outline:none;"><option>每隔…日</option><option selected>每隔…週</option><option>每隔…月</option><option>每月…號</option></select>
+                <select class="font-sans text-[16px] text-brand-brown" style="border:1px solid #d8c8ba;border-radius:8px;padding:9px 12px;background:#fff;outline:none;"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option selected>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select>
+              </span>
+            </div>
+            <p class="font-sans text-[16px] text-brand-brown/50 mt-2.5">只會寄提醒電郵，唔會自動扣款；可隨時喺會員中心「補購提醒」更改或取消。</p>
           </div>
 
           <!-- data sheet: 產品規格 only — 商家後台 ACF repeater 自行增減行數，非 hardcode -->
           <div class="mt-8 pt-7 space-y-2.5" style="border-top:1px solid #ece0d5;">
             <div class="flex gap-3 font-sans text-[16px]"><span class="text-brand-brown/45 w-20 flex-none">適用</span><span class="text-brand-brown/80">貓 · 狗</span></div>
             <div class="flex gap-3 font-sans text-[16px]"><span class="text-brand-brown/45 w-20 flex-none">容量</span><span class="text-brand-brown/80" id="pdp-meta-vol">100ml</span></div>
+            <!-- WP-dev:variable product 貨號=selected variation 嘅 SKU,揀容量要跟住轉(WC 原生 variation SKU);單一 SKU 焊死會對唔上 -->
             <div class="flex gap-3 font-sans text-[16px]"><span class="text-brand-brown/45 w-20 flex-none">貨號</span><span class="text-brand-brown/80">HL-PET-H01</span></div>
           </div>
           <!-- 送貨與退換: compact icon-led link → 政策頁 (Aesop/Glossier 式，content 闊度、低重量) -->
@@ -701,10 +717,11 @@
         <div class="mt-4" style="display:flex;align-items:center;justify-content:center;gap:12px;"><span style="width:30px;height:1px;background:#d8c5b2;"></span><span class="text-brand-terracotta text-base">&#10059;</span><span style="width:30px;height:1px;background:#d8c5b2;"></span></div>
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-[18px] gap-y-9 mt-10 items-stretch">
-        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-petmist.png" alt="除臭驅蟲噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善情緒</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">除臭驅蟲噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓適用</div><div class="font-serif text-[18px] text-brand-brown mt-auto pt-2">$225</div></div></a>
-        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="舒緩過分活躍噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善情緒</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">舒緩過分活躍噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓適用</div><div class="font-serif text-[18px] text-brand-brown mt-auto pt-2">$279</div></div></a>
-        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-petmist.png" alt="皮膚敏感噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善身體</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">皮膚敏感噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓狗適用</div><div class="font-serif text-[18px] text-brand-brown mt-auto pt-2">$204</div></div></a>
-        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="薰衣草噴霧・日常" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 日常護理</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">薰衣草噴霧・日常</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓狗適用</div><div class="font-serif text-[18px] text-brand-brown mt-auto pt-2">$300</div></div></a>
+        <!-- 除臭驅蟲噴霧 catalog stock=out → 售罄樣本(badge+圖暗,同 Shop card 一致 §20.3/§20.8);production 由 WC 庫存自動 -->
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;opacity:.6;"><img src="prod-petmist.png" alt="除臭驅蟲噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"><span style="position:absolute;top:12px;left:12px;z-index:2;font-family:Montserrat,'Noto Sans TC',sans-serif;font-size:16px;letter-spacing:.04em;padding:5px 13px;border-radius:30px;background:#3B261D;color:#FDFBF9;">售罄</span></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善情緒</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">除臭驅蟲噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-terracotta">HK$203</span> <s class="font-serif text-[16px] text-brand-brown/40 ml-1">HK$225</s><div class="font-sans text-[16px] text-brand-terracotta mt-0.5">銀級會員價</div></div></div></a>
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="舒緩過分活躍噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善情緒</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">舒緩過分活躍噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-terracotta">HK$251</span> <s class="font-serif text-[16px] text-brand-brown/40 ml-1">HK$279</s><div class="font-sans text-[16px] text-brand-terracotta mt-0.5">銀級會員價</div></div></div></a>
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-petmist.png" alt="皮膚敏感噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善身體</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">皮膚敏感噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓狗適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-terracotta">HK$184</span> <s class="font-serif text-[16px] text-brand-brown/40 ml-1">HK$204</s><div class="font-sans text-[16px] text-brand-terracotta mt-0.5">銀級會員價</div></div></div></a>
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="薰衣草噴霧・日常" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 日常護理</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">薰衣草噴霧・日常</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓狗適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-terracotta">HK$270</span> <s class="font-serif text-[16px] text-brand-brown/40 ml-1">HK$300</s><div class="font-sans text-[16px] text-brand-terracotta mt-0.5">銀級會員價</div></div></div></a>
       </div>
     </div>
   </div>
@@ -712,13 +729,15 @@
 
 <!-- mobile sticky buy bar -->
 <div id="d5-bar" class="md:hidden fixed bottom-0 inset-x-0 z-40 px-5 pt-3 flex items-center gap-4" style="background:rgba(253,251,249,0.96);backdrop-filter:blur(10px);border-top:1px solid #ece0d5;padding-bottom:calc(0.75rem + env(safe-area-inset-bottom));">
-  <div class="flex-1 min-w-0"><div class="font-serif text-xl text-brand-brown" id="d5-bar-price">$265</div><div class="font-sans text-[16px] text-brand-brown/50 truncate">情緒舒緩噴霧</div></div>
+  <div class="flex-1 min-w-0"><div class="font-serif text-xl text-brand-terracotta" id="d5-bar-price">HK$239</div><div class="font-sans text-[16px] text-brand-brown/50 truncate">情緒舒緩噴霧</div></div>
   <button id="d5-bar-add" class="flex-1 bg-brand-terracotta text-white rounded-full py-3.5 font-sans text-[16px] tracking-[0.08em] uppercase">加入購物車</button>
 </div>
 <div id="pdp-toast"><div class="flex items-center gap-3 bg-brand-brown text-brand-light rounded-full pl-5 pr-6 py-3.5 shadow-lg"><i class="fa-solid fa-check text-brand-terracotta"></i><span class="font-sans text-[16px] tracking-[0.04em]">已加入購物車</span></div></div>
 
 <script>
 (function(){
+  /* Demo＝「銀級會員」persona 靜態樣本：每個容量嘅會員價＝radio data-mprice 設計值（§22 G2 樣式）— 前端零計價、零 tier 邏輯；production 全部 server-side（§5）。訪客形（原價、無 tag、teaser 顯示）見 _p14-pdp-guest；整件售罄見 _p15；搶先鎖（訪客／未夠級）見 _p16／_p17。 */
+  function fmt(n){return 'HK$'+Number(n).toLocaleString('en-US');}
   var main=document.getElementById('pdp-main');
   document.querySelectorAll('.pdp-thumb').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.pdp-thumb').forEach(function(x){x.classList.remove('is-active');});t.classList.add('is-active');main.src=t.getAttribute('data-src');});});
   function accSet(item){var body=item.querySelector('.acc-body');body.style.maxHeight=item.classList.contains('is-open')?(body.scrollHeight+'px'):'0px';}
@@ -726,14 +745,25 @@
   document.querySelectorAll('.acc-head').forEach(function(hd){hd.addEventListener('click',function(){var item=hd.parentNode;item.classList.toggle('is-open');accSet(item);});});
   window.addEventListener('resize',function(){document.querySelectorAll('.acc-item.is-open').forEach(accSet);});
   function qty(){return parseInt(document.getElementById('qty-val').textContent,10)||1;}
-  function price(){return parseInt(document.querySelector('input[name=vol]:checked').getAttribute('data-price'),10);}
-  function sync(){var p=price();document.getElementById('pdp-price').textContent='$'+p;document.getElementById('pdp-add-price').textContent='$'+(p*qty());document.getElementById('d5-bar-price').textContent='$'+(p*qty());var mv=document.getElementById('pdp-meta-vol');if(mv)mv.textContent=document.querySelector('input[name=vol]:checked').value;}
+  // sync＝純顯示：直讀 selected variation 嘅 data-price／data-mprice 設計值更新價錢＋規格容量；無任何計價／會員邏輯
+  function sync(){
+    var v=document.querySelector('input[name=vol]:checked');
+    var mu=parseInt(v.getAttribute('data-mprice'),10)||parseInt(v.getAttribute('data-price'),10);
+    document.getElementById('pdp-price').textContent=fmt(mu);
+    var origEl=document.getElementById('pdp-price-orig');
+    if(origEl)origEl.textContent=fmt(parseInt(v.getAttribute('data-price'),10));
+    document.getElementById('pdp-add-price').textContent=fmt(mu*qty());
+    document.getElementById('d5-bar-price').textContent=fmt(mu*qty());
+    var mv=document.getElementById('pdp-meta-vol');if(mv)mv.textContent=v.value;
+  }
   document.getElementById('pdp-vols').addEventListener('change',function(e){if(e.target.name==='vol')sync();});
   document.getElementById('pdp-scents').addEventListener('change',function(e){if(e.target.name==='scent')sync();});
   document.getElementById('qty-dec').addEventListener('click',function(){document.getElementById('qty-val').textContent=Math.max(1,qty()-1);sync();});
   document.getElementById('qty-inc').addEventListener('click',function(){document.getElementById('qty-val').textContent=Math.min(99,qty()+1);sync();});
+  sync();
   var toast=document.getElementById('pdp-toast'),tT;
-  function add(){var b=document.querySelector('a[aria-label="購物車"] span');if(b)b.textContent=(parseInt(b.textContent,10)||0)+qty();toast.classList.add('show');clearTimeout(tT);tT=setTimeout(function(){toast.classList.remove('show');},2200);}
+  // add＝純 toast 示範；nav 購物車數字 production 由 WC cart fragments 綁（§14），demo 唔郁佢
+  function add(){toast.classList.add('show');clearTimeout(tT);tT=setTimeout(function(){toast.classList.remove('show');},2200);}
   document.getElementById('pdp-add').addEventListener('click',add);
   document.getElementById('d5-bar-add').addEventListener('click',add);
   var bar=document.getElementById('d5-bar'),addBtn=document.getElementById('pdp-add');

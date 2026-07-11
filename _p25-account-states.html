@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIBI LAB · Account 狀態樣本</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#FDFBF9;color:#3B261D;font-family:Montserrat,"Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased;padding:56px 24px 96px}
+  .wrap{max-width:820px;margin:0 auto}
+  .eyb{font-size:16px;letter-spacing:.28em;text-transform:uppercase;color:#A64B2A}
+  h1{font-family:Baskervville,serif;font-size:42px;font-weight:400;letter-spacing:.02em;margin:12px 0 0}
+  .lead{font-size:16px;line-height:1.8;color:#6a5a4e;margin:14px 0 0}
+  .snote{display:flex;align-items:center;gap:12px;margin:46px 0 14px}
+  .snote .n{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#8a7464}
+  .snote .l{flex:1;height:1px;background:#e2d5c8}
+  .tcard{border-radius:16px;padding:28px 36px;position:relative;overflow:hidden}
+  .tcard .top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .tcard .mlabel{font-size:16px;letter-spacing:.2em;text-transform:uppercase}
+  .tcard .tname{font-family:Baskervville,serif;font-size:32px;line-height:1.1;margin-top:8px}
+  .tcard .tname .en{font-style:italic;font-size:21px;margin-left:6px}
+  .tcard .num{font-family:Baskervville,serif;font-size:34px;line-height:1;font-variant-numeric:tabular-nums;text-align:right}
+  .tcard .numlab{font-size:16px;letter-spacing:.12em;text-transform:uppercase;text-align:right;margin-top:6px}
+  .tcard .prog{margin-top:22px}
+  .tcard .progrow{display:flex;justify-content:space-between;font-size:16px;margin-bottom:10px}
+  .tcard .track{height:8px;border-radius:9999px;overflow:hidden}
+  .tcard .fill{height:100%;border-radius:9999px}
+  .panelbox{border:1px solid #ece0d5;border-radius:10px;padding:28px}
+  .devnote{font-size:14px;line-height:1.8;color:#8a7464;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="eyb">Account · State Specimens</span>
+  <h1>會員中心狀態樣本</h1>
+  <p class="lead">狀態樣本檔（唔上線）。呢頁補齊 Account 預設 demo（Amanda＝銀級）見唔到嘅狀態；全部值由 VIP repeater＋WC 實時 derive（§5／§9／§22.6），呢度只係設計樣本。</p>
+
+  <!-- ═══ 1. 一般會員（$0 / 0%）卡 ═══ -->
+  <div class="snote"><span class="n">① 一般會員（基本級 $0 / 0%）— 新註冊帳戶</span><span class="l"></span></div>
+  <div class="tcard" style="background:linear-gradient(120deg,#efe6dd 0%,#e4d6c5 100%);color:#3B261D;box-shadow:inset 0 0 0 1px rgba(59,38,29,0.08);">
+    <div class="top">
+      <div>
+        <div class="mlabel" style="color:rgba(59,38,29,0.5)">HIBI LAB Membership</div>
+        <div class="tname" style="color:#3B261D">一般會員 <span class="en" style="color:#A64B2A">General</span></div>
+      </div>
+      <div>
+        <div class="num" style="color:#A64B2A">HK$0</div>
+        <div class="numlab" style="color:rgba(59,38,29,0.5)">近 12 個月消費</div>
+      </div>
+    </div>
+    <div class="prog">
+      <div class="progrow" style="color:rgba(59,38,29,0.65)"><span>距離 銀級會員 還差 HK$2,000</span><span style="font-variant-numeric:tabular-nums;">HK$0 / HK$2,000</span></div>
+      <div class="track" style="background:rgba(59,38,29,0.12)"><div class="fill" style="width:0%;background:linear-gradient(90deg,#c98f6e,#A64B2A)"></div></div>
+      <div style="font-size:16px;color:rgba(59,38,29,0.55);margin-top:12px">再消費 HK$2,000 即升 銀級會員</div>
+    </div>
+  </div>
+  <p class="devnote">基本級 0%＝<strong>全站無會員價</strong>：商品卡／PDP／購物車／結帳一律原價、無「會員優惠」行、無 tag（§5.A）— 等同訪客價錢呈現，唯一分別係已登入有帳戶功能。</p>
+
+  <!-- ═══ 2. 頂級卡（Account 版：無進度條） ═══ -->
+  <div class="snote"><span class="n">② 頂級會員卡（已達最高 — Account 版無進度條）</span><span class="l"></span></div>
+  <div class="tcard" style="background:linear-gradient(120deg,#241611 0%,#4a3320 48%,#9a733e 100%);color:#FDFBF9;">
+    <div style="position:absolute;inset:0;background:radial-gradient(120% 80% at 85% -10%,rgba(232,200,138,0.28),transparent 60%);pointer-events:none"></div>
+    <div class="top" style="position:relative">
+      <div>
+        <div class="mlabel" style="color:rgba(253,251,249,0.6)">HIBI LAB Membership</div>
+        <div class="tname" style="color:#FDFBF9">金級會員 <span class="en" style="color:#e8c88a">Gold</span></div>
+      </div>
+      <div>
+        <div class="num" style="color:#e8c88a">HK$6,240</div>
+        <div class="numlab" style="color:rgba(253,251,249,0.6)">近 12 個月消費</div>
+      </div>
+    </div>
+    <div class="prog" style="position:relative">
+      <div class="progrow" style="color:rgba(253,251,249,0.75)"><span><i class="fa-solid fa-crown" style="color:#e8c88a;margin-right:8px"></i>尊尚會籍 · 已達最高等級</span><span>維持中</span></div>
+    </div>
+  </div>
+  <p class="devnote">§22.6／§9.131：頂級卡「尊尚會籍 · 已達最高等級」＋右欄「維持中」、<strong>唔出進度條同暖行</strong>。「頂級」＝之上冇更高 enabled 級（data-driven，唔係焊死金級）。等級每次由近 12 月淨消費即場計（G1/G9），跌穿門檻會喺結算重算時降級。</p>
+
+  <!-- ═══ 3. 超標未結算 clamp ═══ -->
+  <div class="snote"><span class="n">③ 超過下一級門檻但未結算／被 override（clamp 樣本）</span><span class="l"></span></div>
+  <div class="tcard" style="background:linear-gradient(120deg,#3B261D 0%,#5a3d2c 60%,#7a4f33 100%);color:#FDFBF9;">
+    <div class="top">
+      <div>
+        <div class="mlabel" style="color:rgba(253,251,249,0.55)">HIBI LAB Membership</div>
+        <div class="tname" style="color:#FDFBF9">銀級會員 <span class="en" style="color:#e8b896">Silver</span></div>
+      </div>
+      <div>
+        <div class="num" style="color:#e8b896">HK$5,600</div>
+        <div class="numlab" style="color:rgba(253,251,249,0.55)">近 12 個月消費</div>
+      </div>
+    </div>
+    <div class="prog">
+      <div class="progrow" style="color:rgba(253,251,249,0.7)"><span>距離 金級會員 還差 HK$0</span><span style="font-variant-numeric:tabular-nums;">HK$5,600 / HK$5,000</span></div>
+      <div class="track" style="background:rgba(243,234,225,0.18)"><div class="fill" style="width:100%;background:linear-gradient(90deg,#d8a98c,#e8b896)"></div></div>
+    </div>
+  </div>
+  <p class="devnote">還差 clamp ≥ HK$0、fill clamp ≤ 100%（§22.6）— 升級喺訂單完成即時生效（§5），呢個中間態一般只喺 manual override pin 級（G10）或極短暫窗口出現；<strong>唔准出負數「還差」或爆 100% 條</strong>。</p>
+
+  <!-- ═══ 4. 生日月 overview banner ═══ -->
+  <div class="snote"><span class="n">④ 生日月 — 概覽 banner（§22.7 合約句）</span><span class="l"></span></div>
+  <div class="panelbox" style="background:#fbf4ee;border-color:#ecd9c8;">
+    <div style="font-size:16px;color:#A64B2A;line-height:1.8;">生日會員價已自動生效，無需優惠碼。</div>
+  </div>
+  <p class="devnote">生日月（§5.B）：有效％＝max(等級％, 生日％)，自動 price filter、無 code／無錢包；banner 出喺 Account 概覽＋Cart（見 _p20）；PDP tag 改「生日會員價」；生日祝賀 email 生日月 1 號寄。等級生日％＝0 ⇒ 唔出 banner（唔好空頭承諾）。</p>
+
+  <!-- ═══ 5. 空訂單狀態 ═══ -->
+  <div class="snote"><span class="n">⑤ 訂單記錄 — 空狀態（新帳戶）</span><span class="l"></span></div>
+  <div class="panelbox">
+    <div style="font-family:Baskervville,serif;font-size:24px;color:#3B261D;">訂單記錄</div>
+    <div style="text-align:center;padding:52px 0 40px;">
+      <div style="font-family:Baskervville,serif;font-size:20px;color:#3B261D;">你仲未有訂單</div>
+      <p style="font-size:15px;color:#8a7464;margin-top:10px;">探索 HIBI LAB 全系列，開始你的感官儀式。</p>
+      <a href="HIBI LAB Shop.html" style="display:inline-block;margin-top:20px;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:#A64B2A;border-bottom:1px solid #cfa886;padding-bottom:3px;text-decoration:none;">前往商店</a>
+    </div>
+  </div>
+  <p class="devnote">WC my-account orders 空狀態 skin（同 Cart 空狀態同語彙）；概覽「最近訂單」mini-list 同步隱藏／出同句提示；「累積訂單 0 · 累積消費 HK$0」照出。</p>
+
+  <!-- ═══ 6. 訪客訪問 my-account ═══ -->
+  <div class="snote"><span class="n">⑥ 訪客（未登入）訪問會員中心</span><span class="l"></span></div>
+  <div class="panelbox">
+    <p style="font-size:15px;line-height:1.9;color:#6a5a4e;">未登入訪問 <code style="color:#A64B2A;">/my-account/</code> ＝ WooCommerce 原生行為：直接 render 登入／註冊表單（見 <strong>HIBI LAB Account Login.html</strong>），<strong>唔會</strong>見到任何 dashboard 內容。呢個係 server-side 行為，無需另出設計稿 — 登入頁已係該狀態嘅設計。</p>
+  </div>
+</div>
+</body>
+</html>

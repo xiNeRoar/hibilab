@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="zh-HK" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <script>document.documentElement.classList.replace('no-js','js')</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#FDFBF9">
+    <title>預訂樣本 · 產品頁 — HIBI LAB</title>
+    <meta name="description" content="Scent.M 為品牌提供香氣營銷、靈活代工(ODM)與工藝體驗服務，結合匠心調香與精準配方，打造深植人心的專屬氣味識別。">
+    <link rel="canonical" href="https://www.scentm.hk/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Scent.M">
+    <meta property="og:title" content="HIBI LAB by Scent.M｜天然感官護理">
+    <meta property="og:description" content="Scent.M 為品牌提供香氣營銷、靈活代工(ODM)與工藝體驗服務，結合匠心調香與精準配方，打造深植人心的專屬氣味識別。">
+    <meta property="og:url" content="https://www.scentm.hk/">
+    <meta property="og:image" content="https://www.scentm.hk/hero.jpg">
+    <meta property="og:locale" content="zh_HK">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HIBI LAB by Scent.M｜天然感官護理">
+    <meta name="twitter:description" content="Scent.M 為品牌提供香氣營銷、靈活代工(ODM)與工藝體驗服務，結合匠心調香與精準配方，打造深植人心的專屬氣味識別。">
+    <meta name="twitter:image" content="https://www.scentm.hk/hero.jpg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Cactus+Classical+Serif&family=Mea+Culpa&family=Montserrat:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            beige: '#F3EAE1',
+                            terracotta: '#A64B2A',
+                            brown: '#3B261D',
+                            moss: '#3B4A3D',
+                            light: '#FDFBF9'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Baskervville', '"Cactus Classical Serif"', 'serif'],
+                        sans: ['Montserrat', '"Noto Sans TC"', 'sans-serif'],
+                        script: ['"Mea Culpa"', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ───── 全局設定 ───── */
+        :root {
+            --ease: cubic-bezier(0.25, 1, 0.35, 1);
+            --morph-target-color: #A64B2A;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+        
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        html { overflow-x: clip; }
+        @supports not (overflow: clip) {
+            html { overflow-x: hidden; }
+        }
+
+        body {
+            transition: background-color 0.45s ease, color 0.45s ease;
+            background-color: #FDFBF9; 
+            color: #3B261D;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* iOS Safari momentum scroll on horizontal carousels */
+        .h-snap {
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+            touch-action: pan-x pan-y;
+            scroll-behavior: smooth;
+        }
+        /* Center-snap "tug" — release auto-pulls active item to viewport center */
+        @media (max-width: 767px) {
+            [data-carousel] > * { scroll-snap-stop: always; }
+            /* Match actual padding to scroll-padding so first/last cards centre properly */
+            [data-carousel="odm"] {
+                scroll-padding-inline: 7vw;
+                padding-left: 7vw !important;
+                padding-right: 7vw !important;
+            }
+            [data-carousel="journal"] {
+                scroll-padding-inline: 9vw;
+                padding-left: 9vw !important;
+                padding-right: 9vw !important;
+            }
+            [data-carousel="workshops"] {
+                scroll-padding-inline: 11vw;
+                padding-left: 11vw !important;
+                padding-right: 11vw !important;
+            }
+            /* ODM card: stack title + badge so neither cuts off, equalise paragraph height */
+            [data-carousel="odm"] article > .flex {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.4rem;
+                margin-bottom: 1.1rem;
+            }
+            [data-carousel="odm"] article h3 {
+                font-size: 1.65rem;
+                line-height: 1.15;
+            }
+            [data-carousel="odm"] article p {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+            }
+        }
+
+        /* ───── ODM Scroll-story (desktop only) ───── */
+        @media (min-width: 771px) {
+            [data-carousel="odm"] article {
+                opacity: 0.42;
+                transition: opacity 0.7s cubic-bezier(0.25,1,0.35,1);
+            }
+            [data-carousel="odm"] article.is-active {
+                opacity: 1;
+            }
+            .odm-now {
+                margin-top: 2.25rem;
+                padding-top: 1.5rem;
+                border-top: 1px solid rgba(59,38,29,0.14);
+            }
+            .odm-now-label {
+                font-size: 11px;
+                letter-spacing: 0.28em;
+                text-transform: uppercase;
+                opacity: 0.5;
+                font-weight: 500;
+                margin-bottom: 0.9rem;
+                display: block;
+            }
+            .odm-now-content {
+                transition: opacity 0.45s cubic-bezier(0.25,1,0.35,1), transform 0.45s cubic-bezier(0.25,1,0.35,1);
+            }
+            .odm-now-content.swap {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            .odm-now-roman {
+                font-family: var(--font-serif, 'Cormorant Garamond', serif);
+                color: #A64B2A;
+                font-size: 1.05rem;
+                letter-spacing: 0.05em;
+                margin-right: 0.5rem;
+            }
+            .odm-now-title {
+                font-family: var(--font-serif, 'Cormorant Garamond', serif);
+                font-size: 1.35rem;
+                line-height: 1.25;
+                color: inherit;
+                display: inline;
+            }
+            .odm-now-tagline {
+                font-size: 0.78rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                opacity: 0.55;
+                margin-top: 0.55rem;
+                display: block;
+            }
+            .odm-now-progress {
+                display: flex;
+                gap: 0.4rem;
+                margin-top: 1.1rem;
+            }
+            .odm-now-progress span {
+                width: 18px;
+                height: 1px;
+                background: rgba(59,38,29,0.2);
+                transition: background 0.5s ease, width 0.5s ease;
+            }
+            .odm-now-progress span.on {
+                background: #A64B2A;
+                width: 28px;
+            }
+        }
+
+        .hero-img { transform: scale(1.15); }
+        .film-filter { filter: contrast(1.05) sepia(0.15) brightness(0.95); }
+
+        body.in-terracotta {
+            background-color: #A64B2A;
+            color: #F3EAE1;
+            --morph-target-color: #F3EAE1;
+        }
+        /* 橙色背景下，hover 變橙色會睇唔到 —
+           改為反向處理：hover 變深啡，與米色預設文字形成強烈對比，呼應品牌色階 */
+        body.in-terracotta .group:hover .group-hover\:text-brand-terracotta,
+        body.in-terracotta .hover\:text-brand-terracotta:hover {
+            color: #3B261D !important;
+        }
+        body.in-terracotta .hover\:border-brand-terracotta:hover {
+            border-color: #3B261D !important;
+        }
+        body.in-terracotta .group:hover .group-hover\:border-brand-terracotta {
+            border-color: #3B261D !important;
+        }
+        
+        #main-header {
+            color: #3B261D; 
+            transition: padding 0.4s var(--ease), background-color 0.4s ease, color 0.4s ease;
+        }
+        #main-header.is-scrolled {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            background-color: rgba(253, 251, 249, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        @media (max-width: 767px) {
+            #main-header.is-scrolled {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+        }
+        body.in-terracotta #main-header.is-scrolled { background-color: rgba(166, 75, 42, 0.95); }
+        body.in-brown #main-header.is-scrolled { background-color: rgba(59, 38, 29, 0.95); color: #F3EAE1; }
+
+        body.menu-open #main-header { 
+            background-color: transparent !important; 
+            color: #F3EAE1 !important; 
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        body.menu-open .line-1, body.menu-open .line-2 { background-color: #F3EAE1 !important; }
+
+        /* ───── Scroll Reveal ───── */
+        .ani-this { transition: transform 0.8s var(--ease), opacity 0.8s var(--ease); }
+        .ani-this.bottom-in { transform: translateY(40px); opacity: 0; }
+        .ani-this.left-in   { transform: translateX(-40px); opacity: 0; }
+        .ani-this.in { transform: translate(0, 0) !important; opacity: 1 !important; }
+        html.no-js .ani-this,html.no-js .opacity-0{opacity:1!important;transform:none!important}
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .hover-scale-img { will-change: transform; }
+
+        .text-balance { text-wrap: balance; }
+
+        /* 隱藏 Scrollbar */
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* ───── Hibi Lab wordmark (inherits currentColor for scroll theme swap) ───── */
+        .hibi-mark {
+            display: inline-block;
+            width: clamp(160px, 22vw, 320px);
+            aspect-ratio: 600 / 338;
+            background-color: currentColor;
+            -webkit-mask: url('hibi-lab-logo.png') no-repeat center / contain;
+                    mask: url('hibi-lab-logo.png') no-repeat center / contain;
+        }
+
+        /* ───── Fluid Typography (Utopia-style: anchor 768→1600, plateau past 1600) ─────
+           Only kicks in ≥ 771px so mobile sizes stay intact.
+           Calibrated against Aesop / Le Labo / luxury editorial baselines.
+        */
+        @media (min-width: 771px) {
+            .fluid-display     { font-size: clamp(3.5rem,  2.12rem + 2.88vw, 5rem)    !important; }
+            .fluid-display-md  { font-size: clamp(3rem,    1.62rem + 2.88vw, 4.5rem)  !important; }
+            .fluid-h2          { font-size: clamp(2.5rem,  1.35rem + 2.40vw, 3.75rem) !important; }
+            .fluid-h3-card     { font-size: clamp(1.75rem, 1.29rem + 0.96vw, 2.25rem) !important; }
+            .fluid-script-lg   { font-size: clamp(2.5rem,  1.35rem + 2.40vw, 3.75rem) !important; }
+            .fluid-script-xl   { font-size: clamp(3rem,    1.62rem + 2.88vw, 4.5rem)  !important; }
+            .fluid-body-lg     { font-size: clamp(1.05rem, 0.96rem + 0.19vw, 1.2rem)  !important; }
+            .fluid-quote       { font-size: clamp(2.5rem,  1.12rem + 2.88vw, 4rem)    !important; }
+        }
+
+                /* 純 CSS Morph */
+        .css-morph-container {
+            display: inline-flex;
+            position: relative;
+            vertical-align: bottom;
+        }
+
+        .css-morph-char {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 1.6em;
+        }
+
+        .css-morph-top {
+            display: inline-block;
+            transform-origin: bottom;
+            transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+            line-height: 1;
+        }
+
+        .css-morph-bottom {
+            position: absolute;
+            left: 0;
+            display: inline-block;
+            transform-origin: top;
+            transform: scaleY(0) translateY(-4%);
+            color: var(--morph-target-color, #A64B2A);
+            font-family: Baskervville, "Cactus Classical Serif", serif;
+            font-style: italic;
+            font-size: 1.25em;
+            line-height: 1;
+            transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .group:hover .css-morph-top, .css-morph-container:hover .css-morph-top { transform: scaleY(0); }
+        .group:hover .css-morph-bottom, .css-morph-container:hover .css-morph-bottom { transform: scaleY(1) translateY(-4%); }
+
+        /* 觸控裝置上停用 hover morph，避免 tap 後仍卡住 */
+        @media (hover: none) {
+            .group:hover .css-morph-top, .css-morph-container:hover .css-morph-top { transform: none; }
+            .group:hover .css-morph-bottom, .css-morph-container:hover .css-morph-bottom { transform: scaleY(0) translateY(-4%); }
+        }
+
+
+        /* ─── Mobile-only refinements (DO NOT touch md+) ─── */
+        @media (max-width: 767px) {
+            /* 防止橫向溢出（用 clip，唔會整壞 position:sticky） */
+            body { overflow-x: clip; }
+
+            /* 手機版 Hero - 維持比例但更克制留白 */
+            .hero-mobile-meta {
+                font-feature-settings: "kern" 1, "liga" 1;
+            }
+
+            /* 手機版 Carousel 進度指示器 */
+            .mobile-progress {
+                position: relative;
+                width: 56px;
+                height: 1px;
+                background: rgba(59, 38, 29, 0.15);
+                overflow: hidden;
+            }
+            body.in-brown .mobile-progress { background: rgba(243, 234, 225, 0.2); }
+            body.in-terracotta .mobile-progress { background: rgba(243, 234, 225, 0.25); }
+            .mobile-progress-fill {
+                position: absolute;
+                inset: 0;
+                background: #A64B2A;
+                transform-origin: left center;
+                transform: scaleX(0);
+                transition: transform 0.5s cubic-bezier(0.25, 1, 0.35, 1);
+            }
+
+            /* 手機 carousel slide hover-on-tap → focus-visible 視覺 */
+            .h-snap > *:active .hover-scale-img {
+                transform: scale(1.03);
+                transition: transform 0.4s ease-out;
+            }
+
+            /* 浮動 WhatsApp 在手機放大且更易按 */
+            .wa-float {
+                bottom: calc(1.25rem + var(--safe-bottom));
+            }
+        }
+
+        @media (min-width: 771px) {
+            #mobile-anchor-bar { display: none; }
+            .mobile-only-block { display: none !important; }
+        }
+
+        /* Pull‑indicator (僅手機 carousel 邊緣指示) */
+        .edge-fade-r {
+            background: linear-gradient(to left, rgba(253,251,249,1), rgba(253,251,249,0));
+        }
+        body.in-brown .edge-fade-r {
+            background: linear-gradient(to left, rgba(59,38,29,1), rgba(59,38,29,0));
+        }
+
+        /* 手機 Hero CTA tappable 強化 */
+        @media (max-width: 767px) {
+            .hero-cta-primary, .hero-cta-secondary {
+                min-height: 48px;
+                display: inline-flex;
+                align-items: center;
+            }
+        }
+    </style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Organization","name":"Scent.M","url":"https://www.scentm.hk","logo":"https://www.scentm.hk/scentm-logo.png","description":"品牌氣味體驗夥伴 — 香氣營銷、ODM 代工與工藝體驗。","areaServed":"HK","sameAs":[]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"LocalBusiness","name":"Scent.M","image":"https://www.scentm.hk/hero.jpg","url":"https://www.scentm.hk","telephone":"+852-1234-5678","email":"hello@scentm.hk","address":{"@type":"PostalAddress","addressLocality":"上環 Sheung Wan","addressRegion":"Hong Kong","addressCountry":"HK"},"geo":{"@type":"GeoCoordinates","latitude":22.2873,"longitude":114.1494},"openingHours":"Mo-Sa 11:00-19:00","priceRange":"$$"}
+    </script>
+</head>
+<body class="font-sans antialiased selection:bg-brand-terracotta selection:text-white">
+<!-- 狀態樣本檔（唔上線）：PDP 整件預訂（§19／§21.11，2026-07-10 鎖定）。WC 缺貨＋開放 backorder 觸發；到貨期＝per-product 欄位（hibilab_preorder_leadtime，空＝全局預設 option，出廠「約 1 週到貨」）；即刻全額付款；混合車＝允許、等齊貨一併寄；無接單上限（商家熄 backorder 手動停）。 -->
+
+    <!-- 導航欄 -->
+    <nav id="main-header" class="fixed w-full z-[70] px-6 md:px-12 py-5 md:py-8 flex justify-between items-center border-b border-transparent">
+        <a href="index.html" class="js-stagger-morph font-serif text-xl md:text-2xl tracking-widest uppercase relative z-[70]">Scent.M</a>
+        
+        <div class="flex items-center gap-6 md:gap-10 relative z-[70]">
+            <div class="hidden md:flex items-center gap-5 text-current opacity-70">
+                <a href="#" aria-label="Instagram" class="hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 flex items-center justify-center w-5">
+                    <i class="fa-brands fa-instagram text-[1.25rem]"></i>
+                </a>
+                <a href="#" aria-label="Facebook" class="hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 flex items-center justify-center w-5">
+                    <i class="fa-brands fa-facebook-f text-[1.05rem] translate-y-[1px]"></i>
+                </a>
+                <a href="#" aria-label="YouTube" class="hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 flex items-center justify-center w-5">
+                    <i class="fa-brands fa-youtube text-[1.35rem] translate-y-[1px]"></i>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4 md:gap-5 text-current opacity-70">
+                <button id="nav-search-btn" aria-label="搜尋" class="hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 flex items-center justify-center w-5"><i class="fa-solid fa-magnifying-glass text-[1.05rem]"></i></button>
+                <a href="HIBI LAB Account Login.html" aria-label="會員帳戶" class="flex hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 items-center justify-center w-5"><i class="fa-regular fa-user text-[1.1rem]"></i></a>
+                <a href="HIBI LAB Cart.html" aria-label="購物車" class="relative hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 flex items-center justify-center w-5"><i class="fa-solid fa-bag-shopping text-[1.05rem]"></i><span class="absolute -top-2 -right-2.5 min-w-[15px] h-[15px] px-1 rounded-full bg-brand-terracotta text-white text-[9px] font-semibold flex items-center justify-center" style="line-height:1;">2</span></a>
+            </div>
+
+            <button id="menu-toggle" aria-label="開啟選單" class="uppercase tracking-[0.15em] text-sm md:text-base group flex items-center gap-3 md:gap-4 focus:outline-none">
+                <div class="hidden sm:block relative overflow-hidden h-[1.4em] w-[5em]">
+                    <div id="menu-text-wrap" class="absolute inset-0 transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.35,1)] flex items-center">
+                        <span class="js-stagger-morph text-current font-medium">Menu</span>
+                    </div>
+                    <div id="close-text-wrap" class="absolute inset-x-0 top-full h-full transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.35,1)] flex items-center">
+                        <span class="js-stagger-morph text-current font-medium">Close</span>
+                    </div>
+                </div>
+
+                <div class="w-7 md:w-8 flex flex-col gap-[5px] justify-center items-center">
+                    <span class="line-1 block w-full h-[1px] bg-current transform origin-center transition-colors duration-300"></span>
+                    <span class="line-2 block w-full h-[1px] bg-current transform origin-center transition-colors duration-300"></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 全螢幕選單 -->
+    <div id="fullscreen-menu" class="fixed inset-0 bg-[#111111] z-[60] flex flex-col px-6 md:px-12 invisible opacity-0 overflow-y-auto" style="padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem)); padding-bottom: max(4rem, calc(env(safe-area-inset-bottom) + 2rem));">
+        <div class="max-w-screen-2xl mx-auto w-full flex flex-col gap-4 md:gap-8 text-brand-beige my-auto">
+            <div class="overflow-hidden pb-2"><a href="about.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">About.</a></div>
+            <div class="overflow-hidden pb-2"><a href="odm-perfume.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Boutique ODM.</a></div>
+            <div class="overflow-hidden pb-2"><a href="workshops.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Workshops.</a></div>
+            <div class="overflow-hidden pb-2"><a href="#services" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Scent Marketing.</a></div>
+            <div class="overflow-hidden pb-2"><a href="journal.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Journal.</a></div>
+            <div class="overflow-hidden pb-2"><a href="testimonials.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Testimonials.</a></div>
+            <div class="overflow-hidden pb-2"><a href="contact.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Contact.</a></div>
+
+            <div class="overflow-hidden mt-6 md:mt-8">
+                <div class="menu-link flex items-center gap-6 opacity-70">
+                    <a href="#" aria-label="Instagram" class="flex items-center justify-center w-6 hover:text-brand-terracotta hover:opacity-100 transition-all duration-300"><i class="fa-brands fa-instagram text-[1.5rem]"></i></a>
+                    <a href="#" aria-label="Facebook" class="flex items-center justify-center w-6 hover:text-brand-terracotta hover:opacity-100 transition-all duration-300"><i class="fa-brands fa-facebook-f text-[1.2rem] translate-y-[1px]"></i></a>
+                    <a href="#" aria-label="YouTube" class="flex items-center justify-center w-6 hover:text-brand-terracotta hover:opacity-100 transition-all duration-300"><i class="fa-brands fa-youtube text-[1.6rem] translate-y-[1px]"></i></a>
+                </div>
+            </div>
+            <div class="overflow-hidden pb-2">
+                <a href="HIBI LAB Shop.html" class="menu-link inline-flex items-center gap-3 font-sans text-sm md:text-base tracking-[0.2em] uppercase opacity-70 hover:opacity-100 hover:text-brand-terracotta transition-all duration-300 mt-2">
+                    <span>HIBI LAB 全部商品</span>
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    
+
+<!-- ===== HIBI LAB · PDP (D5 layout · 原版視覺系統 · 16px+) ===== -->
+<style>
+  html, body { scrollbar-width: none; -ms-overflow-style: none; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
+  .ani-this{opacity:1 !important;transform:none !important;}
+  .thumb-rail::-webkit-scrollbar{ width:5px; height:5px; }
+  .thumb-rail::-webkit-scrollbar-thumb{ background:#dccbbd; border-radius:4px; }
+  .thumb-rail{ scrollbar-width:thin; scrollbar-color:#dccbbd transparent; }
+  .pdp-thumb { cursor:pointer; opacity:.6; transition:opacity .3s, box-shadow .3s; }
+  .pdp-thumb.is-active { opacity:1; box-shadow:inset 0 0 0 1.5px #A64B2A; }
+  .pdp-thumb:hover { opacity:1; }
+  .eyb{ font-family:Montserrat,'Noto Sans TC',sans-serif; font-size:16px; letter-spacing:0.14em; text-transform:uppercase; color:#A64B2A; }
+  .vopt input{ position:absolute; opacity:0; width:0; height:0; }
+  .vopt{ display:inline-flex; max-width:100%; } .vopt .box{ border:1px solid #d2c1b2; border-radius:20px; padding:11px 18px; cursor:pointer; display:inline-flex; align-items:center; gap:10px; transition:all .25s; max-width:100%; }
+  .vopt input:checked + .box{ border-color:#A64B2A; background:#fbf4ee; }
+  .qty-btn{ width:42px; height:46px; display:flex; align-items:center; justify-content:center; color:#3B261D; transition:color .2s; }
+  .qty-btn:hover{ color:#A64B2A; }
+  .drow{ display:flex; gap:12px; padding:13px 0; border-bottom:1px solid #ece0d5; font-family:Montserrat,'Noto Sans TC',sans-serif; font-size:16px; }
+  .rel-card .rc-name{ transition:color .35s; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:2.6em; }
+  .rel-card:hover .rc-name{ color:#A64B2A; }
+  .acc-item{ border-top:1px solid #ece0d5; } .acc-item:last-child{ border-bottom:1px solid #ece0d5; }
+  .acc-head{ width:100%; display:flex; align-items:center; justify-content:space-between; padding:20px 0; cursor:pointer; text-align:left; background:none; gap:1rem; }
+  .acc-body{ overflow:hidden; max-height:0; transition:max-height .45s ease; }
+  .acc-item.is-open .acc-ic{ transform:rotate(45deg); }
+  .acc-ic{ transition:transform .35s; flex:none; color:#A64B2A; }
+  .ship-link .ship-ul{ border-bottom:1px solid #d8c5b2; padding-bottom:2px; transition:border-color .3s; }
+  .ship-link:hover .ship-ul{ border-color:#A64B2A; }
+  .blk{ margin-top:4rem; padding-top:3rem; border-top:1px solid #ece0d5; }
+  #d5-bar{ transform:translateY(110%); transition:transform .45s cubic-bezier(.25,1,.35,1); }
+  #d5-bar.show{ transform:translateY(0); }
+  #pdp-toast{ position:fixed; left:50%; bottom:32px; transform:translate(-50%,20px); opacity:0; pointer-events:none; transition:all .4s; z-index:90; }
+  #pdp-toast.show{ opacity:1; transform:translate(-50%,0); }
+</style>
+
+<main class="pt-28 md:pt-32 pb-24 md:pb-28">
+  <div class="max-w-screen-2xl mx-auto px-6 md:px-12">
+    <nav class="font-sans text-[16px] tracking-[0.06em] text-brand-brown/55" aria-label="breadcrumb">
+      <a href="HIBI LAB Landing.html" class="hover:text-brand-terracotta transition-colors">HIBI LAB</a>
+      <span class="mx-2 text-brand-brown/30">/</span>
+      <a href="HIBI LAB Shop.html" class="hover:text-brand-terracotta transition-colors">寵物護理 · 改善情緒</a>
+      <span class="mx-2 text-brand-brown/30">/</span><span class="text-brand-brown/80">情緒舒緩・分離焦慮噴霧</span>
+    </nav>
+
+    <!-- ===== TOP: specimen plate (left) + data sheet (right, sticky) ===== -->
+    <div class="mt-7 md:mt-9 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+      <!-- plate -->
+      <div>
+        <div class="md:grid md:grid-cols-[84px_1fr] md:gap-4 flex flex-col-reverse gap-4">
+          <!-- thumbnail rail: fixed to main-image height, scrolls when many (scales 3 -> 20+) -->
+          <div class="relative">
+            <div class="thumb-rail flex md:flex-col gap-3 md:absolute md:inset-0 overflow-x-auto md:overflow-x-hidden md:overflow-y-auto pb-1 md:pb-0 md:pr-1">
+              <button class="pdp-thumb is-active rounded-md overflow-hidden flex-none w-[72px] md:w-full" style="aspect-ratio:4/5;background:#efe6dd;" data-src="prod-petmist.png"><img src="prod-petmist.png" class="w-full h-full object-cover" alt=""></button>
+              <button class="pdp-thumb rounded-md overflow-hidden flex-none w-[72px] md:w-full" style="aspect-ratio:4/5;background:#efe6dd;" data-src="cat-pet.png"><img src="cat-pet.png" class="w-full h-full object-cover" alt=""></button>
+              <button class="pdp-thumb rounded-md overflow-hidden flex-none w-[72px] md:w-full" style="aspect-ratio:4/5;background:#efe6dd;" data-src="prod-sleepmist.png"><img src="prod-sleepmist.png" class="w-full h-full object-cover" alt=""></button>
+            </div>
+          </div>
+          <div class="rounded-lg overflow-hidden" style="position:relative;aspect-ratio:4/5;background:#efe6dd;"><span style="position:absolute;top:12px;left:12px;z-index:2;font-family:Montserrat,'Noto Sans TC',sans-serif;font-size:16px;letter-spacing:.04em;padding:5px 13px;border-radius:30px;background:#FDFBF9;color:#A64B2A;border:1.5px solid #A64B2A;">預訂</span>
+            <img id="pdp-main" src="prod-petmist.png" alt="情緒舒緩・分離焦慮噴霧" class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+
+      <!-- data sheet / buy -->
+      <div>
+        <div class="lg:sticky lg:top-32 lg:self-start">
+          <div class="eyb">寵物護理 · 改善情緒</div>
+          <h1 class="font-serif text-[2.6rem] md:text-[3.3rem] text-brand-brown mt-4" style="line-height:1.2;letter-spacing:0.05em;">情緒舒緩・分離焦慮噴霧</h1>
+
+          <!-- price -->
+          <div class="mt-6 flex items-baseline flex-wrap gap-x-3 gap-y-1">
+            <span id="pdp-price" class="font-serif text-3xl text-brand-terracotta">HK$239</span>
+            <s id="pdp-price-orig" class="font-serif text-xl text-brand-brown/40">HK$265</s>
+            <span id="pdp-price-tag" class="w-full font-sans text-[16px] text-brand-terracotta">銀級會員價</span>
+            </div>
+          <!-- WP-dev(2026-07-08 客戶裁定):PDP 唔出免運門檻/送達日數 — 資訊唔重複(免運=Cart/Checkout/OR/政策頁/側滑車 五個面;SLA=Checkout 方式卡/OR/政策頁);送貨詳情經下面「送貨與退換」link -->
+          <div id="pdp-member-teaser" class="font-sans text-[16px] text-brand-terracotta mt-2" style="display:none;"><i class="fa-regular fa-user text-[12px] mr-1.5"></i>登入即享會員價 · 全單 9 折起</div>
+
+          <p class="font-sans text-[16px] leading-loose text-brand-brown/75 mt-6">以洋甘菊與薰衣草純露為基底，加入低濃度薰衣草與依蘭依蘭精油，溫和舒緩貓狗的不安與分離焦慮。</p>
+
+          <!-- variant axis 1: 容量 (drives price) -->
+          <div class="mt-8">
+            <span class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/55">容量</span>
+            <div class="flex flex-wrap gap-2.5 mt-3" id="pdp-vols">
+              <!-- data-mprice＝該容量會員價設計值（§22 G2 樣式）；production 由 server 計（§5），per-variation SKU／庫存亦由 variation 讀（§21） -->
+              <label class="vopt"><input type="radio" name="vol" value="50ml" data-price="168" data-mprice="151"><span class="box"><span class="font-sans text-[16px] text-brand-brown">50ml</span></span></label>
+              <label class="vopt"><input type="radio" name="vol" value="100ml" data-price="265" data-mprice="239" checked><span class="box"><span class="font-sans text-[16px] text-brand-brown">100ml</span></span></label>
+              <label class="vopt"><input type="radio" name="vol" value="200ml" data-price="438" data-mprice="394"><span class="box"><span class="font-sans text-[16px] text-brand-brown">200ml</span></span></label>
+            </div>
+          </div>
+          <!-- variant axis 2: 香味 -->
+          <div class="mt-7">
+            <span class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/55">香味配方</span>
+            <div class="flex flex-wrap gap-2.5 mt-3" id="pdp-scents">
+              <label class="vopt"><input type="radio" name="scent" value="薰衣草依蘭" checked><span class="box"><span style="width:15px;height:15px;border-radius:50%;background:#9b8cc0;flex:none;"></span><span class="font-sans text-[16px] text-brand-brown">薰衣草・依蘭依蘭</span></span></label>
+              <label class="vopt"><input type="radio" name="scent" value="洋甘菊甜橙"><span class="box"><span style="width:15px;height:15px;border-radius:50%;background:#e08a3c;flex:none;"></span><span class="font-sans text-[16px] text-brand-brown">洋甘菊・甜橙</span></span></label>
+            </div>
+            <!-- 整件預訂：全部 variation 照落單（backorder），唔出「部分配方」句 -->
+          </div>
+
+          <!-- 到貨期行：值＝per-product 欄位（空＝全局預設「約 1 週到貨」）；SLA 禁令例外只限預訂狀態（§23.2#1） -->
+          <p class="font-sans text-[16px] text-brand-terracotta mt-6"><i class="fa-regular fa-clock" style="margin-right:6px;"></i>約 1 週到貨</p>
+          <!-- qty + add -->
+          <div class="mt-7 flex items-stretch gap-3">
+            <div class="flex items-center rounded-full" style="border:1px solid #d2c1b2;">
+              <button class="qty-btn" id="qty-dec" aria-label="減少"><i class="fa-solid fa-minus text-xs"></i></button>
+              <span id="qty-val" class="font-sans text-[16px] text-brand-brown w-7 text-center" style="font-variant-numeric:tabular-nums;">1</span>
+              <button class="qty-btn" id="qty-inc" aria-label="增加"><i class="fa-solid fa-plus text-xs"></i></button>
+            </div>
+            <button id="pdp-add" class="flex-1 inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white font-sans text-[16px] tracking-[0.08em] uppercase rounded-full py-4 transition-all duration-300 hover:bg-brand-brown"><span>預訂</span><span class="text-white/60">·</span><span id="pdp-add-price">HK$239</span></button>
+          </div>
+          <!-- 補購提醒 opt-in（§21.12，2026-07-11 裁定＝PDP 購買區、Amazon 式）：只限登入會員＋產品設有建議間隔（hibilab_repurchase_interval）＋可購買（有貨/預訂）先 render；揀咗＝cart item meta → 訂單完成建 schedule；checkout 唔再問（結帳保持最少摩擦）；排程掣＝模式+數值（同 Account 面板同一套） -->
+          <div class="mt-5 rounded-lg px-5 py-4" style="border:1px solid #e4d5c3;background:#faf5ee;">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <label class="flex items-center gap-2.5 font-sans text-[16px] text-brand-brown cursor-pointer"><input type="checkbox" style="width:18px;height:18px;accent-color:#A64B2A;flex:none;"> 到期提醒我補購</label>
+              <span class="flex items-center gap-2 flex-none">
+                <select class="font-sans text-[16px] text-brand-brown" style="border:1px solid #d8c8ba;border-radius:8px;padding:9px 12px;background:#fff;outline:none;"><option>每隔…日</option><option selected>每隔…週</option><option>每隔…月</option><option>每月…號</option></select>
+                <select class="font-sans text-[16px] text-brand-brown" style="border:1px solid #d8c8ba;border-radius:8px;padding:9px 12px;background:#fff;outline:none;"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option selected>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select>
+              </span>
+            </div>
+            <p class="font-sans text-[16px] text-brand-brown/50 mt-2.5">只會寄提醒電郵，唔會自動扣款；可隨時喺會員中心「補購提醒」更改或取消。</p>
+          </div>
+
+          <!-- data sheet: 產品規格 only — 商家後台 ACF repeater 自行增減行數，非 hardcode -->
+          <div class="mt-8 pt-7 space-y-2.5" style="border-top:1px solid #ece0d5;">
+            <div class="flex gap-3 font-sans text-[16px]"><span class="text-brand-brown/45 w-20 flex-none">適用</span><span class="text-brand-brown/80">貓 · 狗</span></div>
+            <div class="flex gap-3 font-sans text-[16px]"><span class="text-brand-brown/45 w-20 flex-none">容量</span><span class="text-brand-brown/80" id="pdp-meta-vol">100ml</span></div>
+            <!-- WP-dev:variable product 貨號=selected variation 嘅 SKU,揀容量要跟住轉(WC 原生 variation SKU);單一 SKU 焊死會對唔上 -->
+            <div class="flex gap-3 font-sans text-[16px]"><span class="text-brand-brown/45 w-20 flex-none">貨號</span><span class="text-brand-brown/80">HL-PET-H01</span></div>
+          </div>
+          <!-- 送貨與退換: compact icon-led link → 政策頁 (Aesop/Glossier 式，content 闊度、低重量) -->
+          <a href="HIBI LAB Shipping.html" class="ship-link group inline-flex items-center gap-2.5 mt-7 font-sans text-[16px] text-brand-brown/75 hover:text-brand-terracotta transition-colors">
+            <i class="fa-solid fa-truck text-brand-terracotta"></i>
+            <span class="ship-ul">送貨與退換</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== composition table ===== -->
+    <section class="blk">
+      <div class="grid md:grid-cols-12 gap-8 md:gap-12">
+        <div class="md:col-span-3"><div class="eyb">產品介紹</div></div>
+        <div class="md:col-span-9">
+          <p class="font-sans text-[17px] leading-loose text-brand-brown/80 max-w-2xl">分離焦慮，是貓狗最常見的情緒困擾之一。當門關上、當你離開，牠的世界忽然安靜得令人不安。這支噴霧以溫和的純露為底，輔以極低濃度的薰衣草與依蘭依蘭精油，於外出、搬遷或獨留在家前使用，把熟悉而安定的氣味留在牠身邊。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk">
+      <div class="grid md:grid-cols-12 gap-8 md:gap-12">
+        <div class="md:col-span-3"><div class="eyb">成分・功效</div></div>
+        <div class="md:col-span-9">
+          <div class="grid grid-cols-12 gap-5 py-4 items-baseline" style="border-bottom:1px solid #ece0d5;"><span class="col-span-4 font-serif text-[20px] text-brand-brown" style="min-width:0;overflow-wrap:anywhere;">洋甘菊</span><span class="col-span-8 font-sans text-[16px] leading-relaxed text-brand-brown/72">消除不安、鎮靜，特別有助減少貓狗的活躍程度。</span></div>
+          <div class="grid grid-cols-12 gap-5 py-4 items-baseline" style="border-bottom:1px solid #ece0d5;"><span class="col-span-4 font-serif text-[20px] text-brand-brown" style="min-width:0;overflow-wrap:anywhere;">薰衣草</span><span class="col-span-8 font-sans text-[16px] leading-relaxed text-brand-brown/72">消除不安、鎮靜、抗憂鬱。</span></div>
+          <div class="grid grid-cols-12 gap-5 py-4 items-baseline" style="border-bottom:1px solid #ece0d5;"><span class="col-span-4 font-serif text-[20px] text-brand-brown" style="min-width:0;overflow-wrap:anywhere;">依蘭依蘭</span><span class="col-span-8 font-sans text-[16px] leading-relaxed text-brand-brown/72">舒解分離焦慮、鎮定憂鬱。</span></div>
+          <div class="grid grid-cols-12 gap-5 py-4 items-baseline" style="border-bottom:1px solid #ece0d5;"><span class="col-span-4 font-serif text-[20px] text-brand-brown/75" style="min-width:0;overflow-wrap:anywhere;">水溶橄欖液 · NAPRE</span><span class="col-span-8 font-sans text-[16px] leading-relaxed text-brand-brown/55">乳化 · 穩定載體。</span></div>
+          <p class="font-sans text-[16px] leading-loose text-brand-brown/55 mt-5">全成分：洋甘菊純露、薰衣草純露、水溶橄欖液、NAPRE、0.05% 薰衣草精油、0.05% 依蘭依蘭精油。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk">
+      <div class="grid md:grid-cols-12 gap-8 md:gap-12">
+        <div class="md:col-span-3"><div class="eyb">為何純露</div></div>
+        <div class="md:col-span-9">
+          <figure>
+            <div class="rounded-lg overflow-hidden" style="aspect-ratio:16/9;background:#efe6dd;"><img src="cat-pet.png" alt="純露安撫貓狗" class="w-full h-full object-cover"></div>
+            <figcaption class="font-serif italic text-[16px] text-brand-brown/55 mt-3">純露為底、精油濃度極低，溫和貼合貓狗的生理。</figcaption>
+          </figure>
+          <p class="font-sans text-[17px] leading-loose text-brand-brown/80 mt-6 max-w-2xl">貓的嗅覺約為人類的 9–40 倍、狗約 60 倍，而牠們分解精油的能力遠低於人。安全稀釋比例：人類 1%、狗 0.2–0.3%、貓 0.1%。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk">
+      <div class="grid md:grid-cols-12 gap-8 md:gap-12">
+        <div class="md:col-span-3"><div class="eyb">使用示範</div></div>
+        <div class="md:col-span-9">
+          <div class="relative overflow-hidden rounded-lg group cursor-pointer max-w-3xl" style="aspect-ratio:16/9;background:#2c1d14;">
+            <img src="prod-petmist.png" alt="使用示範" class="absolute inset-0 w-full h-full object-cover" style="opacity:.4;">
+            <div class="absolute inset-0 flex items-center justify-center"><span class="flex items-center justify-center rounded-full bg-brand-light/90 transition-transform group-hover:scale-110" style="width:66px;height:66px;"><i class="fa-solid fa-play text-brand-brown" style="margin-left:4px;"></i></span></div>
+            <span class="absolute bottom-4 left-5 font-sans text-[16px] text-brand-light/90">產品使用示範 · 0:45</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk">
+      <div class="grid md:grid-cols-12 gap-8 md:gap-12">
+        <div class="md:col-span-3"><div class="eyb">詳細資料</div></div>
+        <div class="md:col-span-9">
+          <div class="acc-item is-open">
+            <button class="acc-head"><span class="font-serif text-[20px] text-brand-brown">使用方法</span><span class="acc-ic"><i class="fa-solid fa-plus"></i></span></button>
+            <div class="acc-body"><div class="pb-6"><ol class="space-y-3">
+              <li class="flex gap-4"><span class="font-serif italic text-brand-terracotta text-lg leading-none">01</span><span class="font-sans text-[16px] leading-relaxed text-brand-brown/80">於毛髮上方 20cm 輕噴 2–3 下。</span></li>
+              <li class="flex gap-4"><span class="font-serif italic text-brand-terracotta text-lg leading-none">02</span><span class="font-sans text-[16px] leading-relaxed text-brand-brown/80">或噴於睡墊、空間，作環境安撫。</span></li>
+              <li class="flex gap-4"><span class="font-serif italic text-brand-terracotta text-lg leading-none">03</span><span class="font-sans text-[16px] leading-relaxed text-brand-brown/80">外出、雷雨或情緒不穩前，提早使用。</span></li>
+            </ol></div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head"><span class="font-serif text-[20px] text-brand-brown">安全使用須知</span><span class="acc-ic"><i class="fa-solid fa-plus"></i></span></button>
+            <div class="acc-body"><div class="pb-6"><ul class="space-y-2.5 font-sans text-[16px] leading-relaxed text-brand-brown/72">
+              <li>· 請勿直接噴於鼻子或黏膜。</li>
+              <li>· 先於後腿少毛處做皮膚測試。</li>
+              <li>· 懷孕、3 個月以下或 12 歲以上勿用。</li>
+              <li>· 出現中毒或排斥反應應立即停用。</li>
+              <li>· 主人請勿在貓狗附近用香水或未稀釋香薰。</li>
+            </ul></div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head"><span class="font-serif text-[20px] text-brand-brown">完整成份</span><span class="acc-ic"><i class="fa-solid fa-plus"></i></span></button>
+            <div class="acc-body"><div class="pb-6"><p class="font-sans text-[16px] leading-loose text-brand-brown/75">洋甘菊純露、薰衣草純露、水溶橄欖液、NAPRE、0.05% 薰衣草精油、0.05% 依蘭依蘭精油。無酒精、無人工色素。</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk">
+      <div class="grid md:grid-cols-12 gap-8 md:gap-12">
+        <div class="md:col-span-3"><div class="eyb">常見問題</div></div>
+        <div class="md:col-span-9">
+          <div class="grid grid-cols-12 gap-5 py-5" style="border-bottom:1px solid #ece0d5;"><span class="col-span-2 md:col-span-1 font-serif italic text-brand-terracotta text-lg">Q1</span><div class="col-span-10 md:col-span-11"><dt class="font-serif text-[19px] text-brand-brown">會不會有依賴性？</dt><dd class="font-sans text-[16px] leading-loose text-brand-brown/70 mt-2">不會。配方溫和，可長期作日常安撫使用。</dd></div></div>
+          <div class="grid grid-cols-12 gap-5 py-5" style="border-bottom:1px solid #ece0d5;"><span class="col-span-2 md:col-span-1 font-serif italic text-brand-terracotta text-lg">Q2</span><div class="col-span-10 md:col-span-11"><dt class="font-serif text-[19px] text-brand-brown">多大的貓狗可以用？</dt><dd class="font-sans text-[16px] leading-loose text-brand-brown/70 mt-2">3 個月以上、12 歲以下；幼齡與高齡請另選溫和配方。</dd></div></div>
+          <div class="grid grid-cols-12 gap-5 py-5" style="border-bottom:1px solid #ece0d5;"><span class="col-span-2 md:col-span-1 font-serif italic text-brand-terracotta text-lg">Q3</span><div class="col-span-10 md:col-span-11"><dt class="font-serif text-[19px] text-brand-brown">可以噴在睡墊上嗎？</dt><dd class="font-sans text-[16px] leading-loose text-brand-brown/70 mt-2">可以，作環境安撫效果很好，避免直接噴向牠的臉。</dd></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== related ===== -->
+    <div class="mt-20 md:mt-28">
+      <div class="text-center">
+        <h2 class="font-serif text-3xl md:text-4xl tracking-[0.18em] text-brand-brown">同系列推薦</h2>
+        <div class="mt-4" style="display:flex;align-items:center;justify-content:center;gap:12px;"><span style="width:30px;height:1px;background:#d8c5b2;"></span><span class="text-brand-terracotta text-base">&#10059;</span><span style="width:30px;height:1px;background:#d8c5b2;"></span></div>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-[18px] gap-y-9 mt-10 items-stretch">
+        <!-- 除臭驅蟲噴霧 catalog stock=out → 售罄樣本(badge+圖暗,同 Shop card 一致 §20.3/§20.8);production 由 WC 庫存自動 -->
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;opacity:.6;"><img src="prod-petmist.png" alt="除臭驅蟲噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"><span style="position:absolute;top:12px;left:12px;z-index:2;font-family:Montserrat,'Noto Sans TC',sans-serif;font-size:16px;letter-spacing:.04em;padding:5px 13px;border-radius:30px;background:#3B261D;color:#FDFBF9;">售罄</span></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善情緒</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">除臭驅蟲噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-terracotta">HK$203</span> <s class="font-serif text-[16px] text-brand-brown/40 ml-1">HK$225</s><div class="font-sans text-[16px] text-brand-terracotta mt-0.5">銀級會員價</div></div></div></a>
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="舒緩過分活躍噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善情緒</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">舒緩過分活躍噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-terracotta">HK$251</span> <s class="font-serif text-[16px] text-brand-brown/40 ml-1">HK$279</s><div class="font-sans text-[16px] text-brand-terracotta mt-0.5">銀級會員價</div></div></div></a>
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-petmist.png" alt="皮膚敏感噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善身體</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">皮膚敏感噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓狗適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-terracotta">HK$184</span> <s class="font-serif text-[16px] text-brand-brown/40 ml-1">HK$204</s><div class="font-sans text-[16px] text-brand-terracotta mt-0.5">銀級會員價</div></div></div></a>
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="薰衣草噴霧・日常" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 日常護理</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">薰衣草噴霧・日常</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓狗適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-terracotta">HK$270</span> <s class="font-serif text-[16px] text-brand-brown/40 ml-1">HK$300</s><div class="font-sans text-[16px] text-brand-terracotta mt-0.5">銀級會員價</div></div></div></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- mobile sticky buy bar -->
+<div id="d5-bar" class="md:hidden fixed bottom-0 inset-x-0 z-40 px-5 pt-3 flex items-center gap-4" style="background:rgba(253,251,249,0.96);backdrop-filter:blur(10px);border-top:1px solid #ece0d5;padding-bottom:calc(0.75rem + env(safe-area-inset-bottom));">
+  <div class="flex-1 min-w-0"><div class="font-serif text-xl text-brand-terracotta" id="d5-bar-price">HK$239</div><div class="font-sans text-[16px] text-brand-brown/50 truncate">情緒舒緩噴霧</div></div>
+  <button id="d5-bar-add" class="flex-1 bg-brand-terracotta text-white rounded-full py-3.5 font-sans text-[16px] tracking-[0.08em] uppercase">預訂</button>
+</div>
+<div id="pdp-toast"><div class="flex items-center gap-3 bg-brand-brown text-brand-light rounded-full pl-5 pr-6 py-3.5 shadow-lg"><i class="fa-solid fa-check text-brand-terracotta"></i><span class="font-sans text-[16px] tracking-[0.04em]">已加入購物車</span></div></div>
+
+<script>
+(function(){
+  /* Demo＝「銀級會員」persona 靜態樣本：每個容量嘅會員價＝radio data-mprice 設計值（§22 G2 樣式）— 前端零計價、零 tier 邏輯；production 全部 server-side（§5）。訪客形（原價、無 tag、teaser 顯示）見 _p14-pdp-guest；整件售罄見 _p15；搶先鎖（訪客／未夠級）見 _p16／_p17。 */
+  function fmt(n){return 'HK$'+Number(n).toLocaleString('en-US');}
+  var main=document.getElementById('pdp-main');
+  document.querySelectorAll('.pdp-thumb').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.pdp-thumb').forEach(function(x){x.classList.remove('is-active');});t.classList.add('is-active');main.src=t.getAttribute('data-src');});});
+  function accSet(item){var body=item.querySelector('.acc-body');body.style.maxHeight=item.classList.contains('is-open')?(body.scrollHeight+'px'):'0px';}
+  document.querySelectorAll('.acc-item').forEach(function(item){ if(item.classList.contains('is-open')) accSet(item); });
+  document.querySelectorAll('.acc-head').forEach(function(hd){hd.addEventListener('click',function(){var item=hd.parentNode;item.classList.toggle('is-open');accSet(item);});});
+  window.addEventListener('resize',function(){document.querySelectorAll('.acc-item.is-open').forEach(accSet);});
+  function qty(){return parseInt(document.getElementById('qty-val').textContent,10)||1;}
+  // sync＝純顯示：直讀 selected variation 嘅 data-price／data-mprice 設計值更新價錢＋規格容量；無任何計價／會員邏輯
+  function sync(){
+    var v=document.querySelector('input[name=vol]:checked');
+    var mu=parseInt(v.getAttribute('data-mprice'),10)||parseInt(v.getAttribute('data-price'),10);
+    document.getElementById('pdp-price').textContent=fmt(mu);
+    var origEl=document.getElementById('pdp-price-orig');
+    if(origEl)origEl.textContent=fmt(parseInt(v.getAttribute('data-price'),10));
+    document.getElementById('pdp-add-price').textContent=fmt(mu*qty());
+    document.getElementById('d5-bar-price').textContent=fmt(mu*qty());
+    var mv=document.getElementById('pdp-meta-vol');if(mv)mv.textContent=v.value;
+  }
+  document.getElementById('pdp-vols').addEventListener('change',function(e){if(e.target.name==='vol')sync();});
+  document.getElementById('pdp-scents').addEventListener('change',function(e){if(e.target.name==='scent')sync();});
+  document.getElementById('qty-dec').addEventListener('click',function(){document.getElementById('qty-val').textContent=Math.max(1,qty()-1);sync();});
+  document.getElementById('qty-inc').addEventListener('click',function(){document.getElementById('qty-val').textContent=Math.min(99,qty()+1);sync();});
+  sync();
+  var toast=document.getElementById('pdp-toast'),tT;
+  // add＝純 toast 示範；nav 購物車數字 production 由 WC cart fragments 綁（§14），demo 唔郁佢
+  function add(){toast.classList.add('show');clearTimeout(tT);tT=setTimeout(function(){toast.classList.remove('show');},2200);}
+  document.getElementById('pdp-add').addEventListener('click',add);
+  document.getElementById('d5-bar-add').addEventListener('click',add);
+  var bar=document.getElementById('d5-bar'),addBtn=document.getElementById('pdp-add');
+  function onScroll(){var r=addBtn.getBoundingClientRect();if(r.bottom<60||r.top>window.innerHeight)bar.classList.add('show');else bar.classList.remove('show');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+
+
+        <!-- Footer -->
+    <footer class="pt-14 md:pt-24 pb-8 md:pb-12 px-6 md:px-12 border-t border-current transition-colors">
+        <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
+
+            <!-- Brand block -->
+            <div class="md:col-span-5 ani-this bottom-in">
+                <h3 class="mb-5 md:mb-8 inline-block">
+                    <img src="scentm-logo.png" alt="Scent.M" class="block w-[88px] md:w-[112px] h-auto" />
+                </h3>
+                <p class="font-sans text-base md:text-lg leading-[1.85] md:leading-loose opacity-80 max-w-md mb-6 md:mb-8">
+                    Scent.M 作為品牌背後的隱形推手，提供香氣營銷、靈活代工與工藝體驗服務。我們結合匠心工藝與精準配方，為您的品牌空間與產品注入專屬的氣味與質感。
+                </p>
+                <div class="flex items-center gap-5 text-current opacity-70">
+                    <a href="#" aria-label="Instagram" class="hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 flex items-center justify-center w-5">
+                        <i class="fa-brands fa-instagram text-[1.25rem]"></i>
+                    </a>
+                    <a href="#" aria-label="Facebook" class="hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 flex items-center justify-center w-5">
+                        <i class="fa-brands fa-facebook-f text-[1.05rem] translate-y-[1px]"></i>
+                    </a>
+                    <a href="#" aria-label="YouTube" class="hover:text-brand-terracotta hover:opacity-100 transition-all duration-300 flex items-center justify-center w-5">
+                        <i class="fa-brands fa-youtube text-[1.35rem] translate-y-[1px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- SERVICES -->
+            <div class="md:col-span-2 md:col-start-7 ani-this bottom-in delay-1">
+                <h4 class="font-sans uppercase tracking-[0.18em] text-xs md:text-sm text-brand-terracotta mb-5 md:mb-8 font-medium">Services</h4>
+                <ul class="font-sans space-y-3 md:space-y-4 text-base md:text-lg flex flex-col items-start">
+                    <li><a href="odm-perfume.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">靈活代工 ODM</a></li>
+                    <li><a href="workshops.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">調香工藝 Workshops</a></li>
+                    <li><a href="#services" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">香氣營銷 Marketing</a></li>
+                </ul>
+            </div>
+
+            <!-- BRAND -->
+            <div class="md:col-span-2 md:col-start-9 ani-this bottom-in delay-2">
+                <h4 class="font-sans uppercase tracking-[0.18em] text-xs md:text-sm text-brand-terracotta mb-5 md:mb-8 font-medium">Brand</h4>
+                <ul class="font-sans space-y-3 md:space-y-4 text-base md:text-lg flex flex-col items-start">
+                    <li><a href="about.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">關於我們 About</a></li>
+                    <li><a href="testimonials.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">客戶見證 Testimonials</a></li>
+                    <li><a href="journal.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">品牌日誌 Journal</a></li>
+                </ul>
+            </div>
+
+            <!-- CONNECT -->
+            <div class="md:col-span-2 md:col-start-11 ani-this bottom-in delay-3">
+                <h4 class="font-sans uppercase tracking-[0.18em] text-xs md:text-sm text-brand-terracotta mb-5 md:mb-8 font-medium">Connect</h4>
+                <ul class="font-sans space-y-3 md:space-y-4 text-base md:text-lg flex flex-col items-start">
+                    <li><a href="contact.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">聯絡我們 Contact</a></li>
+                    <li><a href="HIBI LAB Landing.html" class="inline-block hover:text-brand-terracotta transition-colors duration-300 font-medium">HIBI LAB &rarr;</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Sub-footer: legal + copyright -->
+        <div class="max-w-screen-2xl mx-auto mt-14 md:mt-24 pt-6 md:pt-8 border-t border-current/15 flex flex-col-reverse md:flex-row md:justify-between md:items-center gap-4 md:gap-0 font-sans text-xs md:text-sm opacity-55">
+            <p>© 2026 Scent.M. All rights reserved.</p>
+            <div class="flex gap-5 md:gap-8">
+                <a href="privacy.html" class="hover:opacity-100 hover:text-brand-terracotta transition-colors duration-300">Privacy Policy</a>
+                <a href="terms.html" class="hover:opacity-100 hover:text-brand-terracotta transition-colors duration-300">Terms of Service</a>
+                <a href="HIBI LAB Shipping.html" class="hover:opacity-100 hover:text-brand-terracotta transition-colors duration-300">Shipping &amp; Returns</a>
+            </div>
+        </div>
+    </footer>
+
+        <!-- 浮動 WhatsApp（option-gated,跟 theme footer.php）：WP 只喺 hibilab_whatsapp_number 設定咗先 render, href=https://wa.me/<number>?text=<hibilab_whatsapp_text>;無真號碼唔可以 ship 假號碼,故 href="#" placeholder。 -->
+    <a href="#" data-wa-pending data-wa-text="你好，我想查詢 HIBI LAB 嘅產品或訂單。" target="_blank" rel="noopener noreferrer" 
+       aria-label="WhatsApp 查詢"
+       class="wa-float fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[50] group flex items-center bg-[#FDFBF9] border border-brand-brown/20 shadow-[0_4px_20px_rgba(59,38,29,0.08)] hover:border-brand-terracotta hover:shadow-[0_4px_20px_rgba(166,75,42,0.15)] rounded-full overflow-hidden transition-all duration-500">
+        <div class="max-w-0 group-hover:max-w-xs overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.35,1)] flex items-center opacity-0 group-hover:opacity-100">
+            <span class="font-sans text-xs md:text-sm tracking-[0.15em] uppercase font-medium text-brand-terracotta whitespace-nowrap pl-5 md:pl-6">
+                Customer Care
+            </span>
+        </div>
+        <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center text-brand-brown group-hover:text-brand-terracotta transition-colors duration-500">
+            <i class="fa-brands fa-whatsapp text-2xl md:text-[1.75rem]"></i>
+        </div>
+    </a>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const isTouch = window.matchMedia('(hover: none)').matches;
+        const isMobile = window.matchMedia('(max-width: 767px)').matches;
+
+        const lenis = window.hbLenis = new Lenis({
+            duration: isMobile ? 0.9 : 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothTouch: false, // 讓手機橫向 carousel 自然
+        });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+        lenis.on('scroll', ScrollTrigger.update);
+
+        function setupPureCSSMorph() {
+            const morphEls = document.querySelectorAll('.js-stagger-morph');
+            
+            morphEls.forEach(el => {
+                if(el.dataset.morphBound === "true") return;
+                el.dataset.morphBound = "true";
+
+                const text = el.innerText.trim();
+                el.innerHTML = '';
+                el.classList.add('css-morph-container');
+
+                const chars = text.split('');
+                chars.forEach((char, index) => {
+                    const wrapper = document.createElement('span');
+                    wrapper.className = 'css-morph-char';
+
+                    const delay = (index * 0.05) + 's';
+
+                    const topSpan = document.createElement('span');
+                    topSpan.className = 'css-morph-top';
+                    topSpan.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    topSpan.style.transitionDelay = delay;
+
+                    const bottomSpan = document.createElement('span');
+                    bottomSpan.className = 'css-morph-bottom';
+                    bottomSpan.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    bottomSpan.style.transitionDelay = `calc(${delay} + 0.04s)`;
+
+                    wrapper.appendChild(topSpan);
+                    wrapper.appendChild(bottomSpan);
+                    el.appendChild(wrapper);
+                });
+            });
+        }
+        setupPureCSSMorph();
+
+        const heroTl = gsap.timeline();
+        heroTl.to('#hero-mask', { scaleY: 0, duration: 1.5, ease: 'expo.inOut' })
+              .to('.hero-img', { scale: 1, duration: 2, ease: 'expo.out' }, "-=1.5")
+              .to('.hero-text', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, "-=1.0")
+              .to('.hero-fade-up', { opacity: 1, y: 0, duration: 1.0, stagger: 0.2, ease: 'power2.out' }, "-=0.8");
+
+        const header = document.querySelector('#main-header');
+        const menuToggle = document.getElementById('menu-toggle');
+        const fullscreenMenu = document.getElementById('fullscreen-menu');
+        
+        gsap.set('.menu-link', { yPercent: 100, opacity: 0 });
+
+        if (menuToggle && fullscreenMenu) {
+            const menuTextWrap = document.getElementById('menu-text-wrap');
+            const closeTextWrap = document.getElementById('close-text-wrap');
+            const line1 = menuToggle.querySelector('.line-1');
+            const line2 = menuToggle.querySelector('.line-2');
+            let isMenuOpen = false;
+            let isAnimating = false; 
+
+            menuToggle.addEventListener('click', () => {
+                if (isAnimating) return;
+                isAnimating = true;
+                setTimeout(() => { isAnimating = false; }, 500);
+
+                isMenuOpen = !isMenuOpen;
+                menuToggle.setAttribute('aria-label', isMenuOpen ? '關閉選單' : '開啟選單');
+                if (isMenuOpen) {
+                    document.body.classList.add('menu-open');
+                    
+                    if(menuTextWrap) menuTextWrap.style.transform = 'translateY(-100%)';
+                    if(closeTextWrap) closeTextWrap.style.transform = 'translateY(-100%)';
+                    
+                    gsap.to(fullscreenMenu, { autoAlpha: 1, duration: 0.4, ease: "power2.out" });
+                    gsap.to('.menu-link', { yPercent: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power4.out', delay: 0.2 });
+                    
+                    if (line1) gsap.to(line1, { y: 3, rotation: -45, duration: 0.3 });
+                    if (line2) gsap.to(line2, { y: -3, rotation: 45, duration: 0.3 });
+                    
+                    lenis.stop();
+                } else {
+                    document.body.classList.remove('menu-open');
+                    
+                    if(menuTextWrap) menuTextWrap.style.transform = 'translateY(0)';
+                    if(closeTextWrap) closeTextWrap.style.transform = 'translateY(0)';
+                    
+                    gsap.to('.menu-link', { yPercent: 100, opacity: 0, duration: 0.4, ease: 'power3.in' });
+                    gsap.to(fullscreenMenu, { autoAlpha: 0, duration: 0.4, ease: "power2.in", delay: 0.2 });
+                    
+                    if (line1) gsap.to(line1, { y: 0, rotation: 0, duration: 0.3 });
+                    if (line2) gsap.to(line2, { y: 0, rotation: 0, duration: 0.3 });
+                    
+                    lenis.start();
+                }
+            });
+
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (isMenuOpen) menuToggle.click();
+                });
+            });
+        }
+
+        lenis.on('scroll', (e) => {
+            if (window.scrollY > 50) {
+                header.classList.add('is-scrolled');
+            } else {
+                header.classList.remove('is-scrolled');
+            }
+        });
+
+        function setupAniThis() {
+            gsap.utils.toArray('.ani-this').forEach(item => {
+                ScrollTrigger.create({
+                    trigger: item,
+                    once: true,
+                    start: "top 88%",
+                    onEnter: () => item.classList.add('in')
+                });
+            });
+        }
+        setTimeout(setupAniThis, 100);
+
+        const THEME_CLASSES = ['in-terracotta', 'in-brown', 'in-moss'];
+
+        function applyTheme(kind) {
+            THEME_CLASSES.forEach(c => {
+                if (c !== `in-${kind}`) document.body.classList.remove(c);
+            });
+            document.body.classList.add(`in-${kind}`);
+        }
+        function clearTheme() {
+            THEME_CLASSES.forEach(c => document.body.classList.remove(c));
+        }
+
+        gsap.utils.toArray('.theme-switch').forEach(item => {
+            const target = item.dataset.switchto;
+            ScrollTrigger.create({
+                trigger: item,
+                start: 'top center+=20%', end: 'bottom top',
+                onEnter: () => applyTheme(target), onEnterBack: () => applyTheme(target),
+                onLeave: () => clearTheme(), onLeaveBack: () => clearTheme(),
+            });
+        });
+
+        const heroBgWrapper = document.querySelector('.parallax-wrapper');
+        if (heroBgWrapper && !isMobile) {
+            gsap.to(heroBgWrapper, {
+                yPercent: 15,
+                ease: 'none',
+                scrollTrigger: { trigger: "header", start: 'top top', end: 'bottom top', scrub: true }
+            });
+        }
+
+        // (Workshops now uses native scroll-snap, see bindScrollProgress below)
+
+        // ─────────── Native scroll progress (ODM + Journal) ───────────
+        function bindScrollProgress(carouselEl, progressFill, progressLabel) {
+            if (!carouselEl) return;
+            const items = carouselEl.querySelectorAll('[data-idx]');
+            const total = items.length;
+            if (!total) return;
+
+            let raf = null;
+            const update = () => {
+                raf = null;
+                const rect = carouselEl.getBoundingClientRect();
+                const center = rect.left + rect.width / 2;
+                let bestIdx = 0;
+                let bestDist = Infinity;
+                items.forEach((it, i) => {
+                    const r = it.getBoundingClientRect();
+                    const c = r.left + r.width / 2;
+                    const d = Math.abs(c - center);
+                    if (d < bestDist) { bestDist = d; bestIdx = i; }
+                });
+                if (progressFill) progressFill.style.transform = `scaleX(${(bestIdx + 1) / total})`;
+                if (progressLabel) progressLabel.textContent = `${String(bestIdx + 1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+            };
+            const onScroll = () => {
+                if (raf) return;
+                raf = requestAnimationFrame(update);
+            };
+            carouselEl.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            update();
+        }
+
+        bindScrollProgress(
+            document.querySelector('[data-carousel="odm"]'),
+            document.querySelector('[data-progress="odm"]'),
+            document.getElementById('odm-progress-label')
+        );
+        bindScrollProgress(
+            document.querySelector('[data-carousel="workshops"]'),
+            document.querySelector('[data-progress="workshops"]'),
+            document.getElementById('workshops-progress-label')
+        );
+        bindScrollProgress(
+            document.querySelector('[data-carousel="journal"]'),
+            document.querySelector('[data-progress="journal"]'),
+            document.getElementById('journal-progress-label')
+        );
+
+        // ─────────── Smooth anchor scroll w/ Lenis ───────────
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', (e) => {
+                const href = a.getAttribute('href');
+                if (!href || href === '#' || href.length < 2) return;
+                const target = document.querySelector(href);
+                if (!target) return;
+                e.preventDefault();
+                const offset = isMobile ? -56 : -32;
+                lenis.scrollTo(target, { offset });
+            });
+        });
+
+
+        let resizeTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => { ScrollTrigger.refresh(); }, 200);
+        });
+
+        // ─────────── Desktop drag-to-scroll for Workshops (matches mobile native swipe) ───────────
+        (function() {
+            if (window.matchMedia('(max-width: 767px)').matches) return;
+            const containers = document.querySelectorAll('[data-carousel="workshops"]');
+            containers.forEach(el => {
+                let isDown = false, lastX = 0, moved = false;
+                let velocity = 0, lastT = 0, raf = null;
+
+                const stopMomentum = () => { if (raf) { cancelAnimationFrame(raf); raf = null; } };
+                const momentum = () => {
+                    velocity *= 0.95;                       // iOS-like friction
+                    el.scrollLeft -= velocity;
+                    if (Math.abs(velocity) > 0.5) {
+                        raf = requestAnimationFrame(momentum);
+                    } else {
+                        raf = null;
+                        // Restore snap so the carousel settles to nearest card
+                        el.style.scrollSnapType = '';
+                        el.style.scrollBehavior = '';
+                    }
+                };
+
+                el.style.cursor = 'grab';
+
+                el.addEventListener('mousedown', (e) => {
+                    if (e.button !== 0) return;
+                    isDown = true;
+                    moved = false;
+                    lastX = e.pageX;
+                    lastT = performance.now();
+                    velocity = 0;
+                    stopMomentum();
+                    el.style.cursor = 'grabbing';
+                    el.style.scrollSnapType = 'none';      // disable snap during drag
+                    el.style.scrollBehavior = 'auto';       // kill CSS smooth (was fighting JS)
+                    e.preventDefault();
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    const now = performance.now();
+                    const dx = e.pageX - lastX;             // 1:1 mapping like mobile
+                    const dt = Math.max(1, now - lastT);
+                    if (Math.abs(dx) > 3) moved = true;
+                    el.scrollLeft -= dx;
+                    // velocity in px/frame (assume 60fps)
+                    velocity = dx / dt * 16;
+                    lastX = e.pageX;
+                    lastT = now;
+                });
+
+                window.addEventListener('mouseup', () => {
+                    if (!isDown) return;
+                    isDown = false;
+                    el.style.cursor = 'grab';
+                    if (Math.abs(velocity) > 1.5) {
+                        raf = requestAnimationFrame(momentum);
+                    } else {
+                        el.style.scrollSnapType = '';
+                        el.style.scrollBehavior = '';
+                    }
+                });
+
+                // Suppress clicks if the user actually dragged
+                el.addEventListener('click', (e) => {
+                    if (moved) { e.preventDefault(); e.stopPropagation(); }
+                }, true);
+            });
+        })();
+
+        // ───────── ODM Scroll-story (desktop only) ─────────
+        (function() {
+            if (window.matchMedia('(max-width: 767px)').matches) return;
+            const cards = document.querySelectorAll('[data-carousel="odm"] article');
+            const panel = document.getElementById('odm-now');
+            if (!cards.length || !panel) return;
+            const content = panel.querySelector('.odm-now-content');
+            const elTag   = panel.querySelector('[data-now="tagline"]');
+            const dots    = panel.querySelectorAll('[data-now="dots"] span');
+            let activeIdx = -1;
+
+            const setActive = (idx) => {
+                if (idx === activeIdx) return;
+                activeIdx = idx;
+                cards.forEach((c, i) => c.classList.toggle('is-active', i === idx));
+                dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+                const card = cards[idx];
+                if (!card) return;
+                content.classList.add('swap');
+                setTimeout(() => {
+                    elTag.textContent = card.dataset.tagline;
+                    content.classList.remove('swap');
+                }, 220);
+            };
+
+            const update = () => {
+                const center = window.innerHeight * 0.5;
+                let closest = 0, min = Infinity;
+                cards.forEach((c, i) => {
+                    const r = c.getBoundingClientRect();
+                    const cy = r.top + r.height / 2;
+                    const d = Math.abs(center - cy);
+                    if (d < min) { min = d; closest = i; }
+                });
+                setActive(closest);
+            };
+
+            let raf = null;
+            const onScroll = () => { if (raf) return; raf = requestAnimationFrame(() => { raf = null; update(); }); };
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            update();
+        })();
+    
+
+    
+
+    
+        // ─────────── ODM horizontal accordion (hover desktop / tap mobile) ───────────
+        (function() {
+            const panels = document.querySelectorAll('[data-odm-panel]');
+            if (!panels.length) return;
+            const isDesktop = () => window.matchMedia('(min-width: 771px)').matches;
+            const openPanel = (p) => {
+                panels.forEach(x => { x.classList.remove('is-open'); x.setAttribute('aria-expanded','false'); });
+                p.classList.add('is-open');
+                p.setAttribute('aria-expanded','true');
+            };
+            let hoverTimer = null;
+            panels.forEach(p => {
+                p.addEventListener('mouseenter', () => {
+                    if (!isDesktop() || p.classList.contains('is-open')) return;
+                    clearTimeout(hoverTimer);
+                    hoverTimer = setTimeout(() => openPanel(p), 120);
+                });
+                p.addEventListener('mouseleave', () => clearTimeout(hoverTimer));
+                p.addEventListener('click', (e) => {
+                    if (e.target.closest('a')) return;
+                    if (!p.classList.contains('is-open')) openPanel(p);
+                });
+                p.addEventListener('keydown', (e) => {
+                    if ((e.key === 'Enter' || e.key === ' ') && !p.classList.contains('is-open')) {
+                        e.preventDefault(); openPanel(p);
+                    }
+                });
+            });
+        })();
+
+    </script>
+<!-- Reveal safety-net (inline-style based, Lenis-safe) -->
+<script>
+(function(){
+  function reveal(el){ if(el.dataset.shown) return; el.dataset.shown='1'; el.style.opacity='1'; el.style.transform='none'; }
+  function check(){
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    document.querySelectorAll('.ani-this').forEach(function(el){
+      if(el.dataset.shown) return;
+      var r = el.getBoundingClientRect();
+      if(r.top < vh*0.92 && r.bottom > -60) reveal(el);
+    });
+  }
+  function revealHero(){ document.querySelectorAll('.hero-text, .hero-fade-up').forEach(function(el){ el.style.opacity='1'; el.style.transform='none'; }); var hm=document.getElementById('hero-mask'); if(hm) hm.style.transform='scaleY(0)'; }
+  function start(){
+    check();
+    window.addEventListener('scroll', check, {passive:true});
+    window.addEventListener('resize', check);
+    var n=0, iv=setInterval(function(){ check(); if(++n>26) clearInterval(iv); }, 220);
+    setTimeout(function(){ var ht=document.querySelector('.hero-text'); if(!ht || getComputedStyle(ht).opacity==='0') revealHero(); }, 2200);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+    <script src="store-chrome.js"></script>
+<script id="pdp-openscart">document.addEventListener("click",function(e){if(e.target.closest("#pdp-add,#d5-bar-add")){var cl=document.querySelector('a[aria-label="購物車"]');if(cl)setTimeout(function(){cl.click();},120);}});</script>
+</body>
+</html>
