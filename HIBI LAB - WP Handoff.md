@@ -40,6 +40,7 @@
 | `HIBI LAB Email.html` | 後台可編輯 email 範本（option 儲存，§21/§22）。**六款齊**（⑥補購提醒樣本喺 _p24） | 交易 email 設計稿 |
 | `index.html` | —（= `HIBI LAB Landing.html` 嘅 byte-identical alias，方便 repo 直開） | alias |
 | `scentm-home.html` | —（Scent.M 首頁 chrome 整合示範：Explore Hibi Lab 連結點樣駁去店；非 HIBI 頁面） | 整合參考 |
+| `_p01-states-book.html`＋`states-img/` | —（**全狀態型錄＝客戶 review 主入口**：49 格真頁截圖＋每格互動預覽；詳見 §23.1） | 型錄 helper |
 | `_p13-shop-emptycat.html` | —（PLP 空分類狀態獨立示範，對應 §22 空狀態變體 (a)） | 狀態示範 helper |
 | `_p14`–`_p30` 樣本檔（_p29 已取消 — 補購 opt-in 移咗去 PDP 購買區 §21.12） | —（**狀態樣本檔，唔上線**：每檔＝一個預設 demo 見唔到嘅狀態嘅視覺樣本；清單＋行為合約補充見 **§23**） | 狀態示範 helper |
 
@@ -88,7 +89,7 @@
 
 **E. 前台顯示**
 - Account 概覽頂：**一張自己等級卡**（單張全闊漸變橫額＝名＋近 12 月消費＋進度／已達最高，`Tier Cards.html` 樣板、色按等級自動；**唔做全部等級 ladder**）。
-- Shop 卡／PDP：**會員價＋劃線原價＋「{級}會員價」細 tag**；未登入 → **teaser「登入即享會員價 · 全單 X 折起」**（X＝入門付費級折）。
+- Shop 卡／PDP：**會員價＋劃線原價＋「{級}會員價」細 tag**；未登入 → **teaser「登入即享會員價 · 全單 X 折起」只出喺 PDP**（§23.2#14：PLP／Cart／Checkout 一律唔出；X＝入門付費級折）。
 - Cart／Checkout：**一行「會員優惠」**（label 淨四字 — 無級名、無「自動」章，2026-07-10 客戶裁定 §22.5），**不可移除**（非 ✕）。
 
 **保留（WC 原生）：** 註冊／登入／忘記密碼（§8；註冊＋帳戶設定收**生日 月+日**）· 訂單／地址／設定（§9）· guest checkout（§17）· 優惠碼（§6）。
@@ -101,8 +102,8 @@
 - 全部 **WC native**：admin 喺 WooCommerce 原生後台建碼（%／$、限產品／分類／滿額、用量限制、到期）。**無自訂引擎、無 auto-apply**；客人 Cart／Checkout 自己輸入。
 - **一次一張**：所有碼 `individual_use`。**冇免運碼、冇並存例外**（免運＝全店門檻 `hibilab_free_ship_threshold`，與 coupon／VIP 無關，§7）。**刪除 demo 遺留嘅 `FREESHIP`／`ship` 類型同「免運碼可並存」分支**（Cart.html:602 / Checkout.html:489,496）。
 - **vs 會員價 = 二選一取最抵（全單口徑）**：兩者都喺**全單原價 subtotal** 上比較 —— `member_savings ＝ 全單原價 − 全單會員價`；`coupon_savings ＝ WC 對現購物車計出嘅折扣`。**coupon 嚴格大過會員價先套用**（贏嗰個整單套、輸嗰個完全 suspend、**唔疊加**；平手回會員價）。會員價係**保底**：每次購物車 recalc（qty／刪 line／改運費／apply／remove 都 fire），若已套嘅 coupon 唔再大過會員價 → **自動用返會員價**（fixed-$ coupon 先 clamp 到 subtotal）。落單／付款一刻 server 用**當刻等級＋當刻日期**無條件再跑一次（覆蓋跨午夜／跨結算，唔靠 client 事件）。
-- **客面文案（禁「保留／暫停／留」；全套 §22）**：碼唔夠會員價抵 → 唔套用,出「**已為你自動採用更抵嘅會員價,此優惠碼慳幅較少,無需使用。**」；碼贏 → 折扣行 label「**優惠碼 {code}**」＋訊息「**已套用優惠碼,為你慳到最多。你嘅會員價一直生效,日後自動以最抵價錢計算。**」
-- **管理 affordance**：Cart 客人自套碼嗰行「移除 ✕」；**會員自動價嗰行唔俾移除**（標「自動」小章）。Checkout 收埋式欄有碼時「已套用 {CODE} · 更改」。套第二張碼 → WC 原生拒絕「一次只可使用一張優惠碼,請先移除現有優惠碼」（經 §22 notices skin）。無效碼**唔影響**已套用嘅碼。
+- **客面文案（禁「保留／暫停／留」；全套 §22）**：碼唔夠會員價抵 → 唔套用,出「**會員價更抵，此優惠碼無需使用。**」（§22.3 短版，2026-07-10 裁定）；碼贏 → 折扣行 label「**優惠碼 {code}**」＋訊息「**已套用優惠碼。**」（§22.4 短版，2026-07-10 裁定）
+- **管理 affordance**：Cart 客人自套碼嗰行「移除 ✕」；**會員自動價嗰行唔俾移除**（§22.5：label 淨「會員優惠」，無「自動」章）。Checkout 收埋式欄有碼時「已套用 {CODE} · 更改」。套第二張碼 → WC 原生拒絕「一次只可使用一張優惠碼,請先移除現有優惠碼」（經 §22 notices skin）。無效碼**唔影響**已套用嘅碼。
 - **免運門檻口徑**：free-shipping min-amount 測「**會員價之後、coupon 之前**」嘅小計（會員自動價當實際貨價；一張 coupon 可令跌穿門檻）。WC free-shipping method 設 evaluate **before** coupon。
 
 ---
@@ -130,7 +131,7 @@
 
 ## 9. 會員中心面板（`HIBI LAB Account.html`，對應 my-account endpoints）
 - **概覽**：歡迎句 + 統計（累積訂單／累積消費）+ **自己等級卡**（概覽頂一張，loop VIP repeater 出當前級＋近 12 月消費＋進度條／已達最高；主色讀該級設定；`Tier Cards.html` 樣板）+ 最近訂單（cap 最近 3 張）。**唔做全部等級 ladder、唔做獨立「會員等級」nav、唔做優惠券錢包**（生日改自動加成、冇券要儲；demo Account nav ＝ 會員概覽／訂單記錄／補購提醒／地址／帳戶設定／登出（6 項））。
-- **補購提醒**：獨立面板（nav 第 6 項，2026-07-10 鎖定）— 列表（產品／週期／下次提醒日）＋改排程（模式＋數值：每隔 N 日 1–90／N 週 1–12／N 月 1–6／每月 N 號 1–31，短月自動用月尾）＋**暫停／恢復**（「已暫停」態：設定保留，恢復＝由恢復日重新開錶）＋取消提醒；**循環提醒直至取消**；**只限登入會員**（guest 唔見 opt-in）；逐件獨立 schedule；**per-product 唯一（再 opt-in＝upsert 更新現有提醒，唔開第二個）**；**購買即重錨（下次＝最近購買日＋排程間隔；每月固定日子模式唔重錨）**；列表直列無分頁（上限＝有建議間隔嘅產品數，過 ~30 先加分頁）；空狀態句「你未有補購提醒。喺產品頁勾選「到期提醒我補購」即可設定。」＋前往商店 link；email ⑥「管理提醒」連結指嚟呢度。樣本：Account demo 面板＋PDP 購買區 panel（Product demo＋_p27）。**Data model：客揀嘅間隔＋下次寄送日存 Action Scheduler 排程記錄（＋鏡射一份落 user-meta 供面板列表）；產品建議間隔＝ACF `hibilab_repurchase_interval`（§3）做預帶。** §21。
+- **補購提醒**：獨立面板（新增 nav 項、列表第 3 位／共 6 項，2026-07-10 鎖定）— 列表（產品／週期／下次提醒日）＋改排程（模式＋數值：每隔 N 日 1–90／N 週 1–12／N 月 1–6／每月 N 號 1–31，短月自動用月尾）＋**暫停／恢復**（「已暫停」態：設定保留，恢復＝由恢復日重新開錶）＋取消提醒；**循環直至客暫停／取消（無自動熄火）**；**只限登入會員**（guest 唔見 opt-in）；逐件獨立 schedule；**per-product 唯一（再 opt-in＝upsert 更新現有提醒，唔開第二個）**；**購買即重錨（下次＝最近購買日＋排程間隔；每月固定日子模式唔重錨）**；列表直列無分頁（上限＝有建議間隔嘅產品數，過 ~30 先加分頁）；空狀態句「你未有補購提醒。喺產品頁勾選「到期提醒我補購」即可設定。」＋前往商店 link；email ⑥「管理提醒」連結指嚟呢度。樣本：Account demo 面板＋PDP 購買區 panel（Product demo＋_p27）。**Data model：客揀嘅間隔＋下次寄送日存 Action Scheduler 排程記錄（＋鏡射一份落 user-meta 供面板列表）；產品建議間隔＝ACF `hibilab_repurchase_interval`（§3）做預帶。** §21。
 - **訂單記錄**：可展開詳情（**4 步狀態時間線** 已確認→處理中→已寄出→已完成，「已寄出」步顯示追蹤號+追蹤 link + 商品明細 + 小計/運費/總計 + 送貨地址 + 再次購買 + 「查詢此訂單」細 link）。**>10 張＝WC 原生分頁（`/orders/page/N/`）。**
   - **非快樂狀態視覺**：已退款／已取消／付款失敗 → **唔出 4 步時間線**，改單行狀態 label（已退款/已取消 = muted brown、付款失敗 = `#b4452a`）+ 已退款單加「已退款 −HK$X」金額行；處理中/已寄出照 timeline。Label token 對照見 §22。
   - **再次購買 = WC 原生 order-again endpoint**：全部可購 line 以**現價**重新入車，唔可購（售罄/下架）項出 per-item notice；成張單冇 line 可購 → 藏個掣。demo 個單一 PDP link 只係 placeholder。
@@ -167,7 +168,7 @@
 
 ## 13. 新增頁面 + 購買旅程接線（skin，交接用）
 - **新頁（全部 = WooCommerce 原生流程嘅品牌 skin；邏輯用原生，呢啲係樣式參考）：**
-  - `HIBI LAB Checkout.html` → `woocommerce/checkout/form-checkout.php` override（聯絡 / 送貨 / **送貨方式（ShipAny 送上門+自取點，§7）** / Stripe 付款 / 訂單摘要 + 優惠碼收埋式欄 + 預訂同意 checkbox（如車內有預訂項，§19/§20.1）)。
+  - `HIBI LAB Checkout.html` → `woocommerce/checkout/form-checkout.php` override（聯絡 / 送貨 / **送貨方式（ShipAny 送上門+自取點，§7）** / Stripe 付款 / 訂單摘要 + 優惠碼收埋式欄 + 預訂同意 checkbox（如車內有預訂項，§19/§20.1））。
   - `HIBI LAB Order Received.html` → `woocommerce/checkout/thankyou.php`（訂單完成頁）。**沿用 Scent.M `page-thanks.php` 編輯式版式**（serif-italic eyebrow + fluid-display 標題 + 白底 `<dl>` 詳情卡 + underline 連結）；可直接 reuse thanks template + 訂單詳情卡，一如 workshop booking completion（`?booking=ID&token=`）。
   - `HIBI LAB Account Login.html` → `myaccount/form-login.php` + `form-lost-password.php`（登入 / 註冊 / 忘記密碼，tab 切換 = demo；實際 3 個原生 template）。
 - **旅程接線（前端）：** Landing 4 類別門 → `Shop.html?cat=<slug>`；Shop 讀 `?cat=` 自動套 dept filter（沿用現有 dept pill；demo slug = skincare/pet/sleep/home，**production slug 跟 top-level `product_cat` terms 動態出，唔 hardcode — §3**）；搜尋結果直接喺 overlay 顯示全部（唔再外跳）；PDP「加入購物車」→ 彈 slide cart 確認；Cart / slide cart「去結帳」→ Checkout → 確認及付款 → Order Received。
@@ -181,7 +182,7 @@
 - 購物車行項目 + nav 購物車數字「2」+ 小計/折扣/總計 → **WC session cart / cart totals**。
 - 會員(Amanda、電郵、訂單 #HL-…、地址、**等級／近 12 月消費**) → **登入用戶 / WC 訂單 / VIP 等級計算（§5）**。
 - **Demo 每頁嘅 `<head>`（title/description/canonical/JSON-LD）全部係 throwaway** — production 由 theme 嘅 `inc/seo.php` SEO 層統一生成（per-page canonical、Product/BreadcrumbList schema、journey 頁 noindex），唔好照搬。
-- 免運門檻、Checkout 摘要、Order Received 訂單編號/金額、運費、VIP 門檻/折扣 → **ACF options + WC order data + WC shipping zones 商家預設 per-method 費率（§7）+ VIP repeater（§5）**。
+- 免運門檻、Checkout 摘要、Order Received 訂單編號/日期/金額、運費、VIP 門檻/折扣 → **ACF options + WC order data + WC shipping zones 商家預設 per-method 費率（§7）+ VIP repeater（§5）**。
 - Menu(About/ODM/Workshops/Journal/Testimonials/Contact)、Privacy/Terms 連結 → **現有 Scent.M 站頁面**（production 解析，非 HIBI 範圍）。
 - Scent.M nav logo → `home_url('/')`（靜態暫指 `index.html`）。
 - **WP-readiness**：共用 chrome 全站一致、`store-chrome.js`=partial、`?cat=` 要接；轉 theme 時 HTML→PHP template + Tailwind 由 `build-css.js` 編譯（唔用 CDN）。
@@ -213,7 +214,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 
 ## 17. 登入狀態 → Cart / Checkout 顯示
 - **Guest checkout 允許**（`Accounts & Privacy → Allow guest checkout`），設計稿 Cart / Checkout 預設 guest。
-- **Guest vs Member 顯示唔同**：小計 + 運費（送貨方式於結帳計算，§7；免運門檻 admin option）+ 總計；coupon 欄可用（§6 規則）。**登入會員**額外出 **會員優惠行（自動會員價，不可移除，§5）**＋（若同時輸入優惠碼）**「二選一取最抵」結果（§6：coupon 嚴格大過先套、否則回會員價）**；guest 冇會員行、可用優惠碼。Cart 可加「登入即享會員價」一類提示（guest 見）。
+- **Guest vs Member 顯示唔同**：小計 + 運費（送貨方式於結帳計算，§7；免運門檻 admin option）+ 總計；coupon 欄可用（§6 規則）。**登入會員**額外出 **會員優惠行（自動會員價，不可移除，§5）**＋（若同時輸入優惠碼）**「二選一取最抵」結果（§6：coupon 嚴格大過先套、否則回會員價）**；guest 冇會員行、可用優惠碼。
 - **Checkout「已有帳戶？登入」= WC 原生 inline returning-customer 展開式表單**（`woocommerce_checkout_login_form`，用 `.co-field` tokens skin，喺 checkout 頁內展開，**唔係**跳去 Account Login 頁 — demo 個跳頁 link 只係 placeholder）。登入成功留喺 checkout，購物車不變。
 - **其他入口嘅登入後返回路徑**：任何由店頁去 login 嘅 link 帶 `?redirect_to={當前 URL}`；theme hook `woocommerce_login_redirect` + registration redirect 尊重佢（fallback = my-account）。
 - **Cart summary = 可編輯估算**（coupon + qty）；**Checkout summary = 唯讀 review**（line items 縮圖 + 最終數 + **收埋式優惠碼欄**，無 qty 編輯，改數返 Cart）。cart / checkout 總計必須一致（共用 `WC()->cart`）。
@@ -231,7 +232,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 
 ## 19. 庫存狀態 product state（有貨 / 預訂 / 售罄）
 - **資料來源：** WooCommerce 原生庫存 ＋ backorder 設定。**三態**：有貨（正常）／**預訂**（缺貨但開放 backorder，客即刻付款、到貨期＝per-product 欄＋全局預設「約 1 週到貨」§3）／售罄（缺貨且不開放）。
-- **售罄：** 產品卡 + PDP 圖上 `售罄` badge（深啡底淺字）· 圖 `opacity:.55` · 加入購物車掣 disabled 灰態「已售罄」。（**唔做「補貨通知」訂閱** — 售罄只顯示灰態掣。缺貨想收訂單就設「預訂」，唔設就係售罄。）
+- **售罄：** 產品卡 + PDP 圖上 `售罄` badge（深啡底淺字）· 圖 `opacity:.6` · 加入購物車掣 disabled 灰態「已售罄」。（**唔做「補貨通知」訂閱** — 售罄只顯示灰態掣。缺貨想收訂單就設「預訂」，唔設就係售罄。）
 - **預訂：** 產品卡 + PDP 圖上 `預訂` badge ＋ 卡/PDP 出到貨期行（**per-product 欄位＋全局預設，出廠「約 1 週到貨」§3** — 2026-07-10 鎖定）；PDP「加入購物車」→「預訂」掣（**仍可撳、即刻全額付款**）；結帳必填同意 checkbox（§20.1 新句）；**混合車允許＝等齊貨一併寄**（同意句尾明示）；**無接單上限**（商家熄 backorder 手動停）。badge class **`.stk-pre`＝外框 terracotta**（白底 terracotta 框字，別於搶先實色／售罄深啡；引擎 branch 已入 Shop×3＋store-chrome）。樣本：_p27（PDP 全頁）＋_p28（卡／搜尋行／checkbox／email 標示）。
 - **會員搶先（同「預訂」分清）：** 有貨、只限 qualifying tier 會員先買 → PDP 出「會員搶先」badge、非會員/未達級鎖定加入購物車。**呢個唔係缺貨預訂**（§5）。**組合態：搶先 gate 優先** — 搶先產品同時缺貨（無論開唔開 backorder）＝照出鎖定樣式（同 G11 fail-closed 一致），唔出售罄/預訂態。
 - badge class `.stk-out`（深啡）/ `.stk-pre`（預訂），`position:absolute;top:12px;left:12px;font-size:16px;padding:5px 13px;border-radius:30px`（demo `.stk` 實值）。WP 由庫存條件 render，設計稿提供視覺 pattern。
@@ -287,7 +288,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 ## 21. 關鍵決策（客戶拍板 — 與其他章節有出入時以本節為準）
 
 **A. 商店結構 / 技術**
-1. **URL 結構**：landing = `/hibi-lab/`；PLP = `/hibi-lab/shop/`；product permalink base = `/hibi-lab/shop/%product%`；分類 archive = `/hibi-lab/shop/{cat}/`（render 同一 PLP template + 對應 dept pill 預選；`?cat=` deep-link canonical 指向對應 archive）。cart / checkout / my-account 沿用 WC 預設 slug（journey 頁 noindex，§18；WPE cache exclusions 亦以預設 Woo 路徑最穩）。品牌內容 URL 全部歸一喺 `/hibi-lab/` cluster 下。
+1. **URL 結構**：landing = `/hibi-lab/`；PLP = `/hibi-lab/shop/`；product permalink base = `/hibi-lab/shop/%product%`；分類 archive = `/hibi-lab/shop/{cat}/`（render 同一 PLP template + 對應 dept pill 預選；`?cat=` deep-link canonical 指向對應 archive）。cart / checkout / my-account 沿用 WC 預設 slug（journey 頁 noindex，§23.2#11；WPE cache exclusions 亦以預設 Woo 路徑最穩）。品牌內容 URL 全部歸一喺 `/hibi-lab/` cluster 下。
 2. **Filter 引擎 = 全 custom in-theme**（無 plugin、無年費）：詳見 §4。
 3. **分類入口動態化**：Landing 入口卡／Shop pills／橫幅由 top-level `product_cat` loop 出，內容 ACF term fields，現有 4 個做 seed。詳見 §3。
 4. **404 = 按 URL 分流**：一個 `404.php`，`/hibi-lab/` 前綴（或 WC journey slug）→ HIBI 版；否則 Scent.M 版。見 §2 表。
@@ -302,12 +303,12 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 
 **C. 商品 / 訂單新功能**
 11. **預訂 = 第三個庫存狀態（2026-07-10 全套鎖定）**：缺貨產品可作「預訂」落單，客即刻俾錢（WC Stripe，charge-now 全額，無扣款 cycle）。到貨期＝**per-product 欄位＋全局預設（出廠「約 1 週到貨」）**；前台三態＋`.stk-pre` 外框 terracotta badge＋到貨期行＋PDP「預訂」掣＋結帳**必填**同意 checkbox（§20.1 新句，入 place-order 驗證）＋訂單摘要/Order Received/email/Shipping 政策均標示（「預訂 · {到貨期}」細字；checkout 訂單摘要 line 同 Account 訂單詳情一律用 _p28 ④ 同款 pattern）。**混合購物車＝允許，等齊貨一併寄**（同意句明示；拆單反而生 7 類 edge case — 雙向攔截／驗車／拆薄免運同 coupon／雙重付款）。**無接單上限**（商家熄 backorder 手動停）。樣本 _p27/_p28。詳見 §19/§20.8。
-12. **補購提醒 opt-in（2026-07-11 定位改為 PDP 購買區 — Amazon 式，同 Subscribe & Save／Chewy autoship 同一擺位邏輯：決策喺產品 context、checkout 保持最少摩擦）**：PDP 加購掣下 soft panel opt-in「到期提醒我補購」＋**排程完全自由（Amazon 式，2026-07-10 客戶裁定）**：模式＋數值兩個控制 — **每隔 N 日（1–90）／每隔 N 週（1–12，釘住星期幾）／每隔 N 月（1–6，真曆月行進、日子不變 — 非 30 日近似）／每月固定日子（1–31，短月自動用該月最後一日）**；預帶＝產品建議值（每隔 N 週）；**只限登入會員＋產品設有建議間隔＋可購買（有貨/預訂）先 render（guest／唔適用產品＝成個 panel 唔出）；揀咗＝cart item meta → 訂單完成建 schedule；checkout 唔再問**；**購買即重錨（下次提醒＝最近一次購買日＋排程間隔 — 防 anchor drift；只適用 interval 模式，「每月固定日子」＝釘死日曆、本質無 drift、唔重錨）**；**循環直至客暫停／取消（end-user 自主，無系統自動熄火 — 2026-07-10 裁定）**（按客排程由 **Action Scheduler** 寄一封品牌 email ⑥ — **日／週模式＝recurring interval（秒數）**；**月模式＝真曆月行進：下次＝今次＋N 個曆月、日子不變（短月用月尾）— ⚠ 唔准用 30×N 日近似，否則月曆漂移（每月移前 2–3 日，客戶明確唔接受）**；**每月固定日子＝cron 或逐次排下一個曆日**；一鍵再買連結）— **絕無自動扣錢／訂閱**；**逐件獨立**（各自 schedule 各自 email，零合併邏輯）。Account nav 第 6 項「補購提醒」面板（**改週期／暫停／恢復／取消** 四動作；「已暫停」態＝設定保留，恢復＝由恢復日重新開錶；demo 有齊活躍＋已暫停兩態）。樣本：PDP 購買區 panel（Product demo＋_p27）＋Account 面板＋_p24 ⑥。詳見 §9/§22。
+12. **補購提醒 opt-in（2026-07-11 定位改為 PDP 購買區 — Amazon 式，同 Subscribe & Save／Chewy autoship 同一擺位邏輯：決策喺產品 context、checkout 保持最少摩擦）**：PDP 加購掣下 soft panel opt-in「到期提醒我補購」＋**排程完全自由（Amazon 式，2026-07-10 客戶裁定）**：模式＋數值兩個控制 — **每隔 N 日（1–90）／每隔 N 週（1–12，釘住星期幾）／每隔 N 月（1–6，真曆月行進、日子不變 — 非 30 日近似）／每月固定日子（1–31，短月自動用該月最後一日）**；預帶＝產品建議值（每隔 N 週）；**只限登入會員＋產品設有建議間隔＋可購買（有貨/預訂）先 render（guest／唔適用產品＝成個 panel 唔出）；揀咗＝cart item meta → 訂單完成建 schedule；checkout 唔再問**；**購買即重錨（下次提醒＝最近一次購買日＋排程間隔 — 防 anchor drift；只適用 interval 模式，「每月固定日子」＝釘死日曆、本質無 drift、唔重錨）**；**循環直至客暫停／取消（end-user 自主，無系統自動熄火 — 2026-07-10 裁定）**（按客排程由 **Action Scheduler** 寄一封品牌 email ⑥ — **日／週模式＝recurring interval（秒數）**；**月模式＝真曆月行進：下次＝今次＋N 個曆月、日子不變（短月用月尾）— ⚠ 唔准用 30×N 日近似，否則月曆漂移（每月移前 2–3 日，客戶明確唔接受）**；**每月固定日子＝cron 或逐次排下一個曆日**；一鍵再買連結）— **絕無自動扣錢／訂閱**；**逐件獨立**（各自 schedule 各自 email，零合併邏輯）。Account 新增 nav 項「補購提醒」面板（列表第 3 位／共 6 項）（**改週期／暫停／恢復／取消** 四動作；「已暫停」態＝設定保留，恢復＝由恢復日重新開錶；demo 有齊活躍＋已暫停兩態）。樣本：PDP 購買區 panel（Product demo＋_p27）＋Account 面板＋_p24 ⑥。詳見 §9/§22。
 13. **ShipAny Phase 1**：送上門＋自取點；運費行 ShipAny 體系（checkout 顯示商家預設 per-method 費率，官方冇 live-quote）；免運門檻機制保留、金額 admin 後台自訂（demo $500 示範，設空/0=停用）；訂單狀態 4 步（已確認→處理中→已寄出→已完成），已寄出步出追蹤號＋link（theme 掛 `pr_shipping_shipany_label_created` 轉 `wc-shipped`）；寄出通知 email。詳見 §7。
 14. **送貨地區 = 4 個**（香港島／九龍／新界／離島，`woocommerce_states` 補 離島）；運費行 ShipAny 商家預設 per-method 費率（§7）。Account demo 嘅 3 區下拉以 4 區為準。
 
 **D. 分析 / 隱私**
-15. **GA4 分析 ＋ cookie 同意**：裝一個免費官方 plugin「Google Analytics for WooCommerce」行 GA4；前台加**全站 cookie 同意橫額，硬性 gate（未同意就唔追蹤）**，GA4 事件（view_item/add_to_cart/begin_checkout/purchase）只喺同意後先 fire。分析主力＝WooCommerce 內建 Analytics ＋ 自建唯讀「購買洞察」後台報表（時段熱力圖／星期分佈／地區 rollup／回購週期／新舊客總覽，直讀 `wc_order_stats`／`wc_customer_lookup`，零 plugin；時段用 local 時間）。GA4 補結帳漏斗流失等行為數據。**購物車停留時間（cart dwell）任何免費方法都攞唔到，明確唔做。****Cookie 橫額（2026-07-10 鎖定）：底部細橫條、全站（HIBI＋Scent.M 同一 consent）、「接受」／「拒絕」平權、記住選擇（first-party cookie ~12 個月）、唔揀＝照瀏覽零追蹤；文案＝港式書面中文（客戶裁定例外）：「本網站使用 Cookies 分析網站使用情況，以改善購物體驗。」＋「私隱政策」link。樣本 _p30。**
+15. **GA4 分析 ＋ cookie 同意**：裝一個免費官方 plugin「Google Analytics for WooCommerce」行 GA4；前台加**全站 cookie 同意橫額，硬性 gate（未同意就唔追蹤）**，GA4 事件（view_item/add_to_cart/begin_checkout/purchase）只喺同意後先 fire。分析主力＝WooCommerce 內建 Analytics ＋ 自建唯讀「購買洞察」後台報表（時段熱力圖／星期分佈／地區 rollup／回購週期／新舊客總覽，直讀 `wc_order_stats`／`wc_customer_lookup`，零 plugin；時段用 local 時間）。GA4 補結帳漏斗流失等行為數據。**購物車停留時間（cart dwell）任何免費方法都攞唔到，明確唔做。Cookie 橫額（2026-07-10 鎖定）：底部細橫條、全站（HIBI＋Scent.M 同一 consent）、「接受」／「拒絕」平權、記住選擇（first-party cookie ~12 個月）、唔揀＝照瀏覽零追蹤；文案＝港式書面中文（客戶裁定例外）：「本網站使用 Cookies 分析網站使用情況，以改善購物體驗。」＋「私隱政策」link。樣本 _p30。**
 16. **Checkout 優惠訊息 opt-in**：保留，**預設不剔**（PDPO 正路）；剔咗 → 寫入現有 `scentm_subscriber` 訂閱系統（同 Scent.M 聯絡表共用「Subscribers 訂閱」後台名單 + CSV export）+ order meta 留痕。**Label 只可以係 marketing**（「接收優惠及新品消息」）— 交易 email 一定發，唔可以出現喺 opt-out 選項度。
 
 **E. 電郵 / 支付 / 支援 / 政策**
@@ -366,24 +367,24 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 - **排序對照**：精選推薦＝`menu_order asc`＋date desc fallback（客喺 Products 排序畫面拖）；價格低至高／高至低＝price asc/desc（meta lookup）；名稱 A–Z＝title asc（custom orderby）。
 - **series ↔ catLabel**：series＝`product_cat` **子分類**（寵物護理 → 情緒／身體／日常）；卡 label 組合規則＝「父分類 · 子分類」，無子分類只出父分類；PDP breadcrumb 連去子分類 archive。
 - **audLabel 單一來源**：卡面「適用」label＝ACF 文字欄位「適用對象顯示」（自由文案，例「幼貓幼犬適用」）；`pa_audience` attribute 只做 filter 軸。兩者用途唔同、分別維護。
-- **運費字串單一來源**：免運門檻（`hibilab_free_ship_threshold`，admin 自訂，空/0=停用）＝ **ACF option**；**五**個消費位 — Cart（nudge「再加購 HK$X 即享免運費」）／Checkout／Order Received／Shipping 政策頁／**側滑車 footer**（**PDP 唔出** — 2026-07-08 客戶裁定：PDP 資訊唔重複，免運/送達詳情唔入 PDP）（文案「滿 HK$X 免運 · 運費於結帳按送貨方式計算」＋低於門檻時同款 nudge）；**Cart 頁未達門檻視覺：運費行值＝「於結帳計算」（muted brown），nudge 另起一行（視覺 pattern＝側滑車 _p26 ②）**— 全部由 option 讀同源計算，**金額一律 `HK$`＋千位逗號（§22 客面文案）**；門檻停用時五處免運文案自動隱藏。**Email 唔屬消費位**：email 運費 label 淨出「運費」＋`{shipping}` 實數，**唔准**喺 email prose 焊死門檻金額（會變第 7 個 drift 源）。運費本身 = **商家預設 per-method 費率（§7 — 唔係即時報價）**。⚠ 免運門檻要同**兩處**設定一致：WC 原生 free shipping（送上門）＋ ShipAny plugin「Locker/Store List Minimum Checkout Amount for Free Shipping」（自取點，v1.0.33）— health 提示要驗埋兩邊。
+- **運費字串單一來源**：免運門檻（`hibilab_free_ship_threshold`，admin 自訂，空/0=停用）＝ **ACF option**；**五**個消費位 — Cart（nudge「再加購 HK$X 即享免運費」）／Checkout／Order Received／Shipping 政策頁／**側滑車 footer**（**PDP 唔出** — 2026-07-08 客戶裁定：PDP 資訊唔重複，免運/送達詳情唔入 PDP）（文案「滿 HK$X 免運 · 運費於結帳按送貨方式計算」＋低於門檻時同款 nudge）；**Cart 頁未達門檻視覺：運費行值＝「於結帳計算」（muted brown），nudge 另起一行（視覺 pattern＝側滑車 _p26 ②）**— 全部由 option 讀同源計算，**金額一律 `HK$`＋千位逗號（§22 客面文案）**；門檻停用時五處免運文案自動隱藏。**Email 唔屬消費位**：email 運費 label 淨出「運費」＋`{shipping}` 實數，**唔准**喺 email prose 焊死門檻金額（會變第 6 個 drift 源）。運費本身 = **商家預設 per-method 費率（§7 — 唔係即時報價）**。⚠ 免運門檻要同**兩處**設定一致：WC 原生 free shipping（送上門）＋ ShipAny plugin「Locker/Store List Minimum Checkout Amount for Free Shipping」（自取點，v1.0.33）— health 提示要驗埋兩邊。
 - **搜尋契約**：overlay 數據＝自訂 REST endpoint（product query → JSON：name／catLabel／audLabel／price／img／url／stock）；**overlay 結果行要消費 `stock` 欄出 售罄／預訂 tag（§19）**；直入 `?s=` → 301 去 `/hibi-lab/shop/?s=…` 由 PLP render 結果（無獨立 search.php 設計）。**匹配欄位契約：overlay 同 PLP `?s=` 兩條路必須查同一組欄位 — 產品 title＋`product_cat` label＋`pa_香味` terms＋`pa_功效` terms** — 一個定義兩邊實作。Overlay 零結果 → 只出「冇符合…」＋「睇全部商品」link 去 PLP（**無熱門/建議詞功能** — 2026-07-10 客戶裁定：唔要 admin 手動維護、唔要自動計算，成個功能剷走）。
 - **PLP 空狀態三變體 ＋ Cart 清空**：#plp-empty 按狀態切換 — (a) 無 filter 無搜尋（空分類）→「呢個系列即將上架」＋「瀏覽全部商品」掣（切返「全部」pill）；(b) 有 filter →「未有符合的商品／試下放寬篩選條件」＋「清除全部篩選」；(c) 有搜尋字 →「搜尋「X」冇結果 — 清除搜尋或試下其他關鍵字」＋「清除搜尋」。clearAll() 喺空分類情境要一併 reset 返「全部」分類。**PLP AJAX 失敗/timeout**＝同搜尋 overlay 錯誤同一口徑（「暫時未能完成，請再試一次。」＋重試掣，唔准當「未有符合」空結果呈現 — §23.2#9）。**Cart 清空**：items 列換 cart-empty block 時，成個訂單摘要 aside 一齊藏（production 行 WC 原生 `cart-empty.php` 分支自然無 aside）。
 - **側滑車 qty／移除接線**（§12 fragments 唔夠）：drawer 嘅 qty ＋／−／移除 = **自訂 wc-ajax endpoints** 呼叫 `WC()->cart->set_quantity()`／`remove_cart_item()` 後回傳 refreshed fragments；stepper 唔可以加超過可購庫存。**Drawer 空狀態**：最後一件移除 → 「購物車暫時係空嘅」＋「繼續購物」（關 drawer），藏 查看購物車／去結帳／小計。
 - **全域 WC notices skin**：`woocommerce/notices/{error,notice,success}.php` overrides，用現有 token（error 三色組 `#fbeae4`/`#e3a58c`/`#8a3618`、成功 `#1f7a4d`）＋zh-HK 字串；覆蓋 session 過期／庫存不足移除／coupon 錯誤／order-again 通知等全部原生 notice（render 喺 Cart items 上方＋Checkout form 上方）。**Stripe 付款錯誤例外** — 繼續入 summary 嘅 `#pay-error` 槽。
 - **order-pay ／ order-failed ／ cancelled**：用 `#pay-error` 語彙 skin WC notices＋thankyou.php 失敗分支（沿用 Order Received 版式，紅 banner 取代綠 tick）；無需新設計稿。
-- **Account 訂單狀態 label map**：已確認／處理中／已寄出（timeline 步）＝正常 4 步；**已退款／已取消＝muted brown（brown/45）單行 label、付款失敗＝`#b4452a`** — 非快樂狀態唔出 timeline，改單行狀態＋（退款單）「已退款 −HK$X」行。同 email 變體 ④ 對齊。**`pending`／`on-hold`（Stripe 流程罕見：棄單／銀行確認中）＝「等待付款」muted 單行；`pending` 加「支付」action（order-pay）；一律唔出 timeline。**
+- **Account 訂單狀態 label map**：已確認／處理中／已寄出／已完成（timeline 步）＝正常 4 步；**已退款／已取消＝muted brown（brown/45）單行 label、付款失敗＝`#b4452a`** — 非快樂狀態唔出 timeline，改單行狀態＋（退款單）「已退款 −HK$X」行。同 email 變體 ④ 對齊。**`pending`／`on-hold`（Stripe 流程罕見：棄單／銀行確認中）＝「等待付款」muted 單行；`pending` 加「支付」action（order-pay）；一律唔出 timeline。**
 - **長列表／數據量 stress-case 口徑（unbounded-list 處理單一來源）**：PLP＝載入更多（12/批）＋crawlable `/page/N/`；搜尋 overlay＝截斷 50＋「顯示首 50 件」disclosure；filter facet popover＝max-height 64vh 內部 scroll（term 幾多都得，demo CSS `.fpop` 已有）；側滑車 items＝區內 scroll；Checkout 摘要 items＝scroll＋fade；**訂單記錄 >10 張＝WC 原生 my-account 分頁（`/orders/page/N/`，上一頁／下一頁掣品牌 skin）**；**概覽「最近訂單」mini-list cap 最近 3 張**（更多靠「訂單記錄」nav）；**補購提醒＝per-product 唯一（同一產品再 opt-in＝upsert 更新現有提醒——重設週期＋下次日，唔開第二個）**，列表直列無分頁（天然上限＝有建議間隔嘅產品數；有間隔產品過 ~30 先引入分頁，跟訂單記錄口徑）；Cart 頁 line items＝自然直落無 cap。
 - **產品評論停用**：WooCommerce Settings→Products 關閉 reviews（demo 無評論 UI、§10 無假數據）；PDP template 不含 reviews section。
 - **Landing 精選產品區**＝WC featured products loop；無 featured 產品 → 成區 hide-if-empty（同 §21.23 見證區一致）。
 - **Email deliverability（上線硬項）**：WP Engine 唔管寄信送達率 — 交易 email 必須經 ESP 寄送（拍板方向：**Resend**，跟 Scent.M `inc/mail-center.php` pattern：集中範本＋寄送記錄 log）；DNS 設 **SPF＋DKIM＋DMARC**；launch gate 有「測試單全套 email 落 inbox（Gmail＋Outlook 各一）唔入 spam」硬項。
 - **3DS overlay 生命週期**：`#pay-overlay` 只喺 `stripe.confirmPayment` in-flight 而且無可見 challenge 時顯示；3DS iframe／modal 出現 → 藏 overlay；錯誤／使用者放棄 → 藏 overlay＋錯誤入 `#pay-error`。
-- **Woo 交易 email**：品牌範本由 WP dev 設計（見 repo `HIBI LAB Email.html`），跟 Scent.M 收據 pattern 做 **後台可編輯**（option 儲存＋placeholder＋live preview＋測試寄送）；訂單編號顯示 `HL-` 格式；new-order 通知收件人＝店主通知地址（非 admin_email）。**六款變體（同一 wrapper）**：①訂單確認（4 步狀態條第 1 步 active；`{discount_rows}` 出「會員優惠」／已用碼行（會員行 label 全站統一＝「會員優惠」，2026-07-10 客戶裁定）、預訂項標示「預訂 · {到貨期}」（快照，§23.2#5））②**寄出通知**（第 3 步 active＋追蹤號卡 `{tracking_no}` `{tracking_url}` `{carrier}`）③訂單完成（第 4 步）④退款通知（退款金額行，唔出狀態條）⑤店主新訂單通知（內部，加客人聯絡資料）⑥**補購提醒**（2026-07-10 鎖定：購買重錨・循環直至暫停/取消・只限會員・逐件獨立；Action Scheduler 到期觸發，`{product}`＋`{schedule}`＋`{reorder_url}` 一鍵再買、「管理提醒」→ Account 補購面板；非扣款；樣本 _p24）。**另**：VIP **生日祝賀 email**（每年 WP-Cron、生日月 1 號寄；只祝賀＋提示生日會員價已自動生效，**唔附 coupon／錢包**）＝同一 wrapper skin，唔另設計。**Placeholders**：`{name} {order} {date} {items} {subtotal} {discount_rows} {shipping} {shipping_method} {total} {address} {tracking_no} {tracking_url} {carrier} {order_url} {status_note} {product} {schedule} {reorder_url}`。`{order_url}`＝WC order-received URL 連 order key（guest-safe）；狀態句 guest 變體（改「透過此電郵內嘅連結查看訂單狀態」）；結尾段含取消政策句（§21.21）。**Welcome／密碼重設 email 用同一品牌 wrapper 做 WC template override skin**（唔另設計內容 — 避免 reset email 似 phishing）。
+- **Woo 交易 email**：品牌範本由 WP dev 設計（見 repo `HIBI LAB Email.html`），跟 Scent.M 收據 pattern 做 **後台可編輯**（option 儲存＋placeholder＋live preview＋測試寄送）；訂單編號顯示 `HL-` 格式；new-order 通知收件人＝店主通知地址（非 admin_email）。**六款變體（同一 wrapper）**：①訂單確認（4 步狀態條第 1 步 active；`{discount_rows}` 出「會員優惠」／已用碼行（會員行 label 全站統一＝「會員優惠」，2026-07-10 客戶裁定）、預訂項標示「預訂 · {到貨期}」（快照，§23.2#5））②**寄出通知**（第 3 步 active＋追蹤號卡 `{tracking_no}` `{tracking_url}` `{carrier}`）③訂單完成（第 4 步）④退款通知（退款金額行，唔出狀態條）⑤店主新訂單通知（內部，加客人聯絡資料）⑥**補購提醒**（2026-07-10 鎖定：購買重錨・循環直至暫停/取消・只限會員・逐件獨立；Action Scheduler 到期觸發，`{product}`＋`{schedule}`＋`{reorder_url}` 一鍵再買、「管理提醒」→ Account 補購面板；非扣款；樣本 _p24）。**另**：VIP **生日祝賀 email**（每年 WP-Cron、生日月 1 號寄；**只寄俾已 opt-in「接收優惠及新品消息」嘅會員＋附退訂連結 — §5.B，2026-07-11 裁決**；只祝賀＋提示生日會員價已自動生效，**唔附 coupon／錢包**）＝同一 wrapper skin，唔另設計。**Placeholders**：`{name} {order} {date} {items} {subtotal} {discount_rows} {shipping} {shipping_method} {total} {address} {tracking_no} {tracking_url} {carrier} {order_url} {status_note} {product} {schedule} {reorder_url}`。`{order_url}`＝WC order-received URL 連 order key（guest-safe）；狀態句 guest 變體（改「透過此電郵內嘅連結查看訂單狀態」）；結尾段含取消政策句（§21.21）。**Welcome／密碼重設 email 用同一品牌 wrapper 做 WC template override skin**（唔另設計內容 — 避免 reset email 似 phishing）。
 - **登入後 redirect**：checkout 用 WC 原生 inline returning-customer form（§17，唔跳頁）；其他店頁登入 link 帶 `?redirect_to=`，theme hook `woocommerce_login_redirect`＋registration redirect 尊重（fallback＝my-account）。
 - **「查詢此訂單」**：Account 訂單詳情＋thankyou 各加一條細 link — `wa.me/{hibilab_whatsapp_number}` 預填「你好，我想查詢訂單 #HL-XXXX」；WA option 未設定 → 藏（mailto `hibilab_support_email` fallback）。
 - **no-js 韌性**（theme＋store 頁通用）：head 加 2 行 `no-js`→`js` class swap；CSS 加 `html.no-js .ani-this{opacity:1;transform:none}`（hero 類 `opacity-0` 元素同理）— JS 失敗／關閉時內容照現形，JS 用戶零視覺差異。
 - **771px scoped 實作**：771px media block 只喺 **store body class**（如 `body.hibi-store`）之下嘅 store-scoped stylesheet 生效；共通 chrome 維持 768。`body{overflow-x:clip}` 同樣只喺 store body class 落 —— theme 手機版嘅 `overflow-x:hidden` 會殺死 PLP sticky filter bar，**不可全局合併**。
-- **上線 e2e 測試（必行 gate）**：staging＋Stripe test mode → 落單（4242）→ 訂單／庫存／email 全鏈 → **ShipAny 全鏈：出單 → 印單（waybill）→ 追蹤 write-back（order meta＋internal note）→ `wc-shipped` 轉換＋寄出 email → 自取點選點彈窗（揀點＋地址 write-back）** → **404 分流驗證**（`/hibi-lab/xxx` 出 HIBI 版、其他 URL 出 Scent.M 版）→ Dashboard 退款 → 確認 **workshop webhook 冇誤鳴** → Woo webhook 正常收 → **VIP**：後台加/改一個等級（門檻/折扣/顏色/福利）→ 前台**單張自己等級卡**/會員價自動出（動態 render，**唔出全級 ladder**）＋門檻計算（近 12 月淨消費、`resolve_tier()` 每次重算 G1）＋退款即刻扣消費（G9）＋自動會員價出 Shop/PDP/Cart/Checkout＋會員價 vs 優惠碼二選一取最抵（嚴格大過先套 G3–G5）＋生日月自動加成（落單 pin G8）＋會員搶先鎖定/解鎖（引用刪級 fail-closed G11）＋**總開關 OFF→全站即時回原價/無會員價行/coupon 照原價計、ON 復原**＋**手動 override：pin 客做指定級，前台/order-build 用 override 級（勝過自動 G10）、12 月結算與即時升級遇 override 皆 no-op、刪引用級自動清 override＋admin notice**＋**guest 狂買→註冊後唔頂級（只計註冊後單 G7）**＋**PaymentIntent confirm 重算：中途改價（如退款觸發降級）令 total 變 → 阻止靜默收費、要客再確認 G12**→ **預訂**：缺貨開 backorder → 前台三態、charge-now 落單、結帳必填同意 checkbox 攔截（含混車「一併寄出」句）、確認 email 標示到貨期、混合車等齊貨一併寄 → **補購**：結帳 opt-in（會員限定）＋週期下拉 → Action Scheduler 循環寄 email 唔扣錢直至取消、Account「補購提醒」面板可改/取消 → **GA4**：cookie 同意硬性 gate（未同意零 GA4 hit、同意後事件正常）＋內建 Analytics＋「購買洞察」報表出數 → **checklist**：ShipAny 帳戶＋API Token＋portal 增值＋Courier Service Point Listing add-on／`hibilab_whatsapp_number`／`hibilab_support_email`／免運門檻 option 同 WC free shipping＋ShipAny locker minimum 兩處一致／Terms 7 日文案／PDP 保存期限 block 內容／VIP 等級 repeater 已設好／admin 文案港式書面語（§21.6）／WC 稅務設定＝停用（HK 無銷售稅，價錢＝最終價）／WC 特價欄＝唔用（admin 指引＋health 警告已設）／Stripe dashboard wallets（Apple/Google Pay）＝熄（Phase 1）／email 經 ESP（Resend）寄出＋SPF/DKIM/DMARC 已設＋測試信入 inbox（Gmail＋Outlook）／Scent.M Privacy 頁補網店段（Stripe 付款資料、生日月+日用途、marketing opt-in、GA4 cookies）／`/hibi-lab/` landing＋shop flip 前保持 noindex（或 unpublished），flip＝入口 live＋noindex 移除同一 deploy → 先至 flip coming-soon 入口（§0 四個，含 nav `.hibi-entry`；flip 時同步剷 theme 首頁 CTA 嘅 `target="_blank"`）。
+- **上線 e2e 測試（必行 gate）**：staging＋Stripe test mode → 落單（4242）→ 訂單／庫存／email 全鏈 → **ShipAny 全鏈：出單 → 印單（waybill）→ 追蹤 write-back（order meta＋internal note）→ `wc-shipped` 轉換＋寄出 email → 自取點選點彈窗（揀點＋地址 write-back）** → **404 分流驗證**（`/hibi-lab/xxx` 出 HIBI 版、其他 URL 出 Scent.M 版）→ Dashboard 退款 → 確認 **workshop webhook 冇誤鳴** → Woo webhook 正常收 → **VIP**：後台加/改一個等級（門檻/折扣/顏色/福利）→ 前台**單張自己等級卡**/會員價自動出（動態 render，**唔出全級 ladder**）＋門檻計算（近 12 月淨消費、`resolve_tier()` 每次重算 G1）＋退款即刻扣消費（G9）＋自動會員價出 Shop/PDP/Cart/Checkout＋會員價 vs 優惠碼二選一取最抵（嚴格大過先套 G3–G5）＋生日月自動加成（落單 pin G8）＋會員搶先鎖定/解鎖（引用刪級 fail-closed G11）＋**總開關 OFF→全站即時回原價/無會員價行/coupon 照原價計、ON 復原**＋**手動 override：pin 客做指定級，前台/order-build 用 override 級（勝過自動 G10）、12 月結算與即時升級遇 override 皆 no-op、刪引用級自動清 override＋admin notice**＋**guest 狂買→註冊後唔頂級（只計註冊後單 G7）**＋**PaymentIntent confirm 重算：中途改價（如退款觸發降級）令 total 變 → 阻止靜默收費、要客再確認 G12**→ **預訂**：缺貨開 backorder → 前台三態、charge-now 落單、結帳必填同意 checkbox 攔截（含混車「一併寄出」句）、確認 email 標示到貨期、混合車等齊貨一併寄 → **補購**：PDP 購買區 opt-in（會員限定＋適用產品）＋排程模式+數值（日/週/月/每月號）→ Action Scheduler 循環寄 email 唔扣錢直至暫停/取消、購買重錨（interval 模式）、Account「補購提醒」面板可改排程/暫停/恢復/取消 → **GA4**：cookie 同意硬性 gate（未同意零 GA4 hit、同意後事件正常）＋內建 Analytics＋「購買洞察」報表出數 → **checklist**：ShipAny 帳戶＋API Token＋portal 增值＋Courier Service Point Listing add-on／`hibilab_whatsapp_number`／`hibilab_support_email`／免運門檻 option 同 WC free shipping＋ShipAny locker minimum 兩處一致／Terms 7 日文案／PDP 保存期限 block 內容／VIP 等級 repeater 已設好／admin 文案港式書面語（§21.6）／WC 稅務設定＝停用（HK 無銷售稅，價錢＝最終價）／WC 特價欄＝唔用（admin 指引＋health 警告已設）／Stripe dashboard wallets（Apple/Google Pay）＝熄（Phase 1）／email 經 ESP（Resend）寄出＋SPF/DKIM/DMARC 已設＋測試信入 inbox（Gmail＋Outlook）／Scent.M Privacy 頁補網店段（Stripe 付款資料、ShipAny／物流商收件資料、Resend 電郵寄送、生日月+日用途、補購提醒排程資料、marketing opt-in、GA4 cookies、cookie 同意重設入口）／`/hibi-lab/` landing＋shop flip 前保持 noindex（或 unpublished），flip＝入口 live＋noindex 移除同一 deploy → 先至 flip coming-soon 入口（§0 四個，含 nav `.hibi-entry`；flip 時同步剷 theme 首頁 CTA 嘅 `target="_blank"`）。
 
 ## 23. 狀態樣本檔＋合約補充（2026-07-08 demo 全面修訂）
 
@@ -392,17 +393,17 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 ### 23.1 狀態樣本檔清單（`_pXX`＝唔上線）
 | 檔 | 狀態 |
 |---|---|
-| **`_p01-states-book.html`**＋`states-img/`（45 張） | **全狀態型錄（客戶 review 主入口）**：49 格真頁全頁截圖（檔名跳 48）＋說明＋「開互動版」連結＋每格可原位切換 iframe 互動預覽，一頁碌晒所有狀態（含互動先出現嘅畫面：優惠碼被拒/套用、拒付、側滑車、搜尋、登入四 view、五個訂單狀態…）；自動化生成、每格影前先斷言狀態正確 |
+| **`_p01-states-book.html`**＋`states-img/`（49 張） | **全狀態型錄（客戶 review 主入口）**：49 格真頁全頁截圖（檔名跳 48）＋說明＋「開互動版」連結＋每格可原位切換 iframe 互動預覽，一頁碌晒所有狀態（含互動先出現嘅畫面：優惠碼被拒/套用、拒付、側滑車、搜尋、登入四 view、五個訂單狀態…）；自動化生成、每格影前先斷言狀態正確 |
 | `_p13-shop-emptycat` | PLP 空分類（§22 空狀態 (a)；dataset＝canonical 減兩件助眠） |
 | `_p14-pdp-guest` | PDP 訪客：原價、無 tag、teaser＋「登入享會員價，此產品低至 HK$X」（§22.2） |
 | `_p15-pdp-soldout` | PDP 整件售罄：gallery 售罄 badge＋主圖 `opacity:.6`＋灰掣「已售罄」`#cbb8a6`（§20.3；無補貨通知 input） |
 | `_p16-pdp-early-guest` | 搶先鎖・訪客：badge＋原價＋§22.8 訪客句＋登入/註冊 CTA |
 | `_p17-pdp-early-under` | 搶先鎖・未夠級會員：badge＋原價＋§22.8 未夠級句＋鎖掣「需 {級}」＋等級卡 link |
-| `_p18-shop-guest` | PLP 訪客：卡原價無 tag、搶先卡「登入即可選購」（§5.E） |
+| `_p18-shop-guest` | PLP 訪客：卡原價無 tag、搶先卡「登入即可選購」（§5.D） |
 | `_p19-cart-guest` / `_p19b-checkout-guest` | Cart／Checkout 訪客：無會員行、總計＝小計、有效碼直接套用 |
 | `_p20-cart-birthday` | 生日月：§22.7 banner＋有效%＝max(tier10%,生日12%)＝12%（340→299 對齊 §22.7 例）＋行 label 不變 |
 | `_p21-checkout-below-threshold` | 未達免運門檻：per-method 實價（無劃線）、運費行實數、nudge、**G12「價格已更新」re-confirm notice 樣本** |
-| `_p22-orderreceived-guest` | 感謝頁訪客：無會員行、「建立帳戶以追蹤訂單」（§21.22） |
+| `_p22-orderreceived-guest` | 感謝頁訪客：無會員行、「建立帳戶以追蹤訂單」（§21.10） |
 | `_p23-orderreceived-failed` | 付款失敗全頁：§22 order-pay bullet＋§23.2#5 失敗單 order-pay 版式（紅 banner `#pay-error` 語彙＋「重新付款」→order-pay） |
 | `_p24-email-variants` | Email ②③④⑤**⑥補購**＋訪客(無折扣行)＋付運費/優惠碼贏 變體（六款 wrapper 齊，§21.12/§23.2#15） |
 | `_p25-account-states` | 一般會員($0/0%)卡／頂級卡(無進度條)／超標 clamp／生日 banner／空訂單／訪客訪問 my-account |
@@ -415,8 +416,8 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 
 ### 23.2 合約補充（本輪修訂拍板，theme build 必守）
 1. **送達 SLA（2026-07-08 客戶最終裁定）：客面唔 hardcode 任何送達日數。** SLA 只存在於**送貨政策頁**（admin 可編輯 page content）一處；Checkout 方式 radio 只出「方式名＋運費」（兩者＝WC shipping zone admin 資料，theme 唔加副題）；Order Received **無「預計送達」row**；PDP 唔出 SLA、亦唔出免運門檻句（points 行成行剷，免運消費位六減五 §22）。日後如要客面出 SLA＝先加 per-method admin 欄位＋客戶批文案，先准 render。Email `{shipping_method}` **只含方式名** — 唔准焊死 courier 名／SLA。
-2. **Email 變體區域擴充**（§21.10 補充）：per-variant 區域＝eyebrow／標題／開場白／狀態條＋**狀態條 lead 句＋閉幕「如需取消或修改…」句（只出①）＋運費值＋送貨方式格**。`{discount_rows}` 三形：空（guest／0%／無碼→成行略過）／「會員優惠」（label 全站統一，07-10 裁定）／優惠碼 {code} — 二選一永不並存。自取點單 `{address}`＝自取點地址（plugin write-back §7）。`{date}`＝中文日期。
-3. **客面日期格式**：全站「YYYY年M月D日」（訂單記錄／email／thankyou 一致）。
+2. **Email 變體區域擴充**（§21.17 補充）：per-variant 區域＝eyebrow／標題／開場白／狀態條＋**狀態條 lead 句＋閉幕「如需取消或修改…」句（只出①）＋運費值＋送貨方式格**。`{discount_rows}` 三形：空（guest／0%／無碼→成行略過）／「會員優惠」（label 全站統一，07-10 裁定）／優惠碼 {code} — 二選一永不並存。自取點單 `{address}`＝自取點地址（plugin write-back §7）。`{date}`＝中文日期。
+3. **客面日期格式**：全站「YYYY年M月D日」（訂單記錄／email／thankyou 一致）。**thankyou 詳情卡有「日期」row**＝`$order->get_date_created()`（喺訂單編號下；demo OR 三檔已示範 — 2026-07-10 裁定加）。
 4. **counts 口徑**：「共 N 件」「N 件商品」＝**行數量總和**（`get_cart_contents_count()`／`get_item_count()`）；nav 購物車數字＝WC cart fragments 綁定（demo「2」係 placeholder）。Account 統計三條 query 分開：**累積訂單**＝count(已付款單，取消/失敗唔計)、**累積消費**＝lifetime 淨付款（退款單計 $0）、**近12月消費**＝rolling 窗口 net-of-refund（tier 基準）。
 5. **訂單歷史＝快照**：ship-to／運費／價錢全部凍結自落單一刻，唔跟現時預設地址/門檻/價錢重算；冇會員行嘅舊單＝落單當刻未夠級（§5 落單一刻 resolve）；「已退款 −HK$X」讀實際退款額（**可部分退**）；追蹤卡（carrier/單號/link）冇 meta 就成卡藏。付款失敗單 my-account 出 WC 原生「支付」action→**order-pay endpoint 重付同一張單**（唔係翻去購物車）。
 6. **等級卡 derive 規則**：名／還差／target／fill％／暖行「再消費 HK$X 即升{級}」全部由（近12月淨消費, 下一級門檻）一對數 derive；還差 clamp ≥0、fill clamp ≤100%；**Account 頂級卡無進度條無暖行**；英文名＝可選欄位（冇就唔出）；「頂級」＝之上冇 enabled 級（data-driven）。**總開關 OFF**＝全站原價之外，Account 概覽**唔出等級卡**（成個 VIP 面向隱藏）。生日 caption「生日月享會員生日禮遇」只喺該級生日%＞0 時出。
@@ -425,7 +426,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 9. **搜尋 overlay production 三態**：loading（REST in-flight）／錯誤（fetch 失敗＝「暫時未能完成搜尋，請再試一次」＋重試，**唔准**當「冇符合結果」呈現）／截斷（>50 出「顯示首 50 件」disclosure）。**無「熱門」建議詞功能**（2026-07-10 客戶裁定剷走）。
 10. **價格 filter/排序基準聲明**（§22『排序對照／PLP 分頁』重申）：filter／slider／「N 件符合」／price 排序基準＝**原價**（wc_product_meta_lookup、會員 price filter 之前）；卡面顯示會員價唔改 filter 基準 — 已為契約決定，唔好「順手」改。
 11. **SEO head**：demo HTML 嘅 `<head>`（canonical→scentm.hk、Scent.M B2B og/description、假電話 LocalBusiness JSON-LD）**全部唔准照抄** — production 由 WP per-page 生成：product＝自身 canonical＋產品 og；my-account／cart／checkout＝noindex；LocalBusiness/Organization schema 讀真實 NAP 單一來源（沿 Scent.M inc/seo.php pattern）。
-12. **會員價詞彙拆分**（§22 文案 1/5 重申）：價格 tag（卡/PDP）＝「{級}會員價」；summary/訂單折扣行＝「會員優惠」淨字（無級名、無章 §22.5）；teaser＝「登入即享會員價 · 全單 X 折起」（X＝最低 enabled 級折扣 derive，唔焊死 9 折）— 三個 register 各有崗位，唔好互換。
+12. **會員價詞彙拆分**（§22 文案 1/5 重申）：價格 tag（卡/PDP）＝「{級}會員價」；summary/訂單折扣行＝「會員優惠」淨字（無級名、無章 §22.5）；teaser＝「登入即享會員價 · 全單 X 折起」（X＝最低 enabled **付費**級折扣 derive，唔焊死 9 折）— 三個 register 各有崗位，唔好互換。
 13. **Demo-only 元素（build 時剷走）**：Cart/Checkout 試碼快捷鍵 row（§6 禁 coupon-hint）、`DEMO_CODES` 固定結果、`HB_GUEST` 旗、Tier Cards 頁設計師註記、Checkout PICKUP mock 數據、全部 `_pXX` 檔。
 14. **Checkout 補充**：**訪客 teaser 只出喺 PDP（§22.2）— Cart／Checkout／PLP 一律唔出登入推銷（2026-07-08 客戶裁定）**，checkout 只保留 WC 原生「已有帳戶？登入」；空車訪問 checkout＝WC 原生 redirect 返 cart＋notice（經全域 skin）；揀自取點→地址欄由 plugin write-back 自動填（§7，客唔使自己填）；香水/含酒精運輸限制 notice＝**等 ShipAny 確認先做**（§7 risk②，上線 checklist 項，confirm 前唔 render 任何字）。
 15. **2026-07-10 三套 deferred 功能已全套鎖定＋補齊樣本**：預訂（_p27／_p28＋政策頁「預訂商品」段＋引擎 preorder branch）、補購提醒（PDP 購買區 panel＋Account「補購提醒」面板＋email ⑥ 喺 _p24）、GA4 cookie 同意橫額（_p30）。剩返 WP 側先做到嘅：GA4 plugin 接駁＋consent gate、Action Scheduler 排程、backorder 設定 — 按 §19／§21.11-12／§21.15 實作。
