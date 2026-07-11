@@ -74,7 +74,7 @@
 **B. 會員價（自動、非 coupon）**
 - 登入會員按等級**自動**享全單 % 折後價（price filter），**四捨五入到整數蚊**。
 - vs 產品特價 = **取較平**（先 round 會員價、後同 sale 取 min、**不 re-round sale**）。vs 客人優惠碼 = **二選一取最抵**（§6）。
-- **生日月自動加成**：會員生日月內，有效折 = max(tier%, 生日%)，**無 code、無 wallet**；1 號寄祝賀 email；一年一次。生日與否喺**落單一刻**用香港時區定死、寫入 order meta，之後唔再判。
+- **生日月自動加成**：會員生日月內，有效折 = max(tier%, 生日%)，**無 code、無 wallet**；1 號寄祝賀 email（**只寄俾已 opt-in「接收優惠及新品消息」嘅會員 — 2026-07-11 客戶裁決，PDPO Part 6A；email 內附退訂連結**）；一年一次。生日與否喺**落單一刻**用香港時區定死、寫入 order meta，之後唔再判。
 
 **C. 等級升降（永不儲級、每次即場用淨消費算）**
 - 升級：每張單**完成**即時。
@@ -260,6 +260,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 - Search overlay + slide cart + 手機篩選抽屜 = `role="dialog"` `aria-modal="true"` `aria-label` + focus-trap（Tab 循環）+ ESC 關閉 + 關閉後 return focus 返觸發掣；觸發掣有 `aria-haspopup`/`aria-expanded`/`aria-controls`。
 - 付款 overlay = `role="dialog" aria-live`；錯誤 banner = `role="alert"`。
 - WP 遷移保留呢啲屬性；新增互動元件沿用同一 pattern。
+- **⚠ 更正（2026-07-11 審計）**：手機篩選抽屜（`#plp-aside`）demo **只有** role/aria-modal/aria-label，focus-trap／ESC／return-focus／trigger `aria-expanded` **全未實作** — 此為 SPEC 非 implementation，dev 按 §24.A 砌，唔好照抄 demo。側滑車開啟時亦要 focus 第一個可聚焦元素（demo store-chrome.js 已補）。
 
 ### 20.5 產品資料單一來源（重要）
 - Demo 有兩份 product JSON：PLP 內嵌 `#plp-data` + `store-chrome.js` 內 `PRODUCTS_JSON`（俾非 PLP 頁嘅搜尋用）。
@@ -359,7 +360,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
   10. **無效優惠碼**（碼不存在／過期／未達使用條件）：「**優惠碼無效，請再試。**」（WC 原生錯誤經全域 notices skin，demo 已用呢句）。
   11. **付款處理中 overlay**（§20.1）：「**正在安全處理付款…**」＋「**請勿關閉或重新整理頁面**」。
   12. **預訂同意 checkbox**：「**我明白並接受預訂商品約 1 週到貨，訂單將於預訂商品到貨後一併寄出。**」（「約 1 週」＝到貨期欄 derive；多件唔同期變體見 §20.1）。
-  13. **補購 opt-in**：「**到期提醒我補購 — {產品}**」＋排程「每隔 N 日／週／月」或「每月 N 號」＋hint「**只會寄提醒電郵，唔會自動扣款；可隨時喺會員中心「補購提醒」更改或取消。**」；面板空狀態「你未有補購提醒。喺產品頁勾選「到期提醒我補購」即可設定。」；面板動作 label＝「暫停提醒」／「已暫停」／「恢復提醒」／「取消提醒」；email ⑥ 尾句「想暫停、更改或取消提醒，隨時可以喺會員中心嘅「補購提醒」處理。」
+  13. **補購 opt-in（PDP 購買區表單）**：「**到期提醒我補購**」（無「— {產品}」suffix — 已喺 PDP 產品 context；{產品} 只留 email ⑥／Account 面板行）＋排程「每隔 N 日／週／月」或「每月 N 號」＋hint「**只會寄提醒電郵，唔會自動扣款；可隨時喺會員中心「補購提醒」更改或取消。**」；面板空狀態「你未有補購提醒。喺產品頁勾選「到期提醒我補購」即可設定。」；面板動作 label＝「暫停提醒」／「已暫停」／「恢復提醒」／「取消提醒」；email ⑥ 尾句「想暫停、更改或取消提醒，隨時可以喺會員中心嘅「補購提醒」處理。」
   14. **Cookie 橫額（書面語例外 — 2026-07-10 客戶裁定）**：「**本網站使用 Cookies 分析網站使用情況，以改善購物體驗。**」＋「接受」／「拒絕」＋「私隱政策」。
 - **PLP 分頁**：未篩選＝crawlable `/page/N/`（跟 workshops archive-loadmore pattern）；有 filter 狀態＝AJAX＋URL 參數（`?pa_scent=…`），filter 版 canonical 指返基礎 archive（唔入 index）。「顯示 X / Y 件」由 query `found_posts` 出。
 - **排序對照**：精選推薦＝`menu_order asc`＋date desc fallback（客喺 Products 排序畫面拖）；價格低至高／高至低＝price asc/desc（meta lookup）；名稱 A–Z＝title asc（custom orderby）。
@@ -391,7 +392,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 ### 23.1 狀態樣本檔清單（`_pXX`＝唔上線）
 | 檔 | 狀態 |
 |---|---|
-| **`_p01-states-book.html`**＋`states-img/`（45 張） | **全狀態型錄（客戶 review 主入口）**：45 格真頁全頁截圖＋說明＋「開互動版」連結＋每格可原位切換 iframe 互動預覽，一頁碌晒所有狀態（含互動先出現嘅畫面：優惠碼被拒/套用、拒付、側滑車、搜尋、登入四 view、五個訂單狀態…）；自動化生成、每格影前先斷言狀態正確 |
+| **`_p01-states-book.html`**＋`states-img/`（45 張） | **全狀態型錄（客戶 review 主入口）**：49 格真頁全頁截圖（檔名跳 48）＋說明＋「開互動版」連結＋每格可原位切換 iframe 互動預覽，一頁碌晒所有狀態（含互動先出現嘅畫面：優惠碼被拒/套用、拒付、側滑車、搜尋、登入四 view、五個訂單狀態…）；自動化生成、每格影前先斷言狀態正確 |
 | `_p13-shop-emptycat` | PLP 空分類（§22 空狀態 (a)；dataset＝canonical 減兩件助眠） |
 | `_p14-pdp-guest` | PDP 訪客：原價、無 tag、teaser＋「登入享會員價，此產品低至 HK$X」（§22.2） |
 | `_p15-pdp-soldout` | PDP 整件售罄：gallery 售罄 badge＋主圖 `opacity:.6`＋灰掣「已售罄」`#cbb8a6`（§20.3；無補貨通知 input） |
@@ -402,8 +403,8 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 | `_p20-cart-birthday` | 生日月：§22.7 banner＋有效%＝max(tier10%,生日12%)＝12%（340→299 對齊 §22.7 例）＋行 label 不變 |
 | `_p21-checkout-below-threshold` | 未達免運門檻：per-method 實價（無劃線）、運費行實數、nudge、**G12「價格已更新」re-confirm notice 樣本** |
 | `_p22-orderreceived-guest` | 感謝頁訪客：無會員行、「建立帳戶以追蹤訂單」（§21.22） |
-| `_p23-orderreceived-failed` | 付款失敗全頁：§366 版式（紅 banner `#pay-error` 語彙＋「重新付款」→order-pay） |
-| `_p24-email-variants` | Email ②③④⑤＋訪客(無折扣行)＋付運費/優惠碼贏 六個變體 |
+| `_p23-orderreceived-failed` | 付款失敗全頁：§22 order-pay bullet＋§23.2#5 失敗單 order-pay 版式（紅 banner `#pay-error` 語彙＋「重新付款」→order-pay） |
+| `_p24-email-variants` | Email ②③④⑤**⑥補購**＋訪客(無折扣行)＋付運費/優惠碼贏 變體（六款 wrapper 齊，§21.12/§23.2#15） |
 | `_p25-account-states` | 一般會員($0/0%)卡／頂級卡(無進度條)／超標 clamp／生日 banner／空訂單／訪客訪問 my-account |
 | `_p26-slidecart-search-states` | 側滑車 訪客／未達門檻 nudge／空車＋搜尋 loading／錯誤／截斷 |
 | `_p27-pdp-preorder` | PDP 整件預訂：外框 terracotta badge＋到貨期行＋「預訂」掣（§19／§21.11） |
@@ -422,12 +423,77 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 7. **Auth 合約**：忘記密碼回應＝中性句「如果呢個電郵有登記帳戶，我哋已寄出重設密碼連結」（唔透露帳戶存在）；登入現有密碼欄**無** client 端長度驗證；「最少 N 位」label＋minlength 跟 WP 密碼政策單一來源；註冊 consent 兩個名詞＝真連結（WC registration privacy-policy text option）；生日只儲月+日、server 驗證合法組合（拒 2月30/31）；已登入訪問 login URL→WC 原生出 dashboard；auth 錯誤＝WC 原生 notices 經全域 skin。
 8. **PDP variation 合約**：貨號＝selected variation SKU（跟容量切換）；「部分配方暫時缺貨」句只喺 ≥1 variation 缺貨時 render；使用示範「時長標」＝per-product admin 欄位（§20.7，唔係焊死 0:45）。
 9. **搜尋 overlay production 三態**：loading（REST in-flight）／錯誤（fetch 失敗＝「暫時未能完成搜尋，請再試一次」＋重試，**唔准**當「冇符合結果」呈現）／截斷（>50 出「顯示首 50 件」disclosure）。**無「熱門」建議詞功能**（2026-07-10 客戶裁定剷走）。
-10. **價格 filter/排序基準聲明**（§22 L358 重申）：filter／slider／「N 件符合」／price 排序基準＝**原價**（wc_product_meta_lookup、會員 price filter 之前）；卡面顯示會員價唔改 filter 基準 — 已為契約決定，唔好「順手」改。
+10. **價格 filter/排序基準聲明**（§22『排序對照／PLP 分頁』重申）：filter／slider／「N 件符合」／price 排序基準＝**原價**（wc_product_meta_lookup、會員 price filter 之前）；卡面顯示會員價唔改 filter 基準 — 已為契約決定，唔好「順手」改。
 11. **SEO head**：demo HTML 嘅 `<head>`（canonical→scentm.hk、Scent.M B2B og/description、假電話 LocalBusiness JSON-LD）**全部唔准照抄** — production 由 WP per-page 生成：product＝自身 canonical＋產品 og；my-account／cart／checkout＝noindex；LocalBusiness/Organization schema 讀真實 NAP 單一來源（沿 Scent.M inc/seo.php pattern）。
 12. **會員價詞彙拆分**（§22 文案 1/5 重申）：價格 tag（卡/PDP）＝「{級}會員價」；summary/訂單折扣行＝「會員優惠」淨字（無級名、無章 §22.5）；teaser＝「登入即享會員價 · 全單 X 折起」（X＝最低 enabled 級折扣 derive，唔焊死 9 折）— 三個 register 各有崗位，唔好互換。
 13. **Demo-only 元素（build 時剷走）**：Cart/Checkout 試碼快捷鍵 row（§6 禁 coupon-hint）、`DEMO_CODES` 固定結果、`HB_GUEST` 旗、Tier Cards 頁設計師註記、Checkout PICKUP mock 數據、全部 `_pXX` 檔。
 14. **Checkout 補充**：**訪客 teaser 只出喺 PDP（§22.2）— Cart／Checkout／PLP 一律唔出登入推銷（2026-07-08 客戶裁定）**，checkout 只保留 WC 原生「已有帳戶？登入」；空車訪問 checkout＝WC 原生 redirect 返 cart＋notice（經全域 skin）；揀自取點→地址欄由 plugin write-back 自動填（§7，客唔使自己填）；香水/含酒精運輸限制 notice＝**等 ShipAny 確認先做**（§7 risk②，上線 checklist 項，confirm 前唔 render 任何字）。
 15. **2026-07-10 三套 deferred 功能已全套鎖定＋補齊樣本**：預訂（_p27／_p28＋政策頁「預訂商品」段＋引擎 preorder branch）、補購提醒（PDP 購買區 panel＋Account「補購提醒」面板＋email ⑥ 喺 _p24）、GA4 cookie 同意橫額（_p30）。剩返 WP 側先做到嘅：GA4 plugin 接駁＋consent gate、Action Scheduler 排程、backorder 設定 — 按 §19／§21.11-12／§21.15 實作。
+
+
+---
+
+## 24. 業界審計補遺（2026-07-11 · pre-WP-dev 全面審計裁決）
+
+> 2026-07-11 以業界標準（WCAG 2.2 AA／Baymard／PDPO／SEO）全面審計 demo＋本文件，84 條原始發現、對抗式覆核後 58 條確認（0 blocker：1 high＝對比度、15 medium、餘 low/info）。以下＝WP dev 必守嘅補充契約＋客戶裁決記錄。與前文衝突以本節為準。demo 已 seed 部分 a11y／文案修正；未 seed 者按本節砌。
+
+**A. 無障礙（WCAG 2.2 AA）**
+- 自訂表單欄一律 `<label for>`↔`<input id>` 顯式關聯（WC 原生 `woocommerce_form_field()` 已合規、唔准剷；自訂欄如自取點 select／優惠碼／補購 select 要補）。
+- icon-only／無文字控件加 `aria-label`：搜尋輸入、排序 select、價格 min/max（＋`aria-valuetext`「HK$N」）、補購模式/數值 select、優惠碼、gallery 縮圖「圖片 N／M：{品名}」、per-item 減少/增加/移除＝「移除 {品名}」templated、影片播放＝native `<button aria-label="播放使用示範影片">`。
+- 對話框（搜尋 overlay／側滑車／手機篩選抽屜／自取點 picker／付款 overlay）：開啟即 focus 第一個可聚焦元素、Tab 循環 focus-trap、ESC 關閉、關閉 return focus 返觸發掣、觸發掣帶 `aria-haspopup/aria-expanded/aria-controls`。§20.4 手機篩選抽屜「已實作」係誤述（見上更正）。
+- 狀態更新（優惠碼結果／搜尋結果數／篩選 count／購物車總額）：`aria-live="polite"`（錯誤 `role="alert"`）；WC notices skin 保留 `role`/`aria-live`。
+- PDP 變體 radio 每軸 `<fieldset><legend>`（styled 隱藏邊框）；accordion／filter popover／auth tab／account nav 帶 `aria-expanded`（+`aria-controls`），my-account nav active endpoint 帶 `aria-current`。
+- shared header partial 加 visually-hidden skip-link「跳至主要內容」→`#main`；每頁一個 `<main>` landmark（Landing 現缺）；標題層級唔准跳（Shop facet h3 要有 h2 上文）；responsive 重複 hero 其一 `aria-hidden` 或單一 h1。
+- 全站加 `@media (prefers-reduced-motion: reduce)`：略過 Lenis（native scroll）、`.ani-this` 即時現形（重用 no-js 規則）、drop 非必要 transition。
+- Scent.M fullscreen menu（共通 chrome）：`#menu-toggle` 加 `:focus-visible` style＋`aria-expanded`＋ESC 關閉＋開啟基本 containment（theme header partial 一次修、兩站受惠）。
+- G11 tier 主色 validation 加：generated gradient 淺 stop 對 `#FDFBF9` 文字 fail 4.5:1 → save 拒／自動加深（用 G11 現有 save-time validation slot）。
+- 上線 gate 加：ShipAny 自取點 picker 鍵盤全程走一次（開→揀→關→focus 返 checkout）。
+- **對比度（客戶裁決 2026-07-11：維持現狀）**：啡色 secondary 文字 /40–/55＋input 邊框（≈1.6:1）已知 fail WCAG AA 4.5:1／3:1，**客戶接受、保留現有淡雅視覺、不改 §1 token**。屬知情決定；如日後改口再 remap 至 ≥brown/70。
+
+**B. 安全（補 G1–G12 之外）**
+- 所有自訂 AJAX/REST route（filter／facet count／price slider／搜尋 endpoint／側滑車 qty·remove／補購 opt-in·改排程）：(a) nonce 發放＋`check_ajax_referer`/`wp_verify_nonce`（或 `register_rest_route` permission_callback）；(b) `current_user_can`＋user-scoped data 綁 `get_current_user_id()`；(c) 全部輸入 `sanitize_*`。
+- 商家 ACF 輸出（PDP Flexible Content／product_cat term fields／audLabel／spec／搜尋 REST 回傳）render 一律 escape：文字 `esc_html`、限定 markup `wp_kses_post`；搜尋 endpoint 回傳前 escape（demo `innerHTML` 內插 pattern 唔准原樣搬去 DB/REST-fed path）。
+
+**C. 效能（補 §20.9）**
+- **Asset-scoping（客最關注嘅「慢站」防線）**：非 `/hibi-lab/` 且非 WC journey 頁（cart/checkout/my-account）一律 dequeue `woocommerce-general/layout/smallscreen`、`wc-blocks-*` styles、`wc-cart-fragments`、order-attribution scripts；store-scoped stylesheet＋store-chrome.js 只喺店頁 enqueue（brochure 頁 Woo 重量＝0）。
+- 圖片交付（補 §20.9）：product/category 圖經 `wp_get_attachment_image()`（自動 srcset/sizes/`loading="lazy"`）；首屏 hero/banner `loading="eager"`＋`fetchpriority="high"`；保留 4:5 aspect-ratio wrapper 防 CLS。
+- 字體：production 只載實際用到嘅 family（demo 每頁 request 5 個、Mea Culpa 只 scentm-home 用）；Google Fonts preload＋`display=swap`；FontAwesome 改 subset／self-host（demo full CDN CSS 屬 throwaway）。
+- 搜尋 REST endpoint：debounce（建議 200–300ms）＋最短 query 長度（≥2）＋abort stale request＋short-TTL transient/object-cache（key＝normalised query）。
+
+**D. SEO/GEO（補 §14/§23.2#11）**
+- Meta：每 template 預設 title 公式（`{product} — HIBI LAB` 等）＋description（產品短述／ACF 分類 intro）＋per-post/term override 欄（沿 Scent.M seo.php pattern）。
+- Sitemap/robots：WP core sitemap（或 theme filter）scoped 到 products／product_cat／可索引 `/hibi-lab/` 頁；排除 noindex 端點＋flip 前 noindex URL；robots disallow `/?add-to-cart=`、`wc-ajax`（唔准 Disallow 需要 crawl 嘅 noindex 頁）。
+- 搜尋頁 `?s=`：`noindex,follow`（結果內容異於 base archive，單靠 canonical-to-base 唔可靠）。
+- OG/Twitter per-template：product（og:type=product＋featured image）／分類 archive（ACF banner）／landing·policy（品牌預設圖、ACF option 可換）／site_name·locale／`twitter:card=summary_large_image`（WhatsApp 分享靠呢個）。
+- 圖片 alt 鏈：媒體庫 alt→產品/文章 title fallback；裝飾 chrome 圖 `alt=""`；ACF 圖欄配對 alt sub-field；launch checklist 提醒上載相帶 alt。
+- Structured data（GEO）：`hasMerchantReturnPolicy`（7 日 HK）＋`shippingDetails`（門檻）由驅動可見文案嘅同一 ACF option 出（守「運費字串單一來源」§22）；FAQ block 可選 map `FAQPage`。
+
+**E. 電商完整度／表單（補契約）**
+- Checkout 欄位對照補全 WC core key：`billing_country=HK`（hidden）、`city`（removed，unset required）、`address_2`/`company`（removed）、`詳細地址→address_1`；同表鏡射落 Account 編輯地址 endpoint。
+- HK 電話：8 位驗證（strip +852/空格/dash 後）經 `woocommerce_checkout_process`＋zh-HK 錯誤（全域 notices skin）；feed ShipAny SMS。電話 canonical＝`billing_phone`（Account 設定讀寫同一 datum、三處同步）。
+- autocomplete token 全站一致（email/tel/cc-*/bday/street-address/address-level1）；Account 地址·設定照抄 Checkout token set。
+- 密碼規則單一來源：option-backed min length（`woocommerce_register_post` 讀一個 option 驗證、label 由 option derive）或採 WC strength meter 並改寫 label；變更密碼三欄＝leave-blank（demo 已 strip required；minlength 只在有輸入時生效故保留）。
+- 補購排程 persistence：onchange auto-save＋inline「已更新 · 下次提醒 {date}」；PDP checkbox 剔咗先 enable 排程 select。
+- Related products（PDP demo 有、契約缺）：來源＝同子分類 `menu_order`→fallback 父分類，cap 4，排除本品，重用 content-product.php 卡（會員價/庫存 badge 自動一致），無則整區隱藏。
+
+**F. 法律／信任（HK；政策頁內容一律 admin 可編輯 page content，客自行撰寫）**
+- **生日祝賀 email（客戶裁決 2026-07-11：綁去 marketing opt-in）**：只寄俾已剔「接收優惠及新品消息」嘅會員（§21.16 subscriber）；§5.B／§22 email spec／文案 #9 據此改；email 內附退訂連結。
+- Terms 網店段（launch-gate，admin 撰）：訂單接受、標價錯誤、預訂付款/延誤/退款、VIP 條款修訂權、coupon 規則、產品責任；同 Privacy 一樣客喺 theme dev 期間寫。
+- 預訂延誤（charge-now＋無限接單）：政策頁預訂段（admin 可編輯）加「如到貨顯著延遲，會通知並可全額退款取消」；內部 ops：延遲→通知＋提供退款。
+- 退貨運費（客戶裁決 2026-07-11：admin 遲啲自行喺貨運政策頁撰寫）：**我方不寫死 copy，只確保 Shipping/Returns 政策頁＝admin 可編輯 page content（現已是）**；返回郵費責任／原運費退款規則由客上架時填。
+- Marketing 退訂機制：每封 marketing send 帶退訂連結（即使手動/CSV 寄，連結打去細 endpoint flip subscriber flag）＋後台「移除訂閱者」action；入 launch checklist。
+- 產品聲稱審查：功效欄旁加 admin note（港式書面語 §21.6）警告勿用醫療/療效字眼；客上架前確認「消炎水」用詞（例改「舒緩」）。
+- 7 日退換 vs 法定權利：政策頁＋Terms 加保留句「以上安排不影響閣下於香港法例下可享有之權利。」
+
+**G. 明確唔做／已記錄（補齊「每個 do/not-do 都記低」慣例）**
+- **棄置購物車/結帳挽回＝明確唔做**（客戶裁決 2026-07-11）。
+- 低庫存數量顯示（「只剩 N 件」）＝唔做（§19 三態足夠）。
+- Gift options（包裝/賀卡/隱藏價錢單）＝唔做（`order_comments` 承接）。
+
+**H. 文檔手尾（本輪已修）**
+- §23.1 states-book 圖數 45→49（檔名跳 48）＋_p24 行補明 ⑥；_p24 header「⑥補購 DEFERRED」→ locked；§22.13 去「— {產品}」；_p24 comment「六個消費位」→「五個」；§23.1 _p23「§366」＋§23.2#10「L358」stale ref 修正；§20.4 手機抽屜 a11y 更正註。
+- HIBI 客面第一人稱統一「我哋」（documented default）：Shipping「我們樂意」→「我哋樂意」、Landing/index hero「我們相信」→「我哋相信」（共通 Scent.M footer/menu 維持原樣）。
+- PDP 手機 sticky bar 品名 production 綁 `get_the_title()`（同 H1）、demo 短名改回全名。
 
 ---
 
