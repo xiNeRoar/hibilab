@@ -49,9 +49,11 @@
 ## 3. 產品 data model（客喺 wp-admin 入，唔使逐件寫 code）
 - **分類** = `product_cat`（護膚品 / 寵物護理 / 助眠系列 / 家居香氛），hierarchical，客自己加減。
 - **分類入口動態化**：Landing 4 張入口卡、Shop 分類 pills、PLP 橫幅 map **全部由 WP loop top-level `product_cat` terms 動態 render**（唔 hardcode 4 個 slug）；每個分類嘅 eyebrow／title／intro／橫幅相 = **ACF term fields**（`get_field('…','product_cat_'.$term_id)`），現有 4 個分類嘅稿內文案+`cat-*.png` 做 seed 預設值。客加第 5 個分類 = 入口卡／pill／橫幅／archive 自動齊。Demo 稿嘅 4 卡/4 pill 係呢個 loop 嘅視覺樣板。
-- **Filter 軸 = global product attributes**（一次過設定 term，之後每件剔）：`pa_功效` / `pa_適用對象`(人/貓/狗/居家) / `pa_香味`(swatch) / `pa_容量` / `pa_形態`(噴霧/按摩油/洗髮水/消炎水/精華/潔面/擴香)。→ filter facet + count **自動由 attribute 生成**，加新 term 客即場加。
-- **容量 = variation attribute** → variable product → PLP 顯示「$X 起」、PDP size 揀掣、容量 filter。
-- **Variation 模型（明確版）**：demo PDP 實際係**雙軸 variable product** — `pa_容量`（帶價）×`pa_香味`（配方）；production 用 two-attribute variable product，每個組合獨立庫存（缺貨組合 → 揀掣 disabled，見 §20.8）。
+- **Filter 軸 = global product attributes**（一次過設定 term，之後每件剔）：`pa_功效` / `pa_適用對象`（人/貓/狗/居家）/ `pa_香味`（單一香味成分 term + swatch，**只做 filter，唔用作 variation**）/ `pa_容量` / `pa_形態`（噴霧/按摩油/洗髮水/消炎水/精華/潔面/擴香）。→ filter facet + count **自動由 attribute 生成**，加新 term 客即場加。
+- **容量 = `pa_容量` variation attribute** → variable product → PLP 顯示「$X 起」、PDP size 揀掣、容量 filter。
+- **Variation 模型（明確版）**：demo PDP 係**雙軸 variable product** — `pa_容量`（帶價）×`pa_香味配方`（完整配方名）；每個容量 × 配方組合係一個可購買 variation，使用 WC 原生 SKU／價錢／庫存／圖片／variation description（缺貨組合 → 揀掣 disabled，見 §20.8）。例：「薰衣草・依蘭依蘭」係一個配方選項，而唔係兩個可購買選項。
+- **配方與 Filter 必須分開**：同一產品另行剔選佢包含嘅原子 `pa_香味` terms；父產品嘅 filter terms ＝所有已發佈配方 variations 所含香味嘅聯集。例：產品有「薰衣草・依蘭依蘭」及「洋甘菊・甜橙」兩款配方，父產品要標上「薰衣草／依蘭依蘭／洋甘菊／甜橙」四個 filter terms，客揀任何一個都會搵到該產品；暫時缺貨／預訂配方仍屬產品選項，產品卡及 PDP 再如實顯示供應狀態。永久下架配方先從 variation 及父產品 filter assignment 一併移除。`pa_香味配方` 同 `pa_香味` **不可靠拆字或顯示名稱互相推算**，兩組資料由 admin 明確維護。
+- **配方內容真相**：父產品介紹只放所有配方共用嘅內容；配方專屬文案用 WC variation description。若完整成分會隨配方改變，另加結構化 variation meta（唔准焊死喺 theme），選配方時連 SKU、圖片及成分區一併由同一份 variation payload 更新。Demo 目前只提供「薰衣草・依蘭依蘭」嘅精確成分；未有商戶資料前唔可以自行編造「洋甘菊・甜橙」成分。
 - **ACF field group（逐件產品，跟 workshops ACF pattern）**：產品介紹、整體功效（成分→功效逐項）、成分、用法、適用對象、規格（貨號等）、**建議補購間隔（`hibilab_repurchase_interval`，數字＝週；空＝此產品唔納入補購提醒 opt-in，§21.12）**、**預訂到貨期（`hibilab_preorder_leadtime`，文字；空＝用全局預設 option `hibilab_preorder_leadtime_default`，出廠值「約 1 週到貨」，§19）**。
 - ⚠️ **紀律**：data 入落**結構化欄位**（剔 attribute term），唔好淨係打落產品名／描述 → filter 讀 attribute，唔 parse 個名。
 
@@ -202,7 +204,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 - `image` / `gallery` — 單圖 / 多圖
 - `video` — 影片(使用示範)
 
-每個 layout 欄位 + 樣式跟現稿 token（serif 標題 / ≥16px 正文 / `#ece0d5` 分隔 / terracotta accent）。安全須知 / 純露科普 / **保存期限（保存期限・開封後使用期・儲存方法，`spec_list` layout — 純露類產品標準購買疑慮；內容由客戶上架時提供，launch checklist 有項）** 若全線通用可設 theme 預設 block，逐件可加自己版本 override。上半部（相片庫 / 標題 / 價 / 香味 variation / 加入購物車＋**補購提醒 opt-in panel（§21.12：會員＋適用產品＋可購買先 render）**）= WooCommerce 固定 summary，唔入 flexible-content。
+每個 layout 欄位 + 樣式跟現稿 token（serif 標題 / ≥16px 正文 / `#ece0d5` 分隔 / terracotta accent）。安全須知 / 純露科普 / **保存期限（保存期限・開封後使用期・儲存方法，`spec_list` layout — 純露類產品標準購買疑慮；內容由客戶上架時提供，launch checklist 有項）** 若全線通用可設 theme 預設 block，逐件可加自己版本 override。上半部（相片庫 / 標題 / 價 / 香味配方 variation / 加入購物車＋**補購提醒 opt-in panel（§21.12：會員＋適用產品＋可購買先 render）**）= WooCommerce 固定 summary，唔入 flexible-content。
 
 ---
 
@@ -275,7 +277,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 - **來源：** 建議 self-host（MP4/WebM，`<video>` + poster）或 YouTube/Vimeo `<iframe>` privacy-enhanced；由 ACF 影片欄位（file 或 oEmbed URL）驅動，無片則整個 block 唔 render。時長標由影片 metadata 出，勿 hardcode（現稿「0:45」為 placeholder）。
 
 ### 20.8 PDP 條件狀態（WP 按 WC 庫存 render）
-- **變體缺貨（已示範）：** PDP 香味/容量 `<input disabled>` + `.box{opacity:.45;line-through}` + 「· 缺貨」標 + 「部分配方暫時缺貨」註（**只喺對應軸有缺貨組合先出**）；WC variation 無庫存時自動 disabled。
+- **變體缺貨（已示範）：** PDP 配方/容量 `<input disabled>` + `.box{opacity:.45;line-through}` + 「· 缺貨」標 + 「部分配方暫時缺貨」註（**只喺對應軸有缺貨組合先出**）；WC variation 無庫存時自動 disabled。
 - **整件售罄：** gallery 左上 `售罄` badge（深啡 `#3B261D` 底淺字，同 PLP `.stk-out`）+ 主圖 `opacity:.6`；加入購物車掣 → disabled 灰態 `background:#cbb8a6;cursor:not-allowed`，文案「已售罄」。WC `!is_in_stock()` 且不開放 backorder 觸發。（**唔加「補貨通知」訂閱 input**。）
 - **整件預訂：** gallery `預訂` badge（`.stk-pre` 外框 terracotta）+ 到貨期行（per-product＋全局預設「約 1 週到貨」）；全部 variation 照落單（唔出「部分配方」句）；加入購物車掣 → **「預訂」（仍 active、即刻全額付款）**；結帳必填同意 checkbox。WC 缺貨且開放 backorder 觸發。樣本 _p27。
 - **會員搶先鎖定：** 有貨但 tier-gated 產品 → 出「會員搶先」badge；非會員／未達級 → 加入購物車掣鎖定＋提示登入/升級。**同「預訂」分清**（搶先＝有貨限會員；預訂＝缺貨任何人）。
@@ -422,7 +424,7 @@ PDP 下半部**一定要做成 ACF Flexible Content field**（建議 `pdp_blocks
 5. **訂單歷史＝快照**：ship-to／運費／價錢全部凍結自落單一刻，唔跟現時預設地址/門檻/價錢重算；冇會員行嘅舊單＝落單當刻未夠級（§5 落單一刻 resolve）；「已退款 −HK$X」讀實際退款額（**可部分退**）；追蹤卡（carrier/單號/link）冇 meta 就成卡藏。付款失敗單 my-account 出 WC 原生「支付」action→**order-pay endpoint 重付同一張單**（唔係翻去購物車）。
 6. **等級卡 derive 規則**：名／還差／target／fill％／暖行「再消費 HK$X 即升{級}」全部由（近12月淨消費, 下一級門檻）一對數 derive；還差 clamp ≥0、fill clamp ≤100%；**Account 頂級卡無進度條無暖行**；英文名＝可選欄位（冇就唔出）；「頂級」＝之上冇 enabled 級（data-driven）。**總開關 OFF**＝全站原價之外，Account 概覽**唔出等級卡**（成個 VIP 面向隱藏）。生日 caption「生日月享會員生日禮遇」只喺該級生日%＞0 時出。
 7. **Auth 合約**：忘記密碼回應＝中性句「如果呢個電郵有登記帳戶，我哋已寄出重設密碼連結」（唔透露帳戶存在）；登入現有密碼欄**無** client 端長度驗證；「最少 N 位」label＋minlength 跟 WP 密碼政策單一來源；註冊 consent 兩個名詞＝真連結（WC registration privacy-policy text option）；生日只儲月+日、server 驗證合法組合（拒 2月30/31）；已登入訪問 login URL→WC 原生出 dashboard；auth 錯誤＝WC 原生 notices 經全域 skin。
-8. **PDP variation 合約**：貨號＝selected variation SKU（跟容量切換）；「部分配方暫時缺貨」句只喺 ≥1 variation 缺貨時 render；使用示範「時長標」＝per-product admin 欄位（§20.7，唔係焊死 0:45）。
+8. **PDP variation 合約**：貨號＝selected variation SKU（跟容量或 `pa_香味配方` 切換）；PDP 完整配方選項同 Shop `pa_香味` 原子 filter terms 係兩個獨立資料軸，唔准用其中一邊解析另一邊；「部分配方暫時缺貨」句只喺 ≥1 variation 缺貨時 render；使用示範「時長標」＝per-product admin 欄位（§20.7，唔係焊死 0:45）。
 9. **搜尋 overlay production 三態**：loading（REST in-flight）／錯誤（fetch 失敗＝「暫時未能完成搜尋，請再試一次」＋重試，**唔准**當「冇符合結果」呈現）／截斷（>50 出「顯示首 50 件」disclosure）。**無「熱門」建議詞功能**（2026-07-10 客戶裁定剷走）。
 10. **價格 filter/排序基準聲明**（§22『排序對照／PLP 分頁』重申）：filter／slider／「N 件符合」／price 排序基準＝**原價**（wc_product_meta_lookup、會員 price filter 之前）；卡面顯示會員價唔改 filter 基準 — 已為契約決定，唔好「順手」改。
 11. **SEO head**：demo HTML 嘅 `<head>`（canonical→scentm.hk、Scent.M B2B og/description、假電話 LocalBusiness JSON-LD）**全部唔准照抄** — production 由 WP per-page 生成：product＝自身 canonical＋產品 og；my-account／cart／checkout＝noindex；LocalBusiness/Organization schema 讀真實 NAP 單一來源（沿 Scent.M inc/seo.php pattern）。
