@@ -572,14 +572,14 @@
               <label class="vopt"><input type="radio" name="vol" value="200ml" data-price="438" data-mprice="394"><span class="box"><span class="font-sans text-[16px] text-brand-brown">200ml</span></span></label>
             </div>
           </div>
-          <!-- variant axis 2: 香味 -->
+          <!-- variant axis 2: 香味配方（完整配方名＝一個可購買 variation；Shop filter 嘅單一香味 term 係另一個資料軸） -->
           <div class="mt-7">
             <span class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/55">香味配方</span>
-            <div class="flex flex-wrap gap-2.5 mt-3" id="pdp-scents">
-              <label class="vopt"><input type="radio" name="scent" value="薰衣草依蘭" checked><span class="box"><span style="width:15px;height:15px;border-radius:50%;background:#9b8cc0;flex:none;"></span><span class="font-sans text-[16px] text-brand-brown">薰衣草・依蘭依蘭</span></span></label>
-              <label class="vopt"><input type="radio" name="scent" value="洋甘菊甜橙" disabled><span class="box" aria-disabled="true" style="opacity:.45;cursor:not-allowed;"><span style="width:15px;height:15px;border-radius:50%;background:#e08a3c;flex:none;"></span><span class="font-sans text-[16px] text-brand-brown" style="text-decoration:line-through;">洋甘菊・甜橙</span><span class="font-sans text-[16px] text-brand-brown/50">· 缺貨</span></span></label>
+            <div class="flex flex-wrap gap-2.5 mt-3" id="pdp-formulas">
+              <label class="vopt"><input type="radio" name="formula" value="薰衣草・依蘭依蘭" checked><span class="box"><span style="width:15px;height:15px;border-radius:50%;background:#9b8cc0;flex:none;"></span><span class="font-sans text-[16px] text-brand-brown">薰衣草・依蘭依蘭</span></span></label>
+              <label class="vopt"><input type="radio" name="formula" value="洋甘菊・甜橙" disabled><span class="box" aria-disabled="true" style="opacity:.45;cursor:not-allowed;"><span style="width:15px;height:15px;border-radius:50%;background:#e08a3c;flex:none;"></span><span class="font-sans text-[16px] text-brand-brown" style="text-decoration:line-through;">洋甘菊・甜橙</span><span class="font-sans text-[16px] text-brand-brown/50">· 缺貨</span></span></label>
             </div>
-            <!-- WP-dev:呢句只喺「至少一個 variation 缺貨」時 render(demo 洋甘菊甜橙=缺貨所以出);全部有貨=唔出,唔可以焊死 -->
+            <!-- WP-dev:呢句只喺「至少一個配方 variation 缺貨」時 render；全部有貨＝唔出，唔可以焊死 -->
             <p class="font-sans text-[16px] text-brand-brown/50 mt-2">部分配方暫時缺貨。</p>
           </div>
 
@@ -608,7 +608,7 @@
           <div class="mt-8 pt-7 space-y-2.5" style="border-top:1px solid #ece0d5;">
             <div class="flex gap-3 font-sans text-[16px]"><span class="text-brand-brown/45 w-20 flex-none">適用</span><span class="text-brand-brown/80">貓 · 狗</span></div>
             <div class="flex gap-3 font-sans text-[16px]"><span class="text-brand-brown/45 w-20 flex-none">容量</span><span class="text-brand-brown/80" id="pdp-meta-vol">100ml</span></div>
-            <!-- WP-dev:variable product 貨號=selected variation 嘅 SKU,揀容量要跟住轉(WC 原生 variation SKU);單一 SKU 焊死會對唔上 -->
+            <!-- WP-dev:variable product 貨號＝selected variation 嘅 SKU；揀容量或香味配方都要跟住轉（WC 原生 variation SKU），唔可以焊死 -->
             <div class="flex gap-3 font-sans text-[16px]"><span class="text-brand-brown/45 w-20 flex-none">貨號</span><span class="text-brand-brown/80">HL-PET-H01</span></div>
           </div>
           <!-- 送貨與退換: compact icon-led link → 政策頁 (Aesop/Glossier 式，content 闊度、低重量) -->
@@ -757,7 +757,7 @@
     var mv=document.getElementById('pdp-meta-vol');if(mv)mv.textContent=v.value;
   }
   document.getElementById('pdp-vols').addEventListener('change',function(e){if(e.target.name==='vol')sync();});
-  document.getElementById('pdp-scents').addEventListener('change',function(e){if(e.target.name==='scent')sync();});
+  document.getElementById('pdp-formulas').addEventListener('change',function(e){if(e.target.name==='formula')sync();});
   document.getElementById('qty-dec').addEventListener('click',function(){document.getElementById('qty-val').textContent=Math.max(1,qty()-1);sync();});
   document.getElementById('qty-inc').addEventListener('click',function(){document.getElementById('qty-val').textContent=Math.min(99,qty()+1);sync();});
   sync();
