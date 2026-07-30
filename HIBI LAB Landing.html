@@ -412,6 +412,7 @@
     </script>
 </head>
 <body class="font-sans antialiased selection:bg-brand-terracotta selection:text-white">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-3 focus:text-brand-brown">跳至主要內容</a>
 
     <!-- 導航欄 -->
     <nav id="main-header" class="fixed w-full z-[70] px-6 md:px-12 py-5 md:py-8 flex justify-between items-center border-b border-transparent">
@@ -460,7 +461,7 @@
             <div class="overflow-hidden pb-2"><a href="about.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">About.</a></div>
             <div class="overflow-hidden pb-2"><a href="odm-perfume.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Boutique ODM.</a></div>
             <div class="overflow-hidden pb-2"><a href="workshops.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Workshops.</a></div>
-            <div class="overflow-hidden pb-2"><a href="#services" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Scent Marketing.</a></div>
+            <div class="overflow-hidden pb-2"><a href="scentm-home.html#services" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Scent Marketing.</a></div>
             <div class="overflow-hidden pb-2"><a href="journal.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Journal.</a></div>
             <div class="overflow-hidden pb-2"><a href="testimonials.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Testimonials.</a></div>
             <div class="overflow-hidden pb-2"><a href="contact.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Contact.</a></div>
@@ -499,10 +500,13 @@
   .fp-card .fp-name { transition: color .35s ease; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:2.75em; }
   .fp-card:hover .fp-name { color:#A64B2A; }
   /* testimonials carousel — paged purely via JS rAF tween (scroll-snap removed: it hijacked programmatic paging) */
-  .tm-dot { width:8px;height:8px;border-radius:50%;background:#d8c5b2;transition:background .3s,width .3s;cursor:pointer; }
+  .tm-dot { appearance:none;-webkit-appearance:none;display:block;flex:none;width:8px;height:8px;border:0;padding:0;border-radius:50%;background:#d8c5b2;transition:background .3s,width .3s;cursor:pointer; }
   .tm-dot.on { background:#A64B2A;width:22px;border-radius:4px; }
+  .tm-dot:focus-visible { outline:2px solid #A64B2A;outline-offset:3px; }
 </style>
 
+<main id="main">
+<h1 class="sr-only">HIBI LAB</h1>
 <!-- ===================== HERO ===================== -->
 <!-- Mobile hero -->
 <header class="md:hidden relative">
@@ -514,7 +518,7 @@
   </div>
   <div class="px-6 pt-8 hero-fade-up opacity-0 translate-y-4">
     <span class="block font-sans text-[11px] tracking-[0.2em] font-medium uppercase mb-3 text-brand-terracotta">Our In-House Brand</span>
-    <h1 class="font-serif text-[3rem] leading-[1.0] tracking-tight text-brand-brown">HIBI LAB</h1>
+    <div aria-hidden="true" class="font-serif text-[3rem] leading-[1.0] tracking-tight text-brand-brown">HIBI LAB</div>
     <img src="by-scentm.png" alt="by Scent.M" class="mt-2" style="width:190px;height:auto;">
     <p class="mt-6 font-sans text-base tracking-wider leading-[1.95] text-brand-brown">HIBI LAB 是 Scent.M 的自有品牌，以香氣為靈感，研發貼近生活的感官產品，讓日常回到純粹，感受自然的溫柔力量。</p>
     <div class="mt-7">
@@ -539,7 +543,7 @@
       <div class="overflow-hidden mb-5">
         <span class="block font-sans text-sm md:text-base tracking-[0.2em] font-medium uppercase text-brand-terracotta hero-fade-up opacity-0 translate-y-4">Our In-House Brand</span>
       </div>
-      <h1 class="fluid-display font-serif text-7xl xl:text-[5.5rem] leading-[1.0] tracking-tight text-brand-brown hero-text opacity-0 translate-y-8">HIBI LAB</h1>
+      <div aria-hidden="true" class="fluid-display font-serif text-7xl xl:text-[5.5rem] leading-[1.0] tracking-tight text-brand-brown hero-text opacity-0 translate-y-8">HIBI LAB</div>
       <img src="by-scentm.png" alt="by Scent.M" class="hero-fade-up opacity-0 translate-y-4 mt-3" style="width:clamp(220px,18vw,300px);height:auto;">
       <p class="mt-8 font-sans text-base lg:text-lg tracking-wider leading-loose text-brand-brown opacity-0 translate-y-4 hero-fade-up max-w-md">HIBI LAB 是 Scent.M 的自有品牌，以香氣為靈感，研發貼近生活的感官產品，讓日常回到純粹，感受自然的溫柔力量。</p>
       <div class="mt-10 hero-fade-up opacity-0 translate-y-4">
@@ -591,7 +595,7 @@
 </section>
 
 <!-- ===================== TESTIMONIALS ===================== -->
-<!-- WP-dev（§23）：真實回饋＝ACF repeater，客戶自填；repeater 空＝成個 section（連 carousel dots）hide-if-empty。以下 6 張卡＝deletable seed 示範 — 卡內產品名係示範文案，客戶換入真實回饋時自然對應真產品；星級/名/標籤全部 repeater 欄位 -->
+<!-- WP-dev（§23）：真實回饋只屬 Homepage；ACF repeater 由 Admin 自由新增、刪除及排序，欄位＝名＋內容＋可選純文字展示標籤，星星固定視覺。唔建立產品／分類 relation，PDP、Shop 及分類頁一律唔讀或顯示。repeater 空＝成個 section（連 carousel dots）hide-if-empty。以下 6 張卡＝deletable seed 示範。 -->
 <section class="pt-10 pb-10 md:pt-8 md:pb-8">
   <div class="max-w-screen-xl mx-auto px-6 md:px-12">
     <div class="text-center">
@@ -668,7 +672,7 @@
       <div class="hibi-orn mt-4 ani-this bottom-in delay-1"><span class="l"></span><span class="text-brand-terracotta text-sm">&#10059;</span><span class="l"></span></div>
     </div>
 
-    <!-- WP-dev：精選商品 6 卡＝WC featured products loop — 每卡 link=該產品自己嘅 permalink（demo 全部指去單一 PDP 檔只係 placeholder）；名/價/相/售罄/搶先 badge 全部由該產品實時讀（catalog 有 stock/early 欄位）。價錢顯示＝按瀏覽者身份：demo persona=銀級會員（會員價+struck+tag，同 Shop 卡一致）；訪客形（原價、無 tag、teaser）見 _p18 樣本＋§5.E — 訪客絕不出實數會員價 -->
+    <!-- WP-dev：精選商品 6 卡＝WC featured products loop — 每卡 link=該產品自己嘅 permalink（demo 全部指去單一 PDP 檔只係 placeholder）；名/價/相/售罄/搶先 badge 全部由該產品實時讀（catalog 有 stock/early 欄位）。價錢顯示＝按瀏覽者身份：demo persona=銀級會員（會員價+struck+tag，同 Shop 卡一致）；訪客形（原價、無 tag）見 _p18 樣本＋§5.E — 訪客絕不出實數會員價 -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 items-stretch gap-x-[18px] gap-y-[18px] mt-12">
       <a href="HIBI LAB Product.html" class="fp-card group flex flex-col h-full ani-this bottom-in">
         <div class="relative overflow-hidden" style="aspect-ratio:4 / 5;background:#efe6dd;">
@@ -679,7 +683,7 @@
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">Gentle pH Gel Cleanser</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">100ml</div>
           <div class="mt-auto pt-3">
-            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$288 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$320</s></div>
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$288.00 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$320.00</s></div>
             <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
           </div>
         </div>
@@ -693,7 +697,7 @@
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">Centella Soothing Essence Water</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">100ml</div>
           <div class="mt-auto pt-3">
-            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$268 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$298</s></div>
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$268.20 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$298.00</s></div>
             <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
           </div>
         </div>
@@ -707,7 +711,7 @@
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">Q10 Centella Essence</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">30ml 起</div>
           <div class="mt-auto pt-3">
-            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$306 起 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$340</s></div>
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$306.00 起 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$340.00</s></div>
             <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
           </div>
         </div>
@@ -721,7 +725,7 @@
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">毛髮柔順噴霧</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">100ml</div>
           <div class="mt-auto pt-3">
-            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$203 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$225</s></div>
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$202.50 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$225.00</s></div>
             <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
           </div>
         </div>
@@ -735,7 +739,7 @@
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">睡眠噴霧・薰衣草</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">100ml</div>
           <div class="mt-auto pt-3">
-            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$212 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$235</s></div>
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$211.50 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$235.00</s></div>
             <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
           </div>
         </div>
@@ -749,7 +753,7 @@
           <div class="fp-name font-serif text-[16px] text-brand-brown leading-snug mt-2">擴香・琥珀與小蒼蘭</div>
           <div class="font-sans text-[16px] text-brand-brown/55 mt-1.5">200ml</div>
           <div class="mt-auto pt-3">
-            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$882 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$980</s></div>
+            <div class="font-serif text-[19px] md:text-[20px] text-brand-terracotta">HK$882.00 <s class="text-brand-brown/40 text-[15px] md:text-[16px]">HK$980.00</s></div>
             <div class="font-sans text-[16px] text-brand-terracotta mt-1">銀級會員價</div>
           </div>
         </div>
@@ -810,6 +814,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <!-- ===================== HIBI interactions (testimonial carousel) ===================== -->
 <script>
@@ -824,12 +829,12 @@
   function curPage(){ return Math.round(track.scrollLeft / pageW()); }
   function renderDots(){
     var n = pageCount(), cur = curPage(), html='';
-    for(var i=0;i<n;i++){ html += '<span class="tm-dot'+(i===cur?' on':'')+'" data-i="'+i+'" role="button" aria-label="第 '+(i+1)+' 頁"></span>'; }
+    for(var i=0;i<n;i++){ html += '<button type="button" class="tm-dot'+(i===cur?' on':'')+'" data-i="'+i+'" aria-label="第 '+(i+1)+' 則回饋" aria-current="'+(i===cur?'true':'false')+'"></button>'; }
     dotsWrap.innerHTML = html;
     var single = n<=1;
     [prev,next,dotsWrap].forEach(function(el){ if(el) el.style.visibility = single?'hidden':'visible'; });
   }
-  function sync(){ var cur = curPage(), ds = dotsWrap.children; for(var i=0;i<ds.length;i++){ ds[i].classList.toggle('on', i===cur); } }
+  function sync(){ var cur = curPage(), ds = dotsWrap.children; for(var i=0;i<ds.length;i++){ var active=i===cur; ds[i].classList.toggle('on', active); ds[i].setAttribute('aria-current', active?'true':'false'); } }
   function go(p){
     var n=pageCount(); p=Math.max(0,Math.min(n-1,p));
     var target=p*pageW();
@@ -878,7 +883,7 @@
                 <ul class="font-sans space-y-3 md:space-y-4 text-base md:text-lg flex flex-col items-start">
                     <li><a href="odm-perfume.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">靈活代工 ODM</a></li>
                     <li><a href="workshops.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">調香工藝 Workshops</a></li>
-                    <li><a href="#services" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">香氣營銷 Marketing</a></li>
+                    <li><a href="scentm-home.html#services" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">香氣營銷 Marketing</a></li>
                 </ul>
             </div>
 

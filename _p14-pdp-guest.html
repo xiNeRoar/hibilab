@@ -414,6 +414,7 @@
 </head>
 <script>window.HB_GUEST=true;/* 樣本狀態旗：側滑車/搜尋以訪客形 render（display-mode，非邏輯） */</script>
 <body class="font-sans antialiased selection:bg-brand-terracotta selection:text-white">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-3 focus:text-brand-brown">跳至主要內容</a>
 
     <!-- 導航欄 -->
     <nav id="main-header" class="fixed w-full z-[70] px-6 md:px-12 py-5 md:py-8 flex justify-between items-center border-b border-transparent">
@@ -462,7 +463,7 @@
             <div class="overflow-hidden pb-2"><a href="about.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">About.</a></div>
             <div class="overflow-hidden pb-2"><a href="odm-perfume.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Boutique ODM.</a></div>
             <div class="overflow-hidden pb-2"><a href="workshops.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Workshops.</a></div>
-            <div class="overflow-hidden pb-2"><a href="#services" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Scent Marketing.</a></div>
+            <div class="overflow-hidden pb-2"><a href="scentm-home.html#services" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Scent Marketing.</a></div>
             <div class="overflow-hidden pb-2"><a href="journal.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Journal.</a></div>
             <div class="overflow-hidden pb-2"><a href="testimonials.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Testimonials.</a></div>
             <div class="overflow-hidden pb-2"><a href="contact.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Contact.</a></div>
@@ -519,7 +520,7 @@
   #pdp-toast.show{ opacity:1; transform:translate(-50%,0); }
 </style>
 
-<main class="pt-28 md:pt-32 pb-24 md:pb-28">
+<main id="main" class="pt-28 md:pt-32 pb-24 md:pb-28">
   <div class="max-w-screen-2xl mx-auto px-6 md:px-12">
     <nav class="font-sans text-[16px] tracking-[0.06em] text-brand-brown/55" aria-label="breadcrumb">
       <a href="HIBI LAB Landing.html" class="hover:text-brand-terracotta transition-colors">HIBI LAB</a>
@@ -536,9 +537,9 @@
           <!-- thumbnail rail: fixed to main-image height, scrolls when many (scales 3 -> 20+) -->
           <div class="relative">
             <div class="thumb-rail flex md:flex-col gap-3 md:absolute md:inset-0 overflow-x-auto md:overflow-x-hidden md:overflow-y-auto pb-1 md:pb-0 md:pr-1">
-              <button class="pdp-thumb is-active rounded-md overflow-hidden flex-none w-[72px] md:w-full" style="aspect-ratio:4/5;background:#efe6dd;" data-src="prod-petmist.png"><img src="prod-petmist.png" class="w-full h-full object-cover" alt=""></button>
-              <button class="pdp-thumb rounded-md overflow-hidden flex-none w-[72px] md:w-full" style="aspect-ratio:4/5;background:#efe6dd;" data-src="cat-pet.png"><img src="cat-pet.png" class="w-full h-full object-cover" alt=""></button>
-              <button class="pdp-thumb rounded-md overflow-hidden flex-none w-[72px] md:w-full" style="aspect-ratio:4/5;background:#efe6dd;" data-src="prod-sleepmist.png"><img src="prod-sleepmist.png" class="w-full h-full object-cover" alt=""></button>
+              <button type="button" class="pdp-thumb is-active rounded-md overflow-hidden flex-none w-[72px] md:w-full" style="aspect-ratio:4/5;background:#efe6dd;" data-src="prod-petmist.png" aria-label="產品圖片 1／3"><img src="prod-petmist.png" class="w-full h-full object-cover" alt=""></button>
+              <button type="button" class="pdp-thumb rounded-md overflow-hidden flex-none w-[72px] md:w-full" style="aspect-ratio:4/5;background:#efe6dd;" data-src="cat-pet.png" aria-label="產品圖片 2／3"><img src="cat-pet.png" class="w-full h-full object-cover" alt=""></button>
+              <button type="button" class="pdp-thumb rounded-md overflow-hidden flex-none w-[72px] md:w-full" style="aspect-ratio:4/5;background:#efe6dd;" data-src="prod-sleepmist.png" aria-label="產品圖片 3／3"><img src="prod-sleepmist.png" class="w-full h-full object-cover" alt=""></button>
             </div>
           </div>
           <div class="rounded-lg overflow-hidden" style="aspect-ratio:4/5;background:#efe6dd;">
@@ -555,35 +556,34 @@
 
           <!-- price -->
           <div class="mt-6 flex items-baseline flex-wrap gap-x-3 gap-y-1">
-            <span id="pdp-price" class="font-serif text-3xl text-brand-brown">HK$265</span>
+            <span id="pdp-price" class="font-serif text-3xl text-brand-brown">HK$265.00</span>
             
           </div>
-          <!-- WP-dev(2026-07-08 客戶裁定):PDP 唔出免運門檻/送達日數 — 資訊唔重複(免運=Cart/Checkout/OR/政策頁/側滑車 五個面;SLA=Checkout 方式卡/OR/政策頁);送貨詳情經下面「送貨與退換」link -->
-          <div id="pdp-member-teaser" class="font-sans text-[16px] text-brand-terracotta mt-2"><i class="fa-regular fa-user text-[12px] mr-1.5"></i>登入即享會員價 · 全單 9 折起</div>
-          <div class="font-sans text-[16px] text-brand-brown/55 mt-1"><a href="HIBI LAB Account Login.html" class="text-brand-terracotta hover:underline">登入</a>享會員價，此產品低至 HK$151</div>
+          <!-- WP-dev：PDP 唔出免運門檻或送達日數；customer-facing SLA 只由可編輯嘅 Shipping Policy 提供，詳情經下面「送貨與退換」link。 -->
+          <div class="font-sans text-[16px] text-brand-brown/55 mt-1"><a href="HIBI LAB Account Login.html" class="text-brand-terracotta hover:underline">登入</a>享會員價，此產品低至 HK$151.20</div>
 
           <p class="font-sans text-[16px] leading-loose text-brand-brown/75 mt-6">以洋甘菊與薰衣草純露為基底，加入低濃度薰衣草與依蘭依蘭精油，溫和舒緩貓狗的不安與分離焦慮。</p>
 
           <!-- variant axis 1: 容量 (drives price) -->
-          <div class="mt-8">
-            <span class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/55">容量</span>
+          <fieldset class="mt-8" style="border:0;padding:0;min-width:0;">
+            <legend style="padding:0;" class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/55">容量</legend>
             <div class="flex flex-wrap gap-2.5 mt-3" id="pdp-vols">
               <!-- data-mprice＝該容量會員價設計值（§22 G2 樣式）；production 由 server 計（§5），per-variation SKU／庫存亦由 variation 讀（§21） -->
               <label class="vopt"><input type="radio" name="vol" value="50ml" data-price="168"><span class="box"><span class="font-sans text-[16px] text-brand-brown">50ml</span></span></label>
               <label class="vopt"><input type="radio" name="vol" value="100ml" data-price="265" checked><span class="box"><span class="font-sans text-[16px] text-brand-brown">100ml</span></span></label>
               <label class="vopt"><input type="radio" name="vol" value="200ml" data-price="438"><span class="box"><span class="font-sans text-[16px] text-brand-brown">200ml</span></span></label>
             </div>
-          </div>
+          </fieldset>
           <!-- variant axis 2: 香味配方（完整配方名＝一個可購買 variation；Shop filter 嘅單一香味 term 係另一個資料軸） -->
-          <div class="mt-7">
-            <span class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/55">香味配方</span>
+          <fieldset class="mt-7" style="border:0;padding:0;min-width:0;">
+            <legend style="padding:0;" class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/55">香味配方</legend>
             <div class="flex flex-wrap gap-2.5 mt-3" id="pdp-formulas">
               <label class="vopt"><input type="radio" name="formula" value="薰衣草・依蘭依蘭" checked><span class="box"><span style="width:15px;height:15px;border-radius:50%;background:#9b8cc0;flex:none;"></span><span class="font-sans text-[16px] text-brand-brown">薰衣草・依蘭依蘭</span></span></label>
               <label class="vopt"><input type="radio" name="formula" value="洋甘菊・甜橙" disabled><span class="box" aria-disabled="true" style="opacity:.45;cursor:not-allowed;"><span style="width:15px;height:15px;border-radius:50%;background:#e08a3c;flex:none;"></span><span class="font-sans text-[16px] text-brand-brown" style="text-decoration:line-through;">洋甘菊・甜橙</span><span class="font-sans text-[16px] text-brand-brown/50">· 缺貨</span></span></label>
             </div>
             <!-- WP-dev:呢句只喺「至少一個配方 variation 缺貨」時 render；全部有貨＝唔出，唔可以焊死 -->
             <p class="font-sans text-[16px] text-brand-brown/50 mt-2">部分配方暫時缺貨。</p>
-          </div>
+          </fieldset>
 
           <!-- qty + add -->
           <div class="mt-7 flex items-stretch gap-3">
@@ -592,7 +592,7 @@
               <span id="qty-val" class="font-sans text-[16px] text-brand-brown w-7 text-center" style="font-variant-numeric:tabular-nums;">1</span>
               <button class="qty-btn" id="qty-inc" aria-label="增加"><i class="fa-solid fa-plus text-xs"></i></button>
             </div>
-            <button id="pdp-add" class="flex-1 inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white font-sans text-[16px] tracking-[0.08em] uppercase rounded-full py-4 transition-all duration-300 hover:bg-brand-brown"><span>加入購物車</span><span class="text-white/60">·</span><span id="pdp-add-price">HK$265</span></button>
+            <button id="pdp-add" class="flex-1 inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white font-sans text-[16px] tracking-[0.08em] uppercase rounded-full py-4 transition-all duration-300 hover:bg-brand-brown"><span>加入購物車</span><span class="text-white/60">·</span><span id="pdp-add-price">HK$265.00</span></button>
           </div>
 
           <!-- data sheet: 產品規格 only — 商家後台 ACF repeater 自行增減行數，非 hardcode -->
@@ -651,11 +651,11 @@
       <div class="grid md:grid-cols-12 gap-8 md:gap-12">
         <div class="md:col-span-3"><div class="eyb">使用示範</div></div>
         <div class="md:col-span-9">
-          <div class="relative overflow-hidden rounded-lg group cursor-pointer max-w-3xl" style="aspect-ratio:16/9;background:#2c1d14;">
+          <button type="button" aria-label="播放使用示範影片" class="relative overflow-hidden rounded-lg group cursor-pointer max-w-3xl w-full text-left" style="aspect-ratio:16/9;background:#2c1d14;">
             <img src="prod-petmist.png" alt="使用示範" class="absolute inset-0 w-full h-full object-cover" style="opacity:.4;">
             <div class="absolute inset-0 flex items-center justify-center"><span class="flex items-center justify-center rounded-full bg-brand-light/90 transition-transform group-hover:scale-110" style="width:66px;height:66px;"><i class="fa-solid fa-play text-brand-brown" style="margin-left:4px;"></i></span></div>
-            <span class="absolute bottom-4 left-5 font-sans text-[16px] text-brand-light/90">產品使用示範 · 0:45</span>
-          </div>
+            <span class="absolute bottom-4 left-5 font-sans text-[16px] text-brand-light/90">產品使用示範</span>
+          </button>
         </div>
       </div>
     </section>
@@ -709,10 +709,10 @@
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-[18px] gap-y-9 mt-10 items-stretch">
         <!-- 除臭驅蟲噴霧 catalog stock=out → 售罄樣本(badge+圖暗,同 Shop card 一致 §20.3/§20.8);production 由 WC 庫存自動 -->
-        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;opacity:.6;"><img src="prod-petmist.png" alt="除臭驅蟲噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"><span style="position:absolute;top:12px;left:12px;z-index:2;font-family:Montserrat,'Noto Sans TC',sans-serif;font-size:16px;letter-spacing:.04em;padding:5px 13px;border-radius:30px;background:#3B261D;color:#FDFBF9;">售罄</span></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善情緒</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">除臭驅蟲噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-brown">HK$225</span></div></div></a>
-        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="舒緩過分活躍噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善情緒</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">舒緩過分活躍噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-brown">HK$279</span></div></div></a>
-        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-petmist.png" alt="皮膚敏感噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善身體</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">皮膚敏感噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓狗適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-brown">HK$204</span></div></div></a>
-        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="薰衣草噴霧・日常" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 日常護理</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">薰衣草噴霧・日常</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓狗適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-brown">HK$300</span></div></div></a>
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;opacity:.6;"><img src="prod-petmist.png" alt="除臭驅蟲噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"><span style="position:absolute;top:12px;left:12px;z-index:2;font-family:Montserrat,'Noto Sans TC',sans-serif;font-size:16px;letter-spacing:.04em;padding:5px 13px;border-radius:30px;background:#3B261D;color:#FDFBF9;">售罄</span></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善情緒</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">除臭驅蟲噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-brown">HK$225.00</span></div></div></a>
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="舒緩過分活躍噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善情緒</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">舒緩過分活躍噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-brown">HK$279.00</span></div></div></a>
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-petmist.png" alt="皮膚敏感噴霧" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 改善身體</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">皮膚敏感噴霧</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓狗適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-brown">HK$204.00</span></div></div></a>
+        <a href="HIBI LAB Product.html" class="rel-card group flex flex-col h-full"><div class="relative overflow-hidden rounded-md" style="aspect-ratio:4/5;background:#efe6dd;"><img src="prod-sleepmist.png" alt="薰衣草噴霧・日常" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"></div><div class="text-center px-2 pt-4 flex-1 flex flex-col"><div class="font-sans text-[16px] tracking-[0.12em] uppercase text-brand-brown/50">寵物護理 · 日常護理</div><div class="rc-name font-serif text-[18px] text-brand-brown mt-1.5 leading-snug">薰衣草噴霧・日常</div><div class="font-sans text-[16px] text-brand-terracotta/85 mt-1">貓狗適用</div><div class="mt-auto pt-2"><span class="font-serif text-[18px] text-brand-brown">HK$300.00</span></div></div></a>
       </div>
     </div>
   </div>
@@ -720,15 +720,15 @@
 
 <!-- mobile sticky buy bar -->
 <div id="d5-bar" class="md:hidden fixed bottom-0 inset-x-0 z-40 px-5 pt-3 flex items-center gap-4" style="background:rgba(253,251,249,0.96);backdrop-filter:blur(10px);border-top:1px solid #ece0d5;padding-bottom:calc(0.75rem + env(safe-area-inset-bottom));">
-  <div class="flex-1 min-w-0"><div class="font-serif text-xl text-brand-terracotta" id="d5-bar-price">HK$265</div><div class="font-sans text-[16px] text-brand-brown/50 truncate">情緒舒緩噴霧</div></div>
+  <div class="flex-1 min-w-0"><div class="font-serif text-xl text-brand-terracotta" id="d5-bar-price">HK$265.00</div><div class="font-sans text-[16px] text-brand-brown/50 truncate">情緒舒緩噴霧</div></div>
   <button id="d5-bar-add" class="flex-1 bg-brand-terracotta text-white rounded-full py-3.5 font-sans text-[16px] tracking-[0.08em] uppercase">加入購物車</button>
 </div>
 <div id="pdp-toast"><div class="flex items-center gap-3 bg-brand-brown text-brand-light rounded-full pl-5 pr-6 py-3.5 shadow-lg"><i class="fa-solid fa-check text-brand-terracotta"></i><span class="font-sans text-[16px] tracking-[0.04em]">已加入購物車</span></div></div>
 
 <script>
 (function(){
-  /* Demo＝「銀級會員」persona 靜態樣本：每個容量嘅會員價＝radio data-mprice 設計值（§22 G2 樣式）— 前端零計價、零 tier 邏輯；production 全部 server-side（§5）。訪客形（原價、無 tag、teaser 顯示）見 _p14-pdp-guest；整件售罄見 _p15；搶先鎖（訪客／未夠級）見 _p16／_p17。 */
-  function fmt(n){return 'HK$'+Number(n).toLocaleString('en-US');}
+  /* Demo＝訪客 persona 靜態樣本：客面只顯示原價及單一登入會員價提示；共享 demo script 保留嘅 data-mprice 只供視覺互動，唔代表訪客 entitlement。production 全部 server-side（§5）。訪客形（原價、無 tag、單一提示）見 _p14-pdp-guest；整件售罄見 _p15；搶先鎖（訪客／未夠級）見 _p16／_p17。 */
+  function fmt(n){return 'HK$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
   var main=document.getElementById('pdp-main');
   document.querySelectorAll('.pdp-thumb').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.pdp-thumb').forEach(function(x){x.classList.remove('is-active');});t.classList.add('is-active');main.src=t.getAttribute('data-src');});});
   function accSet(item){var body=item.querySelector('.acc-body');body.style.maxHeight=item.classList.contains('is-open')?(body.scrollHeight+'px'):'0px';}
@@ -739,10 +739,10 @@
   // sync＝純顯示：直讀 selected variation 嘅 data-price／data-mprice 設計值更新價錢＋規格容量；無任何計價／會員邏輯
   function sync(){
     var v=document.querySelector('input[name=vol]:checked');
-    var mu=parseInt(v.getAttribute('data-mprice'),10)||parseInt(v.getAttribute('data-price'),10);
+    var mu=Number(v.getAttribute('data-mprice'))||Number(v.getAttribute('data-price'));
     document.getElementById('pdp-price').textContent=fmt(mu);
     var origEl=document.getElementById('pdp-price-orig');
-    if(origEl)origEl.textContent=fmt(parseInt(v.getAttribute('data-price'),10));
+    if(origEl)origEl.textContent=fmt(Number(v.getAttribute('data-price')));
     var apEl=document.getElementById('pdp-add-price');if(apEl)apEl.textContent=fmt(mu*qty());
     document.getElementById('d5-bar-price').textContent=fmt(mu*qty());
     var mv=document.getElementById('pdp-meta-vol');if(mv)mv.textContent=v.value;
@@ -795,7 +795,7 @@
                 <ul class="font-sans space-y-3 md:space-y-4 text-base md:text-lg flex flex-col items-start">
                     <li><a href="odm-perfume.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">靈活代工 ODM</a></li>
                     <li><a href="workshops.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">調香工藝 Workshops</a></li>
-                    <li><a href="#services" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">香氣營銷 Marketing</a></li>
+                    <li><a href="scentm-home.html#services" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">香氣營銷 Marketing</a></li>
                 </ul>
             </div>
 

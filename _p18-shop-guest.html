@@ -416,6 +416,7 @@
 </head>
 <script>window.HB_GUEST=true;/* 樣本狀態旗：側滑車/搜尋以訪客形 render（display-mode，非邏輯） */</script>
 <body class="font-sans antialiased selection:bg-brand-terracotta selection:text-white">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-3 focus:text-brand-brown">跳至主要內容</a>
 
     <!-- 導航欄 -->
     <nav id="main-header" class="fixed w-full z-[70] px-6 md:px-12 py-5 md:py-8 flex justify-between items-center border-b border-transparent">
@@ -464,7 +465,7 @@
             <div class="overflow-hidden pb-2"><a href="about.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">About.</a></div>
             <div class="overflow-hidden pb-2"><a href="odm-perfume.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Boutique ODM.</a></div>
             <div class="overflow-hidden pb-2"><a href="workshops.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Workshops.</a></div>
-            <div class="overflow-hidden pb-2"><a href="#services" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Scent Marketing.</a></div>
+            <div class="overflow-hidden pb-2"><a href="scentm-home.html#services" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Scent Marketing.</a></div>
             <div class="overflow-hidden pb-2"><a href="journal.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Journal.</a></div>
             <div class="overflow-hidden pb-2"><a href="testimonials.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Testimonials.</a></div>
             <div class="overflow-hidden pb-2"><a href="contact.html" class="menu-link text-[2.75rem] sm:text-5xl md:text-7xl font-serif italic tracking-tight block w-max hover:text-brand-terracotta transition-colors duration-300">Contact.</a></div>
@@ -575,7 +576,7 @@
   <div style="display:none" aria-hidden="true"><img id="banner-img" alt=""><img id="banner-img-m" alt=""></div>
 </section>
 
-<main class="pt-3 md:pt-5 pb-20 md:pb-28 px-6 md:px-12">
+<main id="main" class="pt-3 md:pt-5 pb-20 md:pb-28 px-6 md:px-12">
   <div class="max-w-screen-2xl mx-auto">
     <nav class="font-sans text-[16px] tracking-[0.04em] text-brand-brown/55" aria-label="breadcrumb"><a href="HIBI LAB Landing.html" class="hover:text-brand-terracotta transition-colors">HIBI LAB</a><span class="mx-2 text-brand-brown/30">/</span><span id="crumb-cat" class="text-brand-brown/80">全部商品</span></nav>
 
@@ -604,11 +605,11 @@
           <div class="fdrop" data-facet="price"><button class="fbtn" data-fbtn="price"><span>價格</span><span class="fbadge" data-badge style="display:none;"></span><i class="fa-solid fa-chevron-down fbtn-chev"></i></button><div class="fpop"><div class="fpanel" data-panel="price"></div></div></div>
         </div>
         <button id="plp-filter-toggle" class="fbtn lg:hidden"><i class="fa-solid fa-sliders text-xs"></i> 篩選 <span class="fbadge" id="mobile-badge" style="display:none;"></span></button>
-        <div class="ml-auto flex items-center gap-3"><select id="plp-sort" class="plp-select"><option value="featured">精選推薦</option><option value="price-asc">價格：低至高</option><option value="price-desc">價格：高至低</option><option value="name">名稱 A–Z</option></select></div>
+        <div class="ml-auto flex items-center gap-3"><label for="plp-sort" class="sr-only">排序方式</label><select id="plp-sort" name="orderby" aria-label="排序方式" class="plp-select"><option value="featured">精選推薦</option><option value="price-asc">價格：低至高</option><option value="price-desc">價格：高至低</option><option value="name">名稱 A–Z</option></select></div>
       </div>
     </div>
     <div id="plp-chips" class="flex flex-wrap gap-2.5 mt-5" style="display:none;"></div>
-    <div class="mt-6 font-sans text-[16px] text-brand-brown/60"><span id="plp-count">0</span> 件商品</div>
+    <div role="status" aria-live="polite" aria-atomic="true" class="mt-6 font-sans text-[16px] text-brand-brown/60"><span id="plp-count">0</span> 件商品</div>
 
     <div id="plp-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[18px] gap-y-10 md:gap-y-12 mt-6 items-stretch"></div>
     <div id="plp-empty" class="hidden text-center py-24"><div id="plp-empty-title" class="font-serif text-2xl text-brand-brown">未有符合的商品</div><p id="plp-empty-sub" class="font-sans text-[16px] text-brand-brown/55 mt-3">試下放寬篩選條件。</p><button id="plp-empty-clear" class="mt-6 font-sans text-[16px] tracking-[0.08em] uppercase text-brand-terracotta" style="border-bottom:1px solid #cfa886;padding-bottom:3px;">清除全部篩選</button></div>
@@ -660,7 +661,7 @@
    100
   ],
   "price": 265,
-  "mprice": 239,
+  "mprice": 238.5,
   "img": "prod-petmist"
  },
  {
@@ -687,7 +688,7 @@
    100
   ],
   "price": 266,
-  "mprice": 239,
+  "mprice": 239.4,
   "img": "prod-sleepmist"
  },
  {
@@ -714,7 +715,7 @@
    100
   ],
   "price": 266,
-  "mprice": 239,
+  "mprice": 239.4,
   "img": "prod-petmist"
  },
  {
@@ -741,7 +742,7 @@
    100
   ],
   "price": 225,
-  "mprice": 203,
+  "mprice": 202.5,
   "img": "prod-sleepmist"
  },
  {
@@ -767,7 +768,7 @@
    100
   ],
   "price": 279,
-  "mprice": 251,
+  "mprice": 251.1,
   "img": "prod-petmist"
  },
  {
@@ -794,7 +795,7 @@
    100
   ],
   "price": 507,
-  "mprice": 456,
+  "mprice": 456.3,
   "img": "prod-essencewater"
  },
  {
@@ -821,7 +822,7 @@
    100
   ],
   "price": 218,
-  "mprice": 196,
+  "mprice": 196.2,
   "img": "prod-sleepmist"
  },
  {
@@ -848,7 +849,7 @@
    100
   ],
   "price": 225,
-  "mprice": 203,
+  "mprice": 202.5,
   "img": "prod-petmist"
  },
  {
@@ -875,7 +876,7 @@
    100
   ],
   "price": 204,
-  "mprice": 184,
+  "mprice": 183.6,
   "img": "prod-sleepmist"
  },
  {
@@ -902,7 +903,7 @@
    100
   ],
   "price": 225,
-  "mprice": 203,
+  "mprice": 202.5,
   "img": "prod-petmist"
  },
  {
@@ -955,7 +956,7 @@
    100
   ],
   "price": 507,
-  "mprice": 456,
+  "mprice": 456.3,
   "img": "prod-essencewater"
  },
  {
@@ -1008,7 +1009,7 @@
    100
   ],
   "price": 253,
-  "mprice": 228,
+  "mprice": 227.7,
   "img": "prod-sleepmist"
  },
  {
@@ -1035,7 +1036,7 @@
    300
   ],
   "price": 147,
-  "mprice": 132,
+  "mprice": 132.3,
   "img": "prod-cleanser"
  },
  {
@@ -1062,7 +1063,7 @@
    300
   ],
   "price": 128,
-  "mprice": 115,
+  "mprice": 115.2,
   "img": "prod-cleanser"
  },
  {
@@ -1089,7 +1090,7 @@
    100
   ],
   "price": 225,
-  "mprice": 203,
+  "mprice": 202.5,
   "img": "prod-petmist"
  },
  {
@@ -1140,7 +1141,7 @@
    100
   ],
   "price": 298,
-  "mprice": 268
+  "mprice": 268.2
  },
  {
   "id": "q10-centella-essence",
@@ -1191,7 +1192,7 @@
    100
   ],
   "price": 235,
-  "mprice": 212
+  "mprice": 211.5
  },
  {
   "id": "pillow-mist-chamomile",
@@ -1215,7 +1216,7 @@
    50
   ],
   "price": 215,
-  "mprice": 194
+  "mprice": 193.5
  },
  {
   "id": "diffuser-amber",
@@ -1280,8 +1281,8 @@
       moreBtn=document.getElementById("plp-more"), shownEl=document.getElementById("shown-n"), totalEl=document.getElementById("total-n");
   var activeDept="all", PAGE=12, shown=PAGE, filtered=[];
   var state={concern:[],audience:[],form:[],scent:[],size:[],price:[]};
-  /* Demo＝「銀級會員」persona 靜態樣本：會員價／搶先鎖＝#plp-data 設計值欄位（mprice／locked，值跟 §22 G2 樣式）— 前端零計價、零 tier gate；production 全部 server-side（§5／§5.D，未夠級／訪客 server 端亦攔 G11）。訪客卡樣本見 _p18-shop-guest。 */
-  function fmt(n){return 'HK$'+Number(n).toLocaleString('en-US');}
+  /* Demo＝訪客 persona 靜態樣本：商品卡只顯示原價、無會員 tag；搶先商品顯示登入 gate。#plp-data 嘅 mprice／locked 只供共享 visual demo，production 全部 server-side（§5／§5.D，訪客 server 端亦攔 G11）。訪客卡樣本見 _p18-shop-guest。 */
+  function fmt(n){return 'HK$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 
   // WP-dev(R8):banners map production 由 top-level product_cat terms loop 出;每個分類嘅 eyebrow/title/intro/橫幅相 = ACF term fields(§3/§21.21)。以下 4 個分類值(護膚/寵物/助眠/家居)係 seed 示範。
   var banners={
@@ -1299,7 +1300,7 @@
   var scentSwatch={"薰衣草":"#9b8cc0","依蘭依蘭":"#d8b24f","洋甘菊":"#d9c486","甜橙":"#e08a3c","玫瑰天竺葵":"#c98b86","乳香":"#c2a886","橙花":"#e6d39a","玫瑰草":"#bcae7a","羅馬洋甘菊":"#d9c486","玫瑰":"#c87f86","琥珀":"#c08a52","小蒼蘭":"#ead8c0","雪松":"#7d8a5e","佛手柑":"#c7b85a","無香":"#cfc6bb"};
   var sizeOpts=[[45,"45ml"],[50,"50ml"],[100,"100ml"],[200,"200ml"],[300,"300ml"]];
   // §4／§22（L358 契約）：價格 filter／slider／「N 件符合」／排序基準一律＝原價 regular price（production 讀 wc_product_meta_lookup、喺會員 price filter 之前計）；卡面顯示會員價唔影響 filter 基準 — 契約如此，WP dev 唔好改用會員價做 filter 基準
-  var priceOpts=[["0-200","少於 HK$200"],["200-350","HK$200 – HK$350"],["350-99999","HK$350 以上"]];
+  var priceOpts=[["0-200","少於 HK$200.00"],["200-350","HK$200.00 – HK$350.00"],["350-99999","HK$350.00 以上"]];
   var priceLabels={}; priceOpts.forEach(function(o){priceLabels[o[0]]=o[1];});
   var optDefs={ concern:concernOpts.map(function(c){return [c,c,null];}), audience:audienceOpts.map(function(o){return [o[0],o[1],null];}), form:formOpts.map(function(f){return [f,f,null];}), scent:Object.keys(scentSwatch).map(function(s){return [s,s,scentSwatch[s]];}), size:sizeOpts.map(function(o){return [String(o[0]),o[1],null];}), price:priceOpts.map(function(o){return [o[0],o[1],null];}) };
   var cols2={concern:1,scent:1};
@@ -1325,13 +1326,13 @@
   function priceCount(lo,hi){ return data.filter(function(p){ return matches(p,'price') && p.price>=lo && p.price<=(hi>=1000?99999:hi); }).length; }
   function priceSliderHTML(){ var lo=0,hi=1000; if(state.price.length){ var z=state.price[0].split('-'); lo=+z[0]; hi=Math.min(1000,+z[1]); }
     return "<div class='price-slider' data-price-slider><div class='ps-track'><div class='ps-fill' style='left:"+(lo/10)+"%;width:"+((hi-lo)/10)+"%;'></div></div>"+
-      "<input type='range' data-price-handle='min' min='0' max='1000' step='10' value='"+lo+"'>"+
-      "<input type='range' data-price-handle='max' min='0' max='1000' step='10' value='"+hi+"'>"+
-      "<div class='ps-labels'><span class='ps-lo'>"+fmt(lo)+"</span><span class='ps-hi'>"+(hi>=1000?'HK$1,000+':fmt(hi))+"</span></div>"+
+      "<input type='range' name='min_price' aria-label='最低價格' aria-valuetext='"+fmt(lo)+"' data-price-handle='min' min='0' max='1000' step='10' value='"+lo+"'>"+
+      "<input type='range' name='max_price' aria-label='最高價格' aria-valuetext='"+(hi>=1000?'HK$1,000.00+':fmt(hi))+"' data-price-handle='max' min='0' max='1000' step='10' value='"+hi+"'>"+
+      "<div class='ps-labels'><span class='ps-lo'>"+fmt(lo)+"</span><span class='ps-hi'>"+(hi>=1000?'HK$1,000.00+':fmt(hi))+"</span></div>"+
       "<div class='ps-count'>"+priceCount(lo,hi)+" 件符合</div></div>"; }
   function updatePriceUI(ps){ var mn=ps.querySelector('[data-price-handle=min]'),mx=ps.querySelector('[data-price-handle=max]'); var lo=+mn.value,hi=+mx.value; if(lo>hi){var t=lo;lo=hi;hi=t;}
     ps.querySelector('.ps-fill').style.left=(lo/10)+'%'; ps.querySelector('.ps-fill').style.width=((hi-lo)/10)+'%';
-    ps.querySelector('.ps-lo').textContent=fmt(lo); ps.querySelector('.ps-hi').textContent=(hi>=1000?'HK$1,000+':fmt(hi)); ps.querySelector('.ps-count').textContent=priceCount(lo,hi)+' 件符合'; }
+    mn.setAttribute('aria-valuetext',fmt(lo)); mx.setAttribute('aria-valuetext',(hi>=1000?'HK$1,000.00+':fmt(hi))); ps.querySelector('.ps-lo').textContent=fmt(lo); ps.querySelector('.ps-hi').textContent=(hi>=1000?'HK$1,000.00+':fmt(hi)); ps.querySelector('.ps-count').textContent=priceCount(lo,hi)+' 件符合'; }
   function renderPanels(){ ["concern","audience","form","scent","size","price"].forEach(function(f){ var html=(f==="price")?priceSliderHTML():optionsHTML(f);
       var d=document.querySelector("[data-panel=\""+f+"\"]"); if(d){ d.innerHTML=html; d.className="fpanel"+(cols2[f]?" cols2":""); }
       var m=document.querySelector("[data-panel-m=\""+f+"\"]"); if(m) m.innerHTML=html; }); }
@@ -1341,7 +1342,7 @@
     var mb=document.getElementById("mobile-badge"); if(mb){ mb.style.display=totalSel>0?"inline-flex":"none"; mb.textContent=totalSel; }
     var sn=document.getElementById("sheet-n"); if(sn) sn.textContent=filtered.length; }
 
-  /* card 價錢／鎖定直讀 #plp-data 設計值：p.locked（搶先鎖，production=server gate §5.D）、p.mprice（會員價，production=server 計 §5／G2）。「銀級會員價」tag＝demo persona 設計值，production 出「{當前級}會員價」。訪客形（原價、無 tag、teaser）見 _p18-shop-guest。 */
+  /* card 價錢／鎖定直讀 #plp-data 設計值：p.locked（搶先鎖，production=server gate §5.D）、p.mprice（會員價，production=server 計 §5／G2）。「銀級會員價」tag＝demo persona 設計值，production 出「{當前級}會員價」。訪客形（原價、無 tag）見 _p18-shop-guest。 */
   function card(p){ var lock=!!p.locked; var badge=p.stock==="out"?'<span class="stk stk-out">售罄</span>':(p.stock==="preorder"?'<span class="stk stk-pre">預訂</span>':(lock?'<span class="stk" style="background:#A64B2A;color:#FDFBF9;">會員搶先</span>':'')), soldcls=p.stock==="out"?" is-out":""; var media="<img src=\""+p.img+".png\" alt=\""+p.name+"\" class=\"absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out\">";
     var sizeTxt=p.sizes.length>1?(Math.min.apply(null,p.sizes)+"ml 起"):(p.sizes[0]+"ml"); var multi=p.sizes.length>1, sfx=multi?" 起":"";
     var priceBlock;
@@ -1357,9 +1358,9 @@
     filtered.sort(function(x,y){ if(mode==="price-asc")return x.price-y.price; if(mode==="price-desc")return y.price-x.price; if(mode==="name")return x.name.localeCompare(y.name,"zh-Hant"); return 0; }); }
   /* searchQ 來自 URL ?s= — 落 innerHTML 前必須 escape（防反射 XSS；production 由 WP esc_html 處理） */
   function escQ(s){return String(s).replace(/[&<>"\x27]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","\x27":"&#39;"}[c];});}
-  function updateChips(){ var chips=[]; if(searchQ){ chips.push("<span class=\"chip\">搜尋:「"+escQ(searchQ)+"」<button data-search-clear aria-label=\"移除\"><i class=\"fa-solid fa-xmark\" style=\"font-size:10px;\"></i></button></span>"); } [["concern","功效"],["audience","對象"],["form","形態"],["scent","香味"],["size","容量"],["price","價格"]].forEach(function(pair){ var f=pair[0];
-      state[f].forEach(function(v){ var txt=f==="size"?(v+"ml"):f==="price"?(fmt(v.split("-")[0])+" – "+(parseInt(v.split("-")[1],10)>=99999?"HK$1,000+":fmt(v.split("-")[1]))):v; chips.push("<span class=\"chip\">"+txt+"<button data-facet=\""+f+"\" data-val=\""+v+"\" aria-label=\"移除\"><i class=\"fa-solid fa-xmark\" style=\"font-size:10px;\"></i></button></span>"); }); });
-    if(chips.length){ chipsEl.innerHTML=chips.join("")+"<button id=\"plp-chip-clear\" class=\"font-sans text-[16px] text-brand-terracotta ml-1 hover:underline\">清除全部</button>"; chipsEl.style.display="flex"; } else { chipsEl.innerHTML=""; chipsEl.style.display="none"; } }
+  function updateChips(){ var chips=[]; if(searchQ){ chips.push("<span class=\"chip\">搜尋:「"+escQ(searchQ)+"」<button type=\"button\" data-search-clear aria-label=\"移除\"><i class=\"fa-solid fa-xmark\" style=\"font-size:10px;\"></i></button></span>"); } [["concern","功效"],["audience","對象"],["form","形態"],["scent","香味"],["size","容量"],["price","價格"]].forEach(function(pair){ var f=pair[0];
+      state[f].forEach(function(v){ var txt=f==="size"?(v+"ml"):f==="price"?(fmt(v.split("-")[0])+" – "+(parseInt(v.split("-")[1],10)>=99999?"HK$1,000.00+":fmt(v.split("-")[1]))):v; chips.push("<span class=\"chip\">"+txt+"<button type=\"button\" data-facet=\""+f+"\" data-val=\""+v+"\" aria-label=\"移除\"><i class=\"fa-solid fa-xmark\" style=\"font-size:10px;\"></i></button></span>"); }); });
+    if(chips.length){ chipsEl.innerHTML=chips.join("")+"<button type=\"button\" id=\"plp-chip-clear\" class=\"font-sans text-[16px] text-brand-terracotta ml-1 hover:underline\">清除全部</button>"; chipsEl.style.display="flex"; } else { chipsEl.innerHTML=""; chipsEl.style.display="none"; } }
   // 空狀態三變體:(a) 無 facet 無搜尋=空分類 (b) 有 facet (c) 搜尋冇結果
   function updateEmpty(){ if(filtered.length>0) return; var t=document.getElementById("plp-empty-title"), s=document.getElementById("plp-empty-sub"), b=document.getElementById("plp-empty-clear");
     var hasFacet=Object.keys(state).some(function(k){return state[k].length>0;});
@@ -1442,7 +1443,7 @@
                 <ul class="font-sans space-y-3 md:space-y-4 text-base md:text-lg flex flex-col items-start">
                     <li><a href="odm-perfume.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">靈活代工 ODM</a></li>
                     <li><a href="workshops.html" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">調香工藝 Workshops</a></li>
-                    <li><a href="#services" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">香氣營銷 Marketing</a></li>
+                    <li><a href="scentm-home.html#services" class="inline-block hover:underline underline-offset-[8px] decoration-1 transition-colors duration-300">香氣營銷 Marketing</a></li>
                 </ul>
             </div>
 

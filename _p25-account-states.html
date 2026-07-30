@@ -31,6 +31,10 @@
   .tcard .fill{height:100%;border-radius:9999px}
   .panelbox{border:1px solid #ece0d5;border-radius:10px;padding:28px}
   .devnote{font-size:14px;line-height:1.8;color:#8a7464;margin-top:10px}
+  .bday-label{display:block;font-size:16px;color:#3B261D;margin-bottom:8px}
+  .bday-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:420px}
+  .bday-fields select{width:100%;border:1px solid #d8c8ba;border-radius:8px;background:#fff;color:#3B261D;padding:13px 14px;font:16px Montserrat,"Noto Sans TC",sans-serif}
+  @media(max-width:520px){.bday-fields{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -39,8 +43,8 @@
   <h1>會員中心狀態樣本</h1>
   <p class="lead">狀態樣本檔（唔上線）。呢頁補齊 Account 預設 demo（Amanda＝銀級）見唔到嘅狀態；全部值由 VIP repeater＋WC 實時 derive（§5／§9／§22.6），呢度只係設計樣本。</p>
 
-  <!-- ═══ 1. 一般會員（$0 / 0%）卡 ═══ -->
-  <div class="snote"><span class="n">① 一般會員（基本級 $0 / 0%）— 新註冊帳戶</span><span class="l"></span></div>
+  <!-- ═══ 1. 一般會員（HK$0.00 / 0%）卡 ═══ -->
+  <div class="snote"><span class="n">① 一般會員（基本級 HK$0.00 / 0%）— 新註冊帳戶</span><span class="l"></span></div>
   <div class="tcard" style="background:linear-gradient(120deg,#efe6dd 0%,#e4d6c5 100%);color:#3B261D;box-shadow:inset 0 0 0 1px rgba(59,38,29,0.08);">
     <div class="top">
       <div>
@@ -48,14 +52,13 @@
         <div class="tname" style="color:#3B261D">一般會員 <span class="en" style="color:#A64B2A">General</span></div>
       </div>
       <div>
-        <div class="num" style="color:#A64B2A">HK$0</div>
+        <div class="num" style="color:#A64B2A">HK$0.00</div>
         <div class="numlab" style="color:rgba(59,38,29,0.5)">近 12 個月消費</div>
       </div>
     </div>
     <div class="prog">
-      <div class="progrow" style="color:rgba(59,38,29,0.65)"><span>距離 銀級會員 還差 HK$2,000</span><span style="font-variant-numeric:tabular-nums;">HK$0 / HK$2,000</span></div>
+      <div class="progrow" style="color:rgba(59,38,29,0.65)"><span>距離 銀級會員 還差 HK$2,000.00</span><span style="font-variant-numeric:tabular-nums;">HK$0.00 / HK$2,000.00</span></div>
       <div class="track" style="background:rgba(59,38,29,0.12)"><div class="fill" style="width:0%;background:linear-gradient(90deg,#c98f6e,#A64B2A)"></div></div>
-      <div style="font-size:16px;color:rgba(59,38,29,0.55);margin-top:12px">再消費 HK$2,000 即升 銀級會員</div>
     </div>
   </div>
   <p class="devnote">基本級 0%＝<strong>全站無會員價</strong>：商品卡／PDP／購物車／結帳一律原價、無「會員優惠」行、無 tag（§5.A）— 等同訪客價錢呈現，唯一分別係已登入有帳戶功能。</p>
@@ -70,7 +73,7 @@
         <div class="tname" style="color:#FDFBF9">金級會員 <span class="en" style="color:#e8c88a">Gold</span></div>
       </div>
       <div>
-        <div class="num" style="color:#e8c88a">HK$6,240</div>
+        <div class="num" style="color:#e8c88a">HK$6,240.00</div>
         <div class="numlab" style="color:rgba(253,251,249,0.6)">近 12 個月消費</div>
       </div>
     </div>
@@ -78,10 +81,10 @@
       <div class="progrow" style="color:rgba(253,251,249,0.75)"><span><i class="fa-solid fa-crown" style="color:#e8c88a;margin-right:8px"></i>尊尚會籍 · 已達最高等級</span><span>維持中</span></div>
     </div>
   </div>
-  <p class="devnote">§22.6／§9.131：頂級卡「尊尚會籍 · 已達最高等級」＋右欄「維持中」、<strong>唔出進度條同暖行</strong>。「頂級」＝之上冇更高 enabled 級（data-driven，唔係焊死金級）。等級每次由近 12 月淨消費即場計（G1/G9），跌穿門檻會喺結算重算時降級。</p>
+  <p class="devnote">§22.6／§9.131：頂級卡「尊尚會籍 · 已達最高等級」＋右欄「維持中」、<strong>唔出進度條</strong>。「頂級」＝之上冇更高 enabled 級（data-driven，唔係焊死金級）。等級每次由近 12 月淨消費即場計（G1/G9）；付款／退款確認後即時升降，每日核對只補回跨 12 個月邊界或漏咗嘅 projection。</p>
 
-  <!-- ═══ 3. 超標未結算 clamp ═══ -->
-  <div class="snote"><span class="n">③ 超過下一級門檻但未結算／被 override（clamp 樣本）</span><span class="l"></span></div>
+  <!-- ═══ 3. Manual override／projection drift clamp（唔係結算狀態） ═══ -->
+  <div class="snote"><span class="n">③ 手動 override／投影漂移（只測 clamp，唔係結算狀態）</span><span class="l"></span></div>
   <div class="tcard" style="background:linear-gradient(120deg,#3B261D 0%,#5a3d2c 60%,#7a4f33 100%);color:#FDFBF9;">
     <div class="top">
       <div>
@@ -89,23 +92,35 @@
         <div class="tname" style="color:#FDFBF9">銀級會員 <span class="en" style="color:#e8b896">Silver</span></div>
       </div>
       <div>
-        <div class="num" style="color:#e8b896">HK$5,600</div>
+        <div class="num" style="color:#e8b896">HK$5,600.00</div>
         <div class="numlab" style="color:rgba(253,251,249,0.55)">近 12 個月消費</div>
       </div>
     </div>
     <div class="prog">
-      <div class="progrow" style="color:rgba(253,251,249,0.7)"><span>距離 金級會員 還差 HK$0</span><span style="font-variant-numeric:tabular-nums;">HK$5,600 / HK$5,000</span></div>
+      <div class="progrow" style="color:rgba(253,251,249,0.7)"><span>距離 金級會員 還差 HK$0.00</span><span style="font-variant-numeric:tabular-nums;">HK$5,600.00 / HK$5,000.00</span></div>
       <div class="track" style="background:rgba(243,234,225,0.18)"><div class="fill" style="width:100%;background:linear-gradient(90deg,#d8a98c,#e8b896)"></div></div>
     </div>
   </div>
-  <p class="devnote">還差 clamp ≥ HK$0、fill clamp ≤ 100%（§22.6）— 升級喺訂單完成即時生效（§5），呢個中間態一般只喺 manual override pin 級（G10）或極短暫窗口出現；<strong>唔准出負數「還差」或爆 100% 條</strong>。</p>
+  <p class="devnote">還差 clamp ≥ HK$0.00、fill clamp ≤ 100%（§22.6）— 正常等級喺首次驗證 `PaymentEvidenceService=confirmed_paid|confirmed_zero` 或成功退款後即時重算；呢個樣本只驗 manual override pin 級（G10）或 projection drift 嘅防爆顯示，<strong>唔代表有結算週期，亦唔准出負數「還差」或爆 100% 條</strong>。</p>
 
   <!-- ═══ 4. 生日月 overview banner ═══ -->
   <div class="snote"><span class="n">④ 生日月 — 概覽 banner（§22.7 合約句）</span><span class="l"></span></div>
   <div class="panelbox" style="background:#fbf4ee;border-color:#ecd9c8;">
     <div style="font-size:16px;color:#A64B2A;line-height:1.8;">生日會員價已自動生效，無需優惠碼。</div>
   </div>
-  <p class="devnote">生日月（§5.B）：有效％＝max(等級％, 生日％)，自動 price filter、無 code／無錢包；banner 出喺 Account 概覽＋Cart（見 _p20）；PDP tag 改「生日會員價」；生日祝賀 email 生日月 1 號寄。等級生日％＝0 ⇒ 唔出 banner（唔好空頭承諾）。</p>
+  <p class="devnote">生日月（§5.B）：有效％＝max(等級％, 生日％)，自動 price filter、無 code／無錢包；banner 出喺 Account 概覽＋Cart（見 _p20）；PDP tag 改「生日會員價」；生日祝賀 email 生日月 1 號寄，1 號後先設定生日或取得 marketing opt-in 就喺成功寫入後即檢查並補排當月一封，每日香港時間 10:00 reconciliation 補漏，同一香港曆年最多一封。等級生日％＝0 ⇒ 唔出 banner（唔好空頭承諾）。</p>
+
+  <!-- ═══ 4B. 尚未設定生日 ═══ -->
+  <div class="snote" id="birthday-unset-preview"><span class="n">④-B 帳戶設定 — 生日尚未設定</span><span class="l"></span></div>
+  <div class="panelbox">
+    <label class="bday-label" id="birthday-unset-label">生日（可選）</label>
+    <div class="bday-fields" role="group" aria-labelledby="birthday-unset-label">
+      <select aria-label="出生月份"><option value="">月份</option><option>1月</option><option>2月</option><option>3月</option><option>4月</option><option>5月</option><option>6月</option><option>7月</option><option>8月</option><option>9月</option><option>10月</option><option>11月</option><option>12月</option></select>
+      <select aria-label="出生日期"><option value="">日期</option><option>1日</option><option>2日</option><option>3日</option><option>…</option><option>31日</option></select>
+    </div>
+    <p style="font-size:16px;line-height:1.7;color:#8a7464;margin-top:10px;">儲存後如需更正，請聯絡 Customer Care。</p>
+  </div>
+  <p class="devnote">只喺 canonical birthday 尚未設定時顯示一次輸入欄；儲存用 server-side 合法日期驗證＋compare-and-set。成功後立即改用主 Account 樣本嘅唯讀顯示，重新整理、REST 或並發提交都唔可再次覆寫。</p>
 
   <!-- ═══ 5. 空訂單狀態 ═══ -->
   <div class="snote"><span class="n">⑤ 訂單記錄 — 空狀態（新帳戶）</span><span class="l"></span></div>
@@ -117,7 +132,7 @@
       <a href="HIBI LAB Shop.html" style="display:inline-block;margin-top:20px;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:#A64B2A;border-bottom:1px solid #cfa886;padding-bottom:3px;text-decoration:none;">前往商店</a>
     </div>
   </div>
-  <p class="devnote">WC my-account orders 空狀態 skin（同 Cart 空狀態同語彙）；概覽「最近訂單」mini-list 同步隱藏／出同句提示；「累積訂單 0 · 累積消費 HK$0」照出。</p>
+  <p class="devnote">WC my-account orders 空狀態 skin（同 Cart 空狀態同語彙）；概覽「最近訂單」mini-list 同步隱藏／出同句提示；「累積訂單 0 · 累積消費 HK$0.00」照出。</p>
 
   <!-- ═══ 6. 訪客訪問 my-account ═══ -->
   <div class="snote"><span class="n">⑥ 訪客（未登入）訪問會員中心</span><span class="l"></span></div>

@@ -27,22 +27,22 @@
 
         <!-- line items -->
         <tr><td style="padding:0 32px;">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;table-layout:fixed;">
             <tr>
-              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">Q10 Centella Essence<br><span style="font-size:12px;color:#a08e7e;">30ml × 1</span></td>
-              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$340</td>
+              <td style="width:68%;padding:12px 12px 12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;word-break:break-word;overflow-wrap:anywhere;">Q10 Centella Essence<br><span style="font-size:12px;color:#a08e7e;">30ml × 1</span></td>
+              <td style="width:32%;padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;white-space:nowrap;">HK$340.00</td>
             </tr>
             <tr>
-              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;">睡眠噴霧・薰衣草<br><span style="font-size:12px;color:#a08e7e;">100ml × 1</span></td>
-              <td style="padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;">HK$235</td>
+              <td style="width:68%;padding:12px 12px 12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;word-break:break-word;overflow-wrap:anywhere;">睡眠噴霧・薰衣草<br><span style="font-size:12px;color:#a08e7e;">100ml × 1</span></td>
+              <td style="width:32%;padding:12px 0;border-top:1px solid #ece0d2;font-size:15px;color:#3B261D;text-align:right;vertical-align:top;white-space:nowrap;">HK$235.00</td>
             </tr>
             <tr>
               <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:13px;color:#a08e7e;">小計</td>
-              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:14px;color:#3B261D;text-align:right;">HK$575</td>
+              <td style="padding:11px 0;border-top:1px solid #ece0d2;font-size:14px;color:#3B261D;text-align:right;white-space:nowrap;">HK$575.00</td>
             </tr>
             <tr>
               <td style="padding:6px 0;font-size:13px;color:#A64B2A;">會員優惠</td>
-              <td style="padding:6px 0;font-size:14px;color:#A64B2A;text-align:right;">−HK$57</td>
+              <td style="padding:6px 0;font-size:14px;color:#A64B2A;text-align:right;white-space:nowrap;">−HK$57.50</td>
             </tr>
             <tr>
               <!-- 運費 label 唔出門檻括註：免運門檻字串單一來源＝五個站內消費位（§22），email 只出 {shipping} 實數，唔焊死門檻 -->
@@ -51,7 +51,7 @@
             </tr>
             <tr>
               <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-size:15px;color:#3B261D;">總計</td>
-              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-family:Georgia,serif;font-size:20px;color:#A64B2A;text-align:right;">HK$518</td>
+              <td style="padding:13px 0;border-top:1px solid #ece0d2;border-bottom:1px solid #ece0d2;font-family:Georgia,serif;font-size:20px;color:#A64B2A;text-align:right;white-space:nowrap;">HK$517.50</td>
             </tr>
           </table>
         </td></tr>
@@ -73,14 +73,36 @@
           </table>
         </td></tr>
 
-        <!-- status strip -->
+        <!-- email-safe order progress · ① 訂單確認＝第 1 步 -->
         <tr><td style="padding:24px 32px 8px;">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf5ee;border:1px solid #ece0d2;border-radius:6px;">
-            <tr><td style="padding:14px 18px;font-size:13px;line-height:1.7;color:#5a4a3e;">
-              <span style="color:#A64B2A;">●</span>&nbsp;已確認&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">處理中</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">已寄出</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">───</span>&nbsp;&nbsp;<span style="color:#d8c8ba;">○</span>&nbsp;<span style="color:#a08e7e;">已完成</span><br>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#FAF5EE" style="width:100%;background:#FAF5EE;border:1px solid #ECE0D2;border-radius:6px;">
+            <tr><td style="padding:16px 12px 12px;">
+              <p style="margin:0 0 13px;font-size:11px;line-height:1.4;letter-spacing:1.8px;text-transform:uppercase;color:#A08E7E;">訂單進度</p>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;table-layout:fixed;">
+                <tr>
+                  <td width="19%" align="center" style="font-size:19px;line-height:20px;color:#A64B2A;">●</td>
+                  <td width="8%" valign="middle"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td height="1" bgcolor="#D8C8BA" style="height:1px;font-size:1px;line-height:1px;mso-line-height-rule:exactly;">&nbsp;</td></tr></table></td>
+                  <td width="19%" align="center" style="font-size:19px;line-height:20px;color:#D8C8BA;">○</td>
+                  <td width="8%" valign="middle"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td height="1" bgcolor="#D8C8BA" style="height:1px;font-size:1px;line-height:1px;mso-line-height-rule:exactly;">&nbsp;</td></tr></table></td>
+                  <td width="19%" align="center" style="font-size:19px;line-height:20px;color:#D8C8BA;">○</td>
+                  <td width="8%" valign="middle"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td height="1" bgcolor="#D8C8BA" style="height:1px;font-size:1px;line-height:1px;mso-line-height-rule:exactly;">&nbsp;</td></tr></table></td>
+                  <td width="19%" align="center" style="font-size:19px;line-height:20px;color:#D8C8BA;">○</td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding-top:6px;font-size:11px;line-height:1.4;font-weight:bold;color:#A64B2A;white-space:nowrap;">已確認</td>
+                  <td>&nbsp;</td>
+                  <td align="center" style="padding-top:6px;font-size:11px;line-height:1.4;color:#A08E7E;white-space:nowrap;">處理中</td>
+                  <td>&nbsp;</td>
+                  <td align="center" style="padding-top:6px;font-size:11px;line-height:1.4;color:#A08E7E;white-space:nowrap;">已寄出</td>
+                  <td>&nbsp;</td>
+                  <td align="center" style="padding-top:6px;font-size:11px;line-height:1.4;color:#A08E7E;white-space:nowrap;">已完成</td>
+                </tr>
+              </table>
+            </td></tr>
+            <tr><td style="border-top:1px solid #ECE0D2;padding:11px 16px 13px;font-size:12px;line-height:1.65;color:#8A7464;">
               <!-- {status_note}：member＝「你亦可以登入會員中心隨時查看訂單狀態。」/ guest＝「你可以隨時透過此電郵內嘅連結查看訂單狀態（〈查看訂單〉→ {order_url}）。」 -->
-              <!-- ⚠ 狀態條 lead 句＝per-variant 區域：①「寄出後我哋會再 email 通知你，並附上追蹤號。」／②寄出＝追蹤卡就喺上面，唔重覆呢句／③完成④退款＝唔出 — 唔准當 wrapper 共用字 -->
-              <span style="font-size:12px;color:#a08e7e;">寄出後我哋會再 email 通知你，並附上追蹤號。你亦可以登入會員中心隨時查看訂單狀態。</span>
+              <!-- ⚠ lead 句：①先出寄出提示；②追蹤卡已在上方；③④不出。 -->
+              寄出後我哋會再 email 通知你，並附上追蹤號。你亦可以登入會員中心隨時查看訂單狀態。
             </td></tr>
           </table>
         </td></tr>
@@ -106,9 +128,9 @@
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;">
         <tr><td style="font-size:12px;line-height:1.9;color:#8a7464;padding:0 4px;">
           <strong style="color:#5a4a3e;">範本 spec（§21.10 / §22）：</strong>同一個 wrapper 出<strong>六款</strong> email（⑥樣本見 _p24）,per-variant 區域＝eyebrow／標題／開場白／狀態條<strong>＋狀態條 lead 句＋閉幕「取消或修改」句＋運費值＋送貨方式格</strong>（見上面各 ⚠ 註）：<br>
-          ① <strong>訂單確認</strong>（上圖,processing,狀態條第 1 步 active）· ② <strong>寄出通知</strong>（Order shipped／已寄出,狀態條第 3 步 active,加追蹤卡：<code>{carrier}</code> · <code>{tracking_no}</code> ·〈追蹤包裹〉→ <code>{tracking_url}</code>）· ③ <strong>訂單完成</strong>（Order completed／已完成,狀態條第 4 步 active）· ④ <strong>退款通知</strong>（Refund issued／退款通知,金額行顯示退款額,唔出狀態條）· ⑤ <strong>店主新訂單通知</strong>（內部版,收件人＝店主通知地址,加客人聯絡資料,唔出品牌開場白）· ⑥ <strong>補購提醒</strong>（2026-07-10 鎖定：購買重錨・循環直至暫停/取消・只限會員・逐件獨立;Action Scheduler 到期觸發,<code>{product}</code>＋<code>{reorder_url}</code> 一鍵再買,非扣款）。<strong>另</strong>：VIP 生日祝賀 email＝同一 wrapper skin（生日月 1 號 WP-Cron,只祝賀＋提示生日會員價自動生效,無 coupon）。<br>
+          ① <strong>訂單確認</strong>（上圖；Woo 已付款／HK$0.00 paid-equivalent＝客面「已確認」，唔直接以 generic processing 字眼判斷；狀態條第 1 步 active）· ② <strong>寄出通知</strong>（Order shipped／已寄出,狀態條第 3 步 active,加追蹤卡：<code>{carrier}</code> · <code>{tracking_no}</code> ·〈追蹤包裹〉→ <code>{tracking_url}</code>）· ③ <strong>訂單完成</strong>（Order completed／已完成,狀態條第 4 步 active）· ④ <strong>退款通知</strong>（Refund issued／退款通知,金額行顯示退款額,唔出狀態條）· ⑤ <strong>店主新訂單通知</strong>（內部版,收件人＝店主通知地址,加客人聯絡資料,唔出品牌開場白）· ⑥ <strong>補購提醒</strong>（2026-07-10 鎖定：購買重錨・循環直至暫停/取消・只限會員・逐件獨立;Action Scheduler 到期觸發,<code>{product}</code>＋<code>{reorder_url}</code> 一鍵再買,非扣款）。<strong>另</strong>：VIP 生日祝賀 email＝同一 wrapper skin（生日月 1 號香港時間 10:00 由 Action Scheduler 排送；每日 reconciliation 補漏；只祝賀＋提示生日會員價自動生效,無 coupon）。<br>
           <strong>{discount_rows} 三形</strong>：無折扣（guest／一般會員 0%／無碼 → 成行略過,總計＝小計）／會員優惠 −HK$X（label 全站統一＝「會員優惠」，2026-07-10 客戶裁定 §22.5）／優惠碼 {code} −HK$X（coupon 贏 best-wins 時,取代會員行）— 二選一,永不並存（§6）。②–⑤＋paid-shipping＋guest＋coupon-won 變體視覺樣本見 <code>_p24-email-variants.html</code>。<br>
-          WP 實作＝後台可編輯範本（option 儲存＋placeholder：<code>{name} {order} {date} {items} {subtotal} {discount_rows} {shipping} {shipping_method} {total} {address} {tracking_no} {tracking_url} {carrier} {order_url} {status_note} {product} {schedule} {reorder_url}</code>＋live preview＋測試寄送,跟 Scent.M 收據 pattern）。Welcome／密碼重設 email 用同一個 wrapper 做 WC template override skin,唔另設計內容。字體用 Georgia serif fallback（email client 唔載得 Baskervville）。
+          WP 實作＝後台可編輯範本（option 儲存＋placeholder：<code>{name} {customer_email} {customer_phone} {order} {date} {items} {subtotal} {discount_rows} {shipping} {shipping_method} {fee_rows} {tax_rows} {refund_amount} {refunded_total} {total} {address} {tracking_no} {tracking_url} {carrier} {order_url} {status_note} {product} {schedule} {reorder_url} {manage_reminders_url} {unsubscribe_url}</code>；canonical名單及typed escaping規則以 Handoff §22 為準＋live preview＋測試寄送,跟 Scent.M 收據 pattern）。Welcome／密碼重設 email 用同一個 wrapper 做 WC template override skin,唔另設計內容。字體用 Georgia serif fallback（email client 唔載得 Baskervville）。
         </td></tr>
       </table>
     </td></tr>

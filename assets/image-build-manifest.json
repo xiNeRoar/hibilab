@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "outputDirectory": "dist/images",
+  "maxBytesPerImage": 307200,
+  "qualityCandidates": [82, 78, 74, 70, 66, 62, 58, 54, 50, 46, 42],
+  "images": [
+    { "source": "cat-home.png", "output": "cat-home.webp", "runtimeClass": "term_media_seed" },
+    { "source": "cat-pet.png", "output": "cat-pet.webp", "runtimeClass": "term_media_seed" },
+    { "source": "cat-skincare.png", "output": "cat-skincare.webp", "runtimeClass": "term_media_seed" },
+    { "source": "cat-sleep.png", "output": "cat-sleep.webp", "runtimeClass": "term_media_seed" },
+    { "source": "prod-cleanser.png", "output": "prod-cleanser.webp", "runtimeClass": "product_media_seed" },
+    { "source": "prod-diffuser.png", "output": "prod-diffuser.webp", "runtimeClass": "product_media_seed" },
+    { "source": "prod-essencewater.png", "output": "prod-essencewater.webp", "runtimeClass": "product_media_seed" },
+    { "source": "prod-petmist.png", "output": "prod-petmist.webp", "runtimeClass": "product_media_seed" },
+    { "source": "prod-q10.png", "output": "prod-q10.webp", "runtimeClass": "product_media_seed" },
+    { "source": "prod-sleepmist.png", "output": "prod-sleepmist.webp", "runtimeClass": "product_media_seed" },
+    { "source": "hero-product.png", "output": "hero-product.webp", "runtimeClass": "theme_static" },
+    { "source": "promise-candle.png", "output": "promise-candle.webp", "runtimeClass": "theme_static" },
+    { "source": "by-scentm.png", "output": "by-scentm.webp", "runtimeClass": "theme_static" }
+  ]
+}

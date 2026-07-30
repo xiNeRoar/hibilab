@@ -20,13 +20,14 @@
   .devnote{font-size:14px;line-height:1.8;color:#8a7464;margin-top:10px}
   .stage{border:1px solid #e2d5c8;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#f7f0e8 0%,#efe6dd 100%);position:relative;height:300px}
   .stage .hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(59,38,29,.35);font-size:16px;letter-spacing:.1em}
-  .cbar{position:absolute;left:0;right:0;bottom:0;background:#FDFBF9;border-top:1px solid #e2d5c8;box-shadow:0 -8px 24px rgba(59,38,29,.08);padding:14px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-  .cbar p{flex:1;min-width:240px;font-size:16px;line-height:1.6;color:#3B261D}
-  .cbar a{color:#A64B2A;text-decoration:underline;text-underline-offset:2px}
-  .cbar .btns{display:flex;gap:10px;flex:none}
-  .cbar button{font-family:inherit;font-size:16px;letter-spacing:.06em;border-radius:24px;padding:9px 24px;cursor:pointer}
-  .c-accept{background:#A64B2A;color:#FDFBF9;border:1px solid #A64B2A}
-  .c-decline{background:#fff;color:#3B261D;border:1px solid #d8c8ba}
+  .scentm-consent-banner{position:fixed;z-index:95;left:0;right:0;bottom:0;background:#FDFBF9;border-top:1px solid #e2d5c8;box-shadow:0 -8px 24px rgba(59,38,29,.08);padding:14px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .stage .scentm-consent-banner{position:absolute;z-index:auto}
+  .scentm-consent-banner p{flex:1;min-width:240px;font-size:16px;line-height:1.6;color:#3B261D}
+  .scentm-consent-banner a{color:#A64B2A;text-decoration:underline;text-underline-offset:2px}
+  .scentm-consent-banner .btns{display:flex;gap:10px;flex:none}
+  .scentm-consent-banner button{font-family:inherit;font-size:16px;letter-spacing:.06em;border-radius:24px;padding:9px 24px;cursor:pointer}
+  .scentm-consent-accept{background:#A64B2A;color:#FDFBF9;border:1px solid #A64B2A}
+  .scentm-consent-decline{background:#fff;color:#3B261D;border:1px solid #d8c8ba}
 </style>
 </head>
 <body>
@@ -39,11 +40,11 @@
   <div class="snote"><span class="n">① 底部橫條 — 未同意（預設態）</span><span class="l"></span></div>
   <div class="stage">
     <div class="hint">（頁面內容 — 橫條唔遮擋、可照瀏覽）</div>
-    <div class="cbar">
+    <div class="scentm-consent-banner">
       <p>本網站使用 Cookies 分析網站使用情況，以改善購物體驗。<a href="#">私隱政策</a></p>
       <div class="btns">
-        <button class="c-decline" type="button">拒絕</button>
-        <button class="c-accept" type="button">接受</button>
+        <button class="scentm-consent-decline" type="button">拒絕</button>
+        <button class="scentm-consent-accept" type="button">接受</button>
       </div>
     </div>
   </div>

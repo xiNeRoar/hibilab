@@ -23,9 +23,11 @@
   .dhead{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid #ece0d5}
   .dhead .t{font-family:Baskervville,serif;font-size:22px}
   .dfoot{border-top:1px solid #ece0d5;padding:16px 24px 22px}
-  .ditem{display:flex;gap:16px;padding:18px 24px;border-bottom:1px solid #ece0d5}
+  .ditem{display:flex;align-items:flex-start;gap:16px;padding:18px 24px;border-bottom:1px solid #ece0d5}
   .dthumb{width:64px;aspect-ratio:4/5;background:#efe6dd;border-radius:6px;flex:none}
-  .money{font-variant-numeric:tabular-nums}
+  .money{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .ditem>div:nth-child(2),.srow>div:nth-child(2){min-width:0;overflow-wrap:anywhere;word-break:break-word}
+  .ditem>.money,.srow>span:last-child{flex:none;white-space:nowrap}
   .devnote{font-size:14px;line-height:1.8;color:#8a7464;margin-top:10px}
   .scard{width:100%;max-width:560px;background:#FDFBF9;border:1px solid #ece0d5;border-radius:16px;box-shadow:0 10px 34px rgba(59,38,29,.08);overflow:hidden}
   .srow{display:flex;align-items:center;gap:16px;padding:12px 20px;border-top:1px solid #ece0d5}
@@ -43,14 +45,14 @@
   <div class="row2">
     <div class="drawer">
       <div class="dhead"><span class="t">購物車</span><span style="color:rgba(59,38,29,.5)">✕</span></div>
-      <div class="ditem"><div class="dthumb"></div><div style="flex:1"><div style="font-family:Baskervville,serif;font-size:17px">Q10 Centella Essence</div><div style="font-size:15px;color:rgba(59,38,29,.5);margin-top:2px">30ml</div></div><span class="money" style="font-family:Baskervville,serif;font-size:17px">HK$340</span></div>
-      <div class="ditem"><div class="dthumb"></div><div style="flex:1"><div style="font-family:Baskervville,serif;font-size:17px">睡眠噴霧・薰衣草</div><div style="font-size:15px;color:rgba(59,38,29,.5);margin-top:2px">100ml</div></div><span class="money" style="font-family:Baskervville,serif;font-size:17px">HK$235</span></div>
+      <div class="ditem"><div class="dthumb"></div><div style="flex:1"><div style="font-family:Baskervville,serif;font-size:17px">Q10 Centella Essence</div><div style="font-size:15px;color:rgba(59,38,29,.5);margin-top:2px">30ml</div></div><span class="money" style="font-family:Baskervville,serif;font-size:17px">HK$340.00</span></div>
+      <div class="ditem"><div class="dthumb"></div><div style="flex:1"><div style="font-family:Baskervville,serif;font-size:17px">睡眠噴霧・薰衣草</div><div style="font-size:15px;color:rgba(59,38,29,.5);margin-top:2px">100ml</div></div><span class="money" style="font-family:Baskervville,serif;font-size:17px">HK$235.00</span></div>
       <div class="dfoot">
-        <div style="display:flex;justify-content:space-between;font-size:16px;color:rgba(59,38,29,.7);margin-bottom:6px"><span>小計</span><span class="money" style="color:#3B261D">HK$575</span></div>
-        <div style="font-size:15px;color:rgba(59,38,29,.45)">滿 HK$500 免運 · 運費於結帳按送貨方式計算</div>
+        <div style="display:flex;justify-content:space-between;font-size:16px;color:rgba(59,38,29,.7);margin-bottom:6px"><span>小計</span><span class="money" style="color:#3B261D">HK$575.00</span></div>
+        <div style="font-size:15px;color:rgba(59,38,29,.45)">滿 HK$500.00 免運 · 運費於結帳按送貨方式計算</div>
       </div>
     </div>
-    <p class="devnote">訪客：無「會員優惠」行、逐行原價（teaser 只限 PDP — 07-08 裁定，側滑車唔出）。互動樣本：開任何 <code>_p14／_p16／_p18／_p19</code> 訪客頁再開側滑車（HB_GUEST 樣本旗）。</p>
+    <p class="devnote">訪客：無「會員優惠」行、逐行原價（登入會員價提示只限 PDP — 07-08 裁定，側滑車唔出）。互動樣本：開任何 <code>_p14／_p16／_p18／_p19</code> 訪客頁再開側滑車（HB_GUEST 樣本旗）。</p>
   </div>
 
   <!-- ═══ 2. 側滑車：未達免運門檻 nudge ═══ -->
@@ -58,15 +60,15 @@
   <div class="row2">
     <div class="drawer">
       <div class="dhead"><span class="t">購物車</span><span style="color:rgba(59,38,29,.5)">✕</span></div>
-      <div class="ditem"><div class="dthumb"></div><div style="flex:1"><div style="font-family:Baskervville,serif;font-size:17px">睡眠噴霧・薰衣草</div><div style="font-size:15px;color:rgba(59,38,29,.5);margin-top:2px">100ml</div></div><span class="money" style="font-family:Baskervville,serif;font-size:17px">HK$235</span></div>
+      <div class="ditem"><div class="dthumb"></div><div style="flex:1"><div style="font-family:Baskervville,serif;font-size:17px">睡眠噴霧・薰衣草</div><div style="font-size:15px;color:rgba(59,38,29,.5);margin-top:2px">100ml</div></div><span class="money" style="font-family:Baskervville,serif;font-size:17px">HK$235.00</span></div>
       <div class="dfoot">
-        <div style="display:flex;justify-content:space-between;font-size:16px;color:rgba(59,38,29,.7);margin-bottom:6px"><span>小計</span><span class="money" style="color:#3B261D">HK$235</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:16px;color:#A64B2A;margin-bottom:8px"><span>會員優惠</span><span class="money">−HK$23</span></div>
-        <div style="font-size:15px;color:rgba(59,38,29,.45)">滿 HK$500 免運 · 運費於結帳按送貨方式計算</div>
-        <div style="font-size:15px;color:#A64B2A;margin-top:4px">再加購 HK$288 即享免運費</div>
+        <div style="display:flex;justify-content:space-between;font-size:16px;color:rgba(59,38,29,.7);margin-bottom:6px"><span>小計</span><span class="money" style="color:#3B261D">HK$235.00</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:16px;color:#A64B2A;margin-bottom:8px"><span>會員優惠</span><span class="money">−HK$23.50</span></div>
+        <div style="font-size:15px;color:rgba(59,38,29,.45)">滿 HK$500.00 免運 · 運費於結帳按送貨方式計算</div>
+        <div style="font-size:15px;color:#A64B2A;margin-top:4px">再加購 HK$288.50 即享免運費</div>
       </div>
     </div>
-    <p class="devnote">§361：門檻測「會員價之後、coupon 之前」小計（HK$212 &lt; HK$500）→ 出 nudge「再加購 HK$X 即享免運費」，X＝門檻−會員價小計；門檻停用（option 空/0）＝免運句＋nudge 全部隱藏。</p>
+    <p class="devnote">此卡只示範「未達免運」嘅 nudge 版式；production 門檻基數固定按產品有效sale／會員或生日勝出價後、coupon前嘅可配送商品小計計算；達標後coupon不撤銷免運（Handoff §7）。門檻停用（option 空／0）＝免運句＋nudge 全部隱藏。</p>
   </div>
 
   <!-- ═══ 3. 側滑車：空車 ═══ -->
@@ -98,8 +100,8 @@
     <div class="scard">
       <div style="padding:16px 20px;font-family:Baskervville,serif;font-size:22px;color:rgba(59,38,29,.45)">噴霧<span style="color:#A64B2A">｜</span></div>
       <div style="border-top:1px solid #ece0d5;padding:12px 20px 4px;font-size:15px;color:rgba(59,38,29,.5)">84 件結果 · 顯示首 50 件</div>
-      <div class="srow"><div class="sthumb"></div><div style="flex:1"><div style="font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:rgba(59,38,29,.45)">寵物護理 · 改善情緒</div><div style="font-family:Baskervville,serif;font-size:18px">情緒舒緩・分離焦慮噴霧</div></div><span style="text-align:right"><span class="money" style="font-family:Baskervville,serif;font-size:17px;color:#A64B2A">HK$239</span> <s class="money" style="font-size:16px;color:rgba(59,38,29,.4)">HK$265</s></span></div>
-      <div class="srow" style="padding-bottom:20px"><div class="sthumb"></div><div style="flex:1"><div style="font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:rgba(59,38,29,.45)">助眠系列</div><div style="font-family:Baskervville,serif;font-size:18px">睡眠噴霧・薰衣草</div></div><span style="text-align:right"><span class="money" style="font-family:Baskervville,serif;font-size:17px;color:#A64B2A">HK$212</span> <s class="money" style="font-size:16px;color:rgba(59,38,29,.4)">HK$235</s></span></div>
+      <div class="srow"><div class="sthumb"></div><div style="flex:1"><div style="font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:rgba(59,38,29,.45)">寵物護理 · 改善情緒</div><div style="font-family:Baskervville,serif;font-size:18px">情緒舒緩・分離焦慮噴霧</div></div><span style="text-align:right"><span class="money" style="font-family:Baskervville,serif;font-size:17px;color:#A64B2A">HK$238.50</span> <s class="money" style="font-size:16px;color:rgba(59,38,29,.4)">HK$265.00</s></span></div>
+      <div class="srow" style="padding-bottom:20px"><div class="sthumb"></div><div style="flex:1"><div style="font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:rgba(59,38,29,.45)">助眠系列</div><div style="font-family:Baskervville,serif;font-size:18px">睡眠噴霧・薰衣草</div></div><span style="text-align:right"><span class="money" style="font-family:Baskervville,serif;font-size:17px;color:#A64B2A">HK$211.50</span> <s class="money" style="font-size:16px;color:rgba(59,38,29,.4)">HK$235.00</s></span></div>
     </div>
     <p class="devnote">Loading＝REST 請求飛行中（demo 內存數據即時所以冇呢個態）；錯誤＝fetch 失敗／timeout（<strong>唔准</strong>當「冇符合結果」呈現 — 兩句唔同意思）；截斷＝結果多過 50 出「顯示首 50 件」disclosure。搜尋行嘅價錢／售罄／搶先 tag 直讀 REST 回傳嘅 stock／價欄位（§22 搜尋契約）。訪客行＝原價無 struck（開 _p14 等訪客頁試）。</p>
   </div>
