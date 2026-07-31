@@ -34,14 +34,14 @@
 <div class="wrap">
   <span class="eyb">Cookie Consent · State Specimen</span>
   <h1>Cookie 同意橫額樣本</h1>
-  <p class="lead">狀態樣本檔（唔上線）。GA4＋cookie 同意（§21.15，2026-07-10 鎖定）：底部細橫條、<strong>全站</strong>（HIBI LAB＋Scent.M 同一 consent 狀態）、硬性 gate — 未同意零 GA4 hit。<strong>文案＝港式書面中文</strong>（2026-07-10 客戶裁定，係前台廣東話規則嘅明文例外——法律／私隱性質文字用書面語）。</p>
+  <p class="lead">已批准狀態樣本（唔上線；2026-07-30 客戶批准）。GA4＋到訪來源／推廣成效 cookie 同意：底部細橫條、<strong>全站</strong>（HIBI LAB＋Scent.M 同一 consent 狀態）、硬性 gate — 未同意零追蹤請求。<strong>文案＝港式書面中文</strong>（法律／私隱性質文字用書面語）。</p>
 
   <!-- ═══ 1. 橫額預設態 ═══ -->
   <div class="snote"><span class="n">① 底部橫條 — 未同意（預設態）</span><span class="l"></span></div>
   <div class="stage">
     <div class="hint">（頁面內容 — 橫條唔遮擋、可照瀏覽）</div>
     <div class="scentm-consent-banner">
-      <p>本網站使用 Cookies 分析網站使用情況，以改善購物體驗。<a href="#">私隱政策</a></p>
+      <p>本網站使用 Cookies 分析網站使用情況、記錄到訪來源及評估推廣成效，以改善購物體驗。<a href="#">私隱政策</a></p>
       <div class="btns">
         <button class="scentm-consent-decline" type="button">拒絕</button>
         <button class="scentm-consent-accept" type="button">接受</button>
@@ -53,10 +53,11 @@
   <!-- ═══ 2. 行為合約 ═══ -->
   <div class="snote"><span class="n">② 行為合約（theme build 必守）</span><span class="l"></span></div>
   <p class="devnote" style="margin-top:0">
-    ・<strong>硬性 gate</strong>：未撳「接受」＝零 GA4 請求（連 page_view 都冇）；GA4 事件（view_item／add_to_cart／begin_checkout／purchase）只喺同意後先 fire（§21.15）。<br>
+    ・<strong>硬性 gate</strong>：未撳「接受」＝零 GA4／Woo Order Attribution 追蹤請求（連 page_view 同來源 cookie 都冇）；撳接受後由 Woo 官方功能喺當頁先記 first-party 到訪來源，GA4 仍到下一個完整頁面先開始（§21.15）。<br>
+    ・<strong>同意範圍</strong>：「接受」＝statistics＋marketing attribution；marketing只用於記錄到訪來源／推廣成效，唔代表訂閱Newsletter，亦唔開個人化廣告或remarketing。<br>
     ・<strong>記住選擇</strong>：接受／拒絕都寫一個 first-party cookie（建議 12 個月）；拒絕咗＝唔再彈、維持零追蹤；用戶想改主意＝privacy 頁提供重設入口（Scent.M Privacy 頁補網店段時一併加）。<br>
     ・<strong>全站範圍</strong>：同一個橫條／consent 狀態覆蓋 Scent.M brochure＋HIBI LAB 店（同一網域一個狀態）。<br>
-    ・<strong>文案</strong>＝上面書面語版本，字冧全部 admin 唔使入（theme 字串；如日後要改＝改 theme／加 option）。<br>
+    ・<strong>文案</strong>＝上面書面語版本，字串全部 admin 唔使入（theme 字串；日後政策用途有變先按version重新提示）。<br>
     ・WooCommerce 內建 Analytics＋自建「購買洞察」報表<strong>唔受 consent 影響</strong>（server-side 訂單數據，非 tracking cookie — §21.15）。
   </p>
 </div>
