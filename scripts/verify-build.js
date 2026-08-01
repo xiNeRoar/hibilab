@@ -4,6 +4,7 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const postcss = require('postcss');
+const productionArtifacts = require('./production-artifacts.json');
 
 const root = path.resolve(__dirname, '..');
 const cssPath = path.join(root, 'dist', 'css', 'hibi-lab.css');
@@ -27,43 +28,21 @@ async function main() {
     throw new Error('Built CSS is unexpectedly small.');
   }
 
-  const expectedTokens = [
-    '--tw-',
-    'body.hibilab-surface .text-brand-brown',
-    'body.hibilab-surface .bg-brand-terracotta',
-    'body.hibilab-surface #main-header',
-    'body.hibilab-surface .hb-qty',
-    'body.hibilab-surface.hibilab-page-landing .fp-card',
-    'body.hibilab-surface.hibilab-page-shop .cat-pill',
-    'body.hibilab-surface.hibilab-page-product .pdp-thumb',
-    'body.hibilab-surface.hibilab-page-cart .qty-btn',
-    'body.hibilab-surface.hibilab-page-checkout .co-field label',
-    'body.hibilab-surface.hibilab-page-account .acct-nav-link',
-    'body.hibilab-surface.hibilab-page-account-login .auth-tab',
-    'body.hibilab-surface.hibilab-page-tier-cards .tier-note',
-    '.scentm-consent-banner',
-    '.scentm-consent-accept',
-    '.scentm-consent-decline',
-    '@keyframes hibilab-checkout-payspin',
-  ];
-
-  for (const expectedToken of expectedTokens) {
-    if (!css.includes(expectedToken)) {
-      throw new Error(`Built CSS is missing expected token: ${expectedToken}`);
-    }
+  if (!css.includes('--tw-')) {
+    throw new Error('Built CSS is missing Tailwind runtime variables.');
   }
-
-  const forbiddenTokens = [
-    'body.hibilab-surface .hibi-mark',
-    'hibi-lab-logo.png',
-  ];
-  for (const forbiddenToken of forbiddenTokens) {
+  for (const forbiddenToken of productionArtifacts.cssContracts.forbiddenTokens) {
     if (css.includes(forbiddenToken)) {
       throw new Error(`Built CSS contains a host-theme-owned token: ${forbiddenToken}`);
     }
   }
 
   const parsedCss = postcss.parse(css);
+  const selectors = new Set();
+  const keyframes = new Set();
+  parsedCss.walkAtRules(/^(?:-webkit-)?keyframes$/i, (atRule) => {
+    keyframes.add(atRule.params.trim());
+  });
   parsedCss.walkRules((rule) => {
     let parent = rule.parent;
     while (parent) {
@@ -74,6 +53,12 @@ async function main() {
     }
 
     for (const selector of rule.selectors || []) {
+      selectors.add(selector);
+      for (const forbiddenFragment of productionArtifacts.cssContracts.forbiddenSelectorFragments) {
+        if (selector.includes(forbiddenFragment)) {
+          throw new Error(`Built CSS contains a forbidden selector: ${selector}`);
+        }
+      }
       if (
         !selector.startsWith('body.hibilab-surface')
         && !selector.startsWith('html.hibilab-root')
@@ -83,6 +68,17 @@ async function main() {
       }
     }
   });
+
+  for (const requiredSelector of productionArtifacts.cssContracts.requiredSelectors) {
+    if (!selectors.has(requiredSelector)) {
+      throw new Error(`Built CSS is missing required selector: ${requiredSelector}`);
+    }
+  }
+  for (const requiredKeyframes of productionArtifacts.cssContracts.requiredKeyframes) {
+    if (!keyframes.has(requiredKeyframes)) {
+      throw new Error(`Built CSS is missing required keyframes: ${requiredKeyframes}`);
+    }
+  }
 
   const imageVerification = spawnSync(
     process.execPath,

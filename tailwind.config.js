@@ -1,10 +1,20 @@
+const productionArtifacts = require('./scripts/production-artifacts.json');
+
+const stateSafelist = productionArtifacts.tailwind.stateUtilities
+  .flatMap((entry) => entry.classes);
+const contentFiles = [
+  ...productionArtifacts.htmlRoles.live,
+  ...productionArtifacts.tailwind.runtimeJs,
+  ...productionArtifacts.tailwind.runtimePhp,
+].map((file) => `./${file}`);
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './*.html',
-    './*.js',
-    './**/*.php',
-  ],
+  content: {
+    relative: true,
+    files: contentFiles,
+  },
+  safelist: stateSafelist,
   // HIBI LAB shares a WordPress install with Scent.M. Scope generated utilities
   // to HIBI LAB templates and omit Tailwind's global reset so this bundle cannot
   // restyle the parent theme, wp-admin, or third-party WooCommerce components.

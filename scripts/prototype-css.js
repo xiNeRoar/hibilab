@@ -4,6 +4,7 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 const postcss = require('postcss');
 const prefixSelector = require('postcss-prefix-selector');
+const productionArtifacts = require('./production-artifacts.json');
 
 /*
  * The primary approved prototypes are the authored design source. State fixtures
@@ -14,64 +15,7 @@ const prefixSelector = require('postcss-prefix-selector');
  * is scoped so it cannot restyle the parent Scent.M site or WooCommerce admin screens;
  * only allowlisted `.scentm-consent-*` selectors remain global.
  */
-const PROTOTYPE_SOURCES = Object.freeze([
-  {
-    id: 'shared',
-    file: 'HIBI LAB Landing.html',
-    blocks: [0],
-    // This mark only exists in the Scent.M host-page integration reference.
-    // Its mask URL must be resolved by the host theme, not relative to the
-    // generated HIBI CSS directory.
-    excludeSelectors: ['.hibi-mark'],
-  },
-  // The current prototypes load this runtime fragment on every storefront page.
-  // Extract its one authored <style> block directly instead of copying the same
-  // cart/search CSS into a second source file that could drift.
-  {
-    id: 'store-chrome',
-    file: 'store-chrome.js',
-    blocks: [0],
-    sourceType: 'javascript-html-string',
-  },
-  // Consent is one shared, namespaced component across Scent.M and HIBI LAB.
-  // Keep only the approved banner selectors global; the specimen-page chrome
-  // remains excluded from the production bundle.
-  {
-    id: 'consent',
-    file: '_p30-cookie-banner.html',
-    blocks: [0],
-    global: true,
-    selectors: [
-      '.scentm-consent-banner',
-      '.scentm-consent-banner p',
-      '.scentm-consent-banner a',
-      '.scentm-consent-banner .btns',
-      '.scentm-consent-banner button',
-      '.scentm-consent-accept',
-      '.scentm-consent-decline',
-    ],
-  },
-  { id: 'landing', file: 'HIBI LAB Landing.html', blocks: [1], page: 'landing' },
-  {
-    id: 'shop-tools',
-    file: 'HIBI LAB Shop.html',
-    blocks: [0],
-    page: 'shop',
-    selectors: ['#plp-tools>*'],
-  },
-  { id: 'shop', file: 'HIBI LAB Shop.html', blocks: [1, 2], page: 'shop' },
-  { id: 'product', file: 'HIBI LAB Product.html', blocks: [1], page: 'product' },
-  { id: 'cart', file: 'HIBI LAB Cart.html', blocks: [1], page: 'cart' },
-  { id: 'checkout', file: 'HIBI LAB Checkout.html', blocks: [1, 2, 3], page: 'checkout' },
-  {
-    id: 'account-login',
-    file: 'HIBI LAB Account Login.html',
-    blocks: [1],
-    page: 'account-login',
-  },
-  { id: 'account', file: 'HIBI LAB Account.html', blocks: [1, 2], page: 'account' },
-  { id: 'tier-cards', file: 'HIBI LAB Tier Cards.html', blocks: [0], page: 'tier-cards' },
-]);
+const PROTOTYPE_SOURCES = productionArtifacts.authoredCssSources;
 
 function extractStyleBlocks(html, file) {
   const blocks = [...html.matchAll(/<style(?:\s[^>]*)?>([\s\S]*?)<\/style>/gi)]

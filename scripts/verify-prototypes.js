@@ -4,6 +4,12 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const crypto = require('node:crypto');
+const postcss = require('postcss');
+const resolveConfig = require('tailwindcss/resolveConfig');
+const { generateRules } = require('tailwindcss/lib/lib/generateRules');
+const { createContext } = require('tailwindcss/lib/lib/setupContextUtils');
+const productionArtifacts = require('./production-artifacts.json');
+const { PROTOTYPE_SOURCES } = require('./prototype-css');
 
 const root = path.resolve(__dirname, '..');
 const ignoredDirectories = new Set(['.git', 'dist', 'node_modules']);
@@ -127,6 +133,7 @@ const ARTIFACT_INVENTORY = Object.freeze({
     'package-lock.json',
     'package.json',
     'scripts/build-images.js',
+    'scripts/production-artifacts.json',
     'scripts/prototype-css.js',
     'scripts/verify-build.js',
     'scripts/verify-prototypes.js',
@@ -239,6 +246,12 @@ function visibleText(html) {
     .trim();
 }
 
+function classTokens(html) {
+  return [...html.matchAll(/\bclass=["']([^"']*)["']/gi)]
+    .flatMap((match) => match[1].trim().split(/\s+/))
+    .filter(Boolean);
+}
+
 function paymentActionLabels(html) {
   return [...html.matchAll(/<(a|button)\b[^>]*>[\s\S]*?<\/\1>/gi)]
     .map((match) => visibleText(match[0]))
@@ -289,8 +302,8 @@ function verifyArtifactInventory(files) {
   if (duplicates.length) {
     fail(`Artifact inventory contains duplicate path(s): ${[...new Set(duplicates)].join(', ')}`);
   }
-  if (expectedArtifacts.length !== 118) {
-    fail(`Artifact inventory must contain exactly 118 files; found ${expectedArtifacts.length}.`);
+  if (expectedArtifacts.length !== 119) {
+    fail(`Artifact inventory must contain exactly 119 files; found ${expectedArtifacts.length}.`);
   }
 
   const actual = files.map(relative).sort();
@@ -321,6 +334,152 @@ function verifyContractTextFiles(files) {
     if (source && !source.endsWith('\n')) {
       fail(`${relative(file)} is missing its final newline.`);
     }
+  }
+}
+
+function verifyProductionSourceManifest() {
+  const tailwindConfig = require(path.join(root, 'tailwind.config.js'));
+  const roles = productionArtifacts.htmlRoles;
+  const classifiedHtml = Object.values(roles).flat();
+  const duplicateHtml = classifiedHtml.filter(
+    (source, index) => classifiedHtml.indexOf(source) !== index,
+  );
+  if (duplicateHtml.length) {
+    fail(`Production artifact manifest assigns multiple roles to: ${[...new Set(duplicateHtml)].join(', ')}`);
+  }
+  const expectedHtml = [...ARTIFACT_INVENTORY.html].sort();
+  const actualHtml = [...classifiedHtml].sort();
+  if (JSON.stringify(actualHtml) !== JSON.stringify(expectedHtml)) {
+    fail('Every HTML delivery artifact must have exactly one production-manifest role.');
+  }
+
+  const expectedContentFiles = [
+    ...roles.live,
+    ...productionArtifacts.tailwind.runtimeJs,
+    ...productionArtifacts.tailwind.runtimePhp,
+  ].map((file) => `./${file}`);
+  if (
+    tailwindConfig.content?.relative !== true
+    || JSON.stringify(tailwindConfig.content.files) !== JSON.stringify(expectedContentFiles)
+  ) {
+    fail('Tailwind must read its exact live-template inputs from the production artifact manifest.');
+  }
+  for (const source of [
+    ...roles.live,
+    ...productionArtifacts.tailwind.runtimeJs,
+    ...productionArtifacts.tailwind.runtimePhp,
+  ]) {
+    if (!fs.existsSync(path.join(root, source))) {
+      fail(`Production runtime source is missing: ${source}`);
+    }
+  }
+
+  const runtimeScopes = productionArtifacts.runtimeScopes;
+  const scopedLiveHtml = Object.keys(runtimeScopes.pageByLiveHtml).sort();
+  if (
+    !runtimeScopes.htmlBase
+    || !runtimeScopes.bodyBase
+    || JSON.stringify(scopedLiveHtml) !== JSON.stringify([...roles.live].sort())
+  ) {
+    fail('Every live storefront HTML file must have one runtime scope mapping.');
+  }
+  for (const liveFile of roles.live) {
+    const liveHtml = fs.readFileSync(path.join(root, liveFile), 'utf8');
+    const htmlTag = liveHtml.match(/<html\b[^>]*>/i)?.[0] || '';
+    const bodyTag = liveHtml.match(/<body\b[^>]*>/i)?.[0] || '';
+    const htmlClasses = new Set(classTokens(htmlTag));
+    const bodyClasses = new Set(classTokens(bodyTag));
+    const page = runtimeScopes.pageByLiveHtml[liveFile];
+    const expectedPageClass = page ? `hibilab-page-${page}` : null;
+    const htmlPageClasses = [...htmlClasses].filter((className) => className.startsWith('hibilab-page-'));
+    const bodyPageClasses = [...bodyClasses].filter((className) => className.startsWith('hibilab-page-'));
+    if (
+      !htmlClasses.has(runtimeScopes.htmlBase)
+      || !bodyClasses.has(runtimeScopes.bodyBase)
+      || JSON.stringify(htmlPageClasses) !== JSON.stringify(expectedPageClass ? [expectedPageClass] : [])
+      || JSON.stringify(bodyPageClasses) !== JSON.stringify(expectedPageClass ? [expectedPageClass] : [])
+    ) {
+      fail(`${liveFile} does not match its exact production HTML/body scope contract.`);
+    }
+  }
+
+  const stateEntries = productionArtifacts.tailwind.stateUtilities;
+  const stateOwners = stateEntries.map((entry) => entry.owner);
+  const stateSafelist = stateEntries.flatMap((entry) => entry.classes);
+  if (
+    new Set(stateOwners).size !== stateOwners.length
+    || new Set(stateSafelist).size !== stateSafelist.length
+    || JSON.stringify(tailwindConfig.safelist) !== JSON.stringify(stateSafelist)
+  ) {
+    fail('State-only Tailwind utilities must have unique owners and come from the manifest safelist.');
+  }
+  for (const entry of stateEntries) {
+    if (!entry.owner || !entry.fixtures.length || !entry.classes.length) {
+      fail('Each state-only Tailwind utility entry requires an owner, fixture and class.');
+    }
+    const declaredFixtureClasses = new Set();
+    for (const fixture of entry.fixtures) {
+      if (!roles.state.includes(fixture)) {
+        fail(`State-only Tailwind utility owner ${entry.owner} references a non-state fixture: ${fixture}`);
+      }
+      const fixtureClasses = new Set(classTokens(fs.readFileSync(path.join(root, fixture), 'utf8')));
+      if (!entry.classes.some((className) => fixtureClasses.has(className))) {
+        fail(`${entry.owner} references ${fixture}, but the fixture uses none of its declared classes.`);
+      }
+      for (const className of fixtureClasses) declaredFixtureClasses.add(className);
+    }
+    for (const className of entry.classes) {
+      if (!declaredFixtureClasses.has(className)) {
+        fail(`${entry.owner} declares unused state-only Tailwind utility ${className}.`);
+      }
+    }
+  }
+
+  const liveClasses = new Set(
+    [...roles.live, ...productionArtifacts.tailwind.runtimePhp]
+      .flatMap((file) => classTokens(fs.readFileSync(path.join(root, file), 'utf8'))),
+  );
+  const stateClasses = new Set(
+    roles.state.flatMap((file) => classTokens(fs.readFileSync(path.join(root, file), 'utf8'))),
+  );
+  const resolvedTailwindConfig = resolveConfig(tailwindConfig);
+  const tailwindContext = createContext(resolvedTailwindConfig, [], postcss.root());
+  const generatedStateOnlyUtilities = [...stateClasses]
+    .filter((className) => !liveClasses.has(className))
+    .filter((className) => [...generateRules(new Set([className]), tailwindContext)].length > 0)
+    .sort();
+  if (JSON.stringify(generatedStateOnlyUtilities) !== JSON.stringify([...stateSafelist].sort())) {
+    fail('A state-only Tailwind utility is unowned, stale or missing from the production manifest safelist.');
+  }
+
+  if (JSON.stringify(PROTOTYPE_SOURCES) !== JSON.stringify(productionArtifacts.authoredCssSources)) {
+    fail('Authored CSS extraction must consume the production artifact manifest directly.');
+  }
+  const authoredIds = PROTOTYPE_SOURCES.map((source) => source.id);
+  if (new Set(authoredIds).size !== authoredIds.length) {
+    fail('Authored CSS source IDs must be unique.');
+  }
+  if (PROTOTYPE_SOURCES.some((source) => source.file === 'HIBI LAB Tier Cards.html')) {
+    fail('The design-only Tier Cards page must not contribute authored production CSS.');
+  }
+  const consentSource = PROTOTYPE_SOURCES.find((source) => source.id === 'consent');
+  if (
+    !consentSource
+    || consentSource.file !== '_p30-cookie-banner.html'
+    || consentSource.global !== true
+    || consentSource.selectors.some((selector) => !selector.startsWith('.scentm-consent-'))
+  ) {
+    fail('Consent must remain the only explicitly selected global state-fixture CSS source.');
+  }
+
+  const handoff = fs.readFileSync(path.join(root, 'HIBI LAB - WP Handoff.md'), 'utf8');
+  if (
+    !handoff.includes('Production CSS runtime scope（exact contract）')
+    || !handoff.includes('`hibilab-root`')
+    || !handoff.includes('`hibilab-surface`')
+    || handoff.includes('body.hibi-store')
+  ) {
+    fail('Handoff no longer matches the exact production runtime scope contract.');
   }
 }
 
@@ -776,6 +935,7 @@ function main() {
   const files = walk(root);
   verifyArtifactInventory(files);
   verifyContractTextFiles(files);
+  verifyProductionSourceManifest();
 
   const landing = fs.readFileSync(path.join(root, 'HIBI LAB Landing.html'));
   const index = fs.readFileSync(path.join(root, 'index.html'));
@@ -809,8 +969,6 @@ function main() {
   const handoff = fs.readFileSync(path.join(root, 'HIBI LAB - WP Handoff.md'), 'utf8');
   const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   const packageLock = JSON.parse(fs.readFileSync(path.join(root, 'package-lock.json'), 'utf8'));
-  const prototypeCssBuilder = fs.readFileSync(path.join(root, 'scripts', 'prototype-css.js'), 'utf8');
-  const buildVerifier = fs.readFileSync(path.join(root, 'scripts', 'verify-build.js'), 'utf8');
   const storeChrome = fs.readFileSync(path.join(root, 'store-chrome.js'), 'utf8');
   const imageBuildManifest = JSON.parse(
     fs.readFileSync(path.join(root, 'assets', 'image-build-manifest.json'), 'utf8'),
@@ -879,9 +1037,11 @@ function main() {
     fail('Node engine floor must match Sharp across package.json, package-lock.json and the Handoff.');
   }
   if (
-    !prototypeCssBuilder.includes("excludeSelectors: ['.hibi-mark']")
-    || !buildVerifier.includes("'body.hibilab-surface .hibi-mark'")
-    || !buildVerifier.includes("'hibi-lab-logo.png'")
+    !productionArtifacts.authoredCssSources
+      .find((source) => source.id === 'shared')?.excludeSelectors?.includes('.hibi-mark')
+    || !productionArtifacts.cssContracts.forbiddenSelectorFragments
+      .includes('.hibi-mark')
+    || !productionArtifacts.cssContracts.forbiddenTokens.includes('hibi-lab-logo.png')
     || !handoff.includes('HIBI bundle明確排除`.hibi-mark`同`hibi-lab-logo.png`相對路徑')
   ) {
     fail('The Scent.M-owned HIBI mark is not structurally excluded from the HIBI CSS bundle.');
@@ -949,6 +1109,7 @@ function main() {
   const preorderProduct = htmlByPath.get(path.join(root, '_p27-pdp-preorder.html'));
   const tierCards = htmlByPath.get(path.join(root, 'HIBI LAB Tier Cards.html'));
   const cookieBanner = htmlByPath.get(path.join(root, '_p30-cookie-banner.html'));
+  const shippingPolicy = htmlByPath.get(path.join(root, 'HIBI LAB Shipping.html'));
 
   if (memberCheckout.includes('>已有帳戶？登入</a>') || memberCheckout.includes('id="createaccount"')) {
     fail('The signed-in member Checkout fixture exposes guest account controls.');
@@ -1083,11 +1244,54 @@ function main() {
   }
   if (
     !cookieBanner.includes('class="scentm-consent-banner"')
-    || !prototypeCssBuilder.includes("file: '_p30-cookie-banner.html'")
-    || !prototypeCssBuilder.includes('global: true')
-    || !buildVerifier.includes("'.scentm-consent-banner'")
+    || !productionArtifacts.cssContracts.requiredSelectors.includes('.scentm-consent-banner')
   ) {
     fail('The approved cross-site consent banner CSS is missing from the production build contract.');
+  }
+  if (!productionArtifacts.cssContracts.requiredSelectors
+    .includes('body.hibilab-surface.hibilab-page-account .tcard-progrow')) {
+    fail('The production CSS verifier no longer checks the Account membership-card styles.');
+  }
+  const preorderPolicyRow = shippingPolicy.match(
+    /<h3\b[^>]*>\s*預訂商品\s*<\/h3>\s*<p\b[^>]*>([\s\S]*?)<\/p>/i,
+  );
+  const statutoryRightsRow = shippingPolicy.match(
+    /<h3\b[^>]*>\s*法定權利\s*<\/h3>\s*<p\b[^>]*>([\s\S]*?)<\/p>/i,
+  );
+  if (
+    !preorderPolicyRow
+    || !visibleText(preorderPolicyRow[1]).includes('如到貨顯著延遲，會通知並可全額退款取消。')
+    || !statutoryRightsRow
+    || visibleText(statutoryRightsRow[1]) !== '以上安排不影響閣下於香港法例下可享有之權利。'
+  ) {
+    fail('The approved preorder-delay and statutory-rights copy is missing from the Shipping prototype.');
+  }
+  for (const productFixture of [
+    'HIBI LAB Product.html',
+    '_p14-pdp-guest.html',
+    '_p15-pdp-soldout.html',
+    '_p16-pdp-early-guest.html',
+    '_p17-pdp-early-under.html',
+    '_p27-pdp-preorder.html',
+  ]) {
+    const productHtml = htmlByPath.get(path.join(root, productFixture));
+    const productHeading = productHtml.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i);
+    const stickyTitle = productHtml.match(
+      /id=["']d5-bar-price["'][^>]*>[\s\S]*?<\/div>\s*<div\b(?=[^>]*\btruncate\b)[^>]*>([\s\S]*?)<\/div>/i,
+    );
+    if (
+      !productHeading
+      || !stickyTitle
+      || visibleText(productHeading[1]) !== visibleText(stickyTitle[1])
+    ) {
+      fail(`${productFixture} no longer keeps the mobile sticky title aligned with the full product title.`);
+    }
+  }
+  if (
+    !handoff.includes('現有Scent.M GA injector整合遷移（唔留fallback）')
+    || !handoff.includes('Consent core缺失時由host fail closed（唔係第二個controller）')
+  ) {
+    fail('The legacy GA cutover or missing-consent-core fail-closed contract is missing from the Handoff.');
   }
   if (!handoff.includes('**最終勝出 quote path**') || !handoff.includes('pre-coupon') || !handoff.includes('Woo Hold stock（2026-07-27 客戶裁決 A）＝60 分鐘')) {
     fail('The approved free-shipping or Hold Stock contract is missing from the Handoff.');

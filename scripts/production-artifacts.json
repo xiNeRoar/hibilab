@@ -1,0 +1,211 @@
+{
+  "htmlRoles": {
+    "live": [
+      "HIBI LAB 404.html",
+      "HIBI LAB Account Login.html",
+      "HIBI LAB Account.html",
+      "HIBI LAB Cart.html",
+      "HIBI LAB Checkout.html",
+      "HIBI LAB Landing.html",
+      "HIBI LAB Order Received.html",
+      "HIBI LAB Product.html",
+      "HIBI LAB Shipping.html",
+      "HIBI LAB Shop.html"
+    ],
+    "state": [
+      "_p01-states-book.html",
+      "_p13-shop-emptycat.html",
+      "_p14-pdp-guest.html",
+      "_p15-pdp-soldout.html",
+      "_p16-pdp-early-guest.html",
+      "_p17-pdp-early-under.html",
+      "_p18-shop-guest.html",
+      "_p19-cart-guest.html",
+      "_p19b-checkout-guest.html",
+      "_p20-cart-birthday.html",
+      "_p21-checkout-below-threshold.html",
+      "_p22-orderreceived-guest.html",
+      "_p23-orderreceived-failed.html",
+      "_p25-account-states.html",
+      "_p26-slidecart-search-states.html",
+      "_p27-pdp-preorder.html",
+      "_p28-preorder-states.html",
+      "_p29-orderreceived-payment-states.html",
+      "_p30-cookie-banner.html"
+    ],
+    "designReference": [
+      "HIBI LAB Tier Cards.html"
+    ],
+    "inlineEmail": [
+      "HIBI LAB Email.html",
+      "_p24-email-variants.html"
+    ],
+    "alias": [
+      "index.html"
+    ],
+    "hostReference": [
+      "scentm-home.html"
+    ]
+  },
+  "tailwind": {
+    "runtimeJs": [
+      "store-chrome.js"
+    ],
+    "runtimePhp": [],
+    "stateUtilities": [
+      {
+        "owner": "pdp_early_access_lock",
+        "fixtures": [
+          "_p16-pdp-early-guest.html",
+          "_p17-pdp-early-under.html"
+        ],
+        "classes": [
+          "text-[12px]",
+          "mr-1.5",
+          "hover:text-brand-brown"
+        ]
+      },
+      {
+        "owner": "order_payment_neutral",
+        "fixtures": [
+          "_p29-orderreceived-payment-states.html"
+        ],
+        "classes": [
+          "leading-[1.8]"
+        ]
+      }
+    ]
+  },
+  "runtimeScopes": {
+    "htmlBase": "hibilab-root",
+    "bodyBase": "hibilab-surface",
+    "pageByLiveHtml": {
+      "HIBI LAB 404.html": null,
+      "HIBI LAB Account Login.html": "account-login",
+      "HIBI LAB Account.html": "account",
+      "HIBI LAB Cart.html": "cart",
+      "HIBI LAB Checkout.html": "checkout",
+      "HIBI LAB Landing.html": "landing",
+      "HIBI LAB Order Received.html": null,
+      "HIBI LAB Product.html": "product",
+      "HIBI LAB Shipping.html": null,
+      "HIBI LAB Shop.html": "shop"
+    }
+  },
+  "authoredCssSources": [
+    {
+      "id": "shared",
+      "file": "HIBI LAB Landing.html",
+      "blocks": [0],
+      "excludeSelectors": [".hibi-mark"]
+    },
+    {
+      "id": "store-chrome",
+      "file": "store-chrome.js",
+      "blocks": [0],
+      "sourceType": "javascript-html-string"
+    },
+    {
+      "id": "consent",
+      "file": "_p30-cookie-banner.html",
+      "blocks": [0],
+      "global": true,
+      "selectors": [
+        ".scentm-consent-banner",
+        ".scentm-consent-banner p",
+        ".scentm-consent-banner a",
+        ".scentm-consent-banner .btns",
+        ".scentm-consent-banner button",
+        ".scentm-consent-accept",
+        ".scentm-consent-decline"
+      ]
+    },
+    {
+      "id": "landing",
+      "file": "HIBI LAB Landing.html",
+      "blocks": [1],
+      "page": "landing"
+    },
+    {
+      "id": "shop-tools",
+      "file": "HIBI LAB Shop.html",
+      "blocks": [0],
+      "page": "shop",
+      "selectors": ["#plp-tools>*"]
+    },
+    {
+      "id": "shop",
+      "file": "HIBI LAB Shop.html",
+      "blocks": [1, 2],
+      "page": "shop"
+    },
+    {
+      "id": "product",
+      "file": "HIBI LAB Product.html",
+      "blocks": [1],
+      "page": "product"
+    },
+    {
+      "id": "cart",
+      "file": "HIBI LAB Cart.html",
+      "blocks": [1],
+      "page": "cart"
+    },
+    {
+      "id": "checkout",
+      "file": "HIBI LAB Checkout.html",
+      "blocks": [1, 2, 3],
+      "page": "checkout"
+    },
+    {
+      "id": "account-login",
+      "file": "HIBI LAB Account Login.html",
+      "blocks": [1],
+      "page": "account-login"
+    },
+    {
+      "id": "account",
+      "file": "HIBI LAB Account.html",
+      "blocks": [1, 2],
+      "page": "account"
+    }
+  ],
+  "cssContracts": {
+    "requiredSelectors": [
+      "body.hibilab-surface .text-brand-brown",
+      "body.hibilab-surface .bg-brand-terracotta",
+      "body.hibilab-surface #main-header",
+      "body.hibilab-surface .hb-qty",
+      "body.hibilab-surface.hibilab-page-landing .fp-card",
+      "body.hibilab-surface.hibilab-page-shop .cat-pill",
+      "body.hibilab-surface.hibilab-page-product .pdp-thumb",
+      "body.hibilab-surface.hibilab-page-cart .qty-btn",
+      "body.hibilab-surface.hibilab-page-checkout .co-field label",
+      "body.hibilab-surface.hibilab-page-account .acct-nav-link",
+      "body.hibilab-surface.hibilab-page-account .tcard",
+      "body.hibilab-surface.hibilab-page-account .tcard-top",
+      "body.hibilab-surface.hibilab-page-account .tcard-progrow",
+      "body.hibilab-surface.hibilab-page-account .tcard-track",
+      "body.hibilab-surface.hibilab-page-account .tcard-fill",
+      "body.hibilab-surface.hibilab-page-account-login .auth-tab",
+      ".scentm-consent-banner",
+      ".scentm-consent-accept",
+      ".scentm-consent-decline",
+      "body.hibilab-surface .text-\\[12px\\]",
+      "body.hibilab-surface .mr-1\\.5",
+      "body.hibilab-surface .hover\\:text-brand-brown:hover",
+      "body.hibilab-surface .leading-\\[1\\.8\\]"
+    ],
+    "requiredKeyframes": [
+      "hibilab-checkout-payspin"
+    ],
+    "forbiddenSelectorFragments": [
+      ".hibilab-page-tier-cards",
+      ".tier-note",
+      ".hibi-mark"
+    ],
+    "forbiddenTokens": [
+      "hibi-lab-logo.png"
+    ]
+  }
+}
